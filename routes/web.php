@@ -44,3 +44,11 @@ Route::post('/admin/manage-student', 'AdminController@storeStudent')->name('mana
 Route::get('/admin/edit/manage-student/{student}', 'AdminController@editStudent')->name('manage-student.edit');
 Route::put('/admin/manage-student/{student}', 'AdminController@updateStudent')->name('manage-student.update');
 Route::get('/admin/manage-student/{student}', 'AdminController@deleteStudent')->name('manage-student.delete');
+
+
+// Manage Portal Route
+Route::get('/admin/manage-portal', 'AdminController@managePortal')->name('admin.manage-portal');
+Route::post('/admin/manage-portal', 'AdminController@storePortal')->name('manage-portal.store');
+Route::get('/admin/edit/manage-portal/{portal}', 'AdminController@editPortal')->name('manage-portal.edit');
+Route::put('/admin/manage-portal/{portal}', 'AdminController@updatePortal')->name('manage-portal.update');
+Route::get('/admin/manage-portal/{portal}', 'AdminController@deletePortal')->name('manage-portal.delete');

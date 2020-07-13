@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Oex_portal;
 use App\Oex_student;
 use App\Oex_category;
 use App\Oex_exam_master;
@@ -215,5 +216,74 @@ class AdminController extends Controller
         return redirect()->back()->with($notification);
     }
     
+
+    public function managePortal()
+    {
+        $portals = Oex_portal::orderBy('id','desc')->get();
+
+        return view('admin.manage-portal.index',compact('portals'));
+    }
+
+    public function storePortal(Request $request)
+    {
+        $validateData = $request->validate([
+            'name' => 'required',
+            'email' => ['required','email'],
+            'mobile_no' => 'required',
+            'password' => 'required'
+        ]);
+
+        $portal = new Oex_portal();
+
+        $portal->name = $request->name ;
+        $portal->email = $request->email ;
+        $portal->mobile_no = $request->mobile_no ;
+        $portal->password = $request->password ;
+        $portal->status = 1;
+
+        $portal->save();
+        $notification=array(
+            'message'=>'Portal has been addedd successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+
+
+    }
+
+    public function editPortal(Oex_portal $portal)
+    {
+        return view('admin.manage-portal.edit',compact('portal'));
+    }
+
+    public function updatePortal(Oex_portal $portal,Request $request)
+    {
+
+        $vadiation = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_no' => 'required',
+            'password' => 'required'
+        ]);
+
+        $portal->update($request->all());
+        $notification=array(
+            'message'=>'Portal has been updated successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->route('admin.manage-portal')->with($notification);
+  
+    }
+
+    public function deletePortal(Oex_portal $portal)
+    {
+
+        $portal->delete();
+        $notification=array(
+            'message'=>'Portal has been deleted successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+    }
 
 }

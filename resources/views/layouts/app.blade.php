@@ -253,6 +253,15 @@
               </p>
             </a>
           </li>
+          
+          <li class="nav-item">
+            <a href="{{route('admin.manage-portal')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Portals
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
