@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Oex_student;
 use App\Oex_category;
 use App\Oex_exam_master;
 use Illuminate\Http\Request;
@@ -135,4 +136,84 @@ class AdminController extends Controller
              );
         return redirect()->route('admin.manage-exam')->with($notification);
     }
+
+    public function manageStudent()
+    {
+        $exams = Oex_exam_master::orderBy('id','desc')
+                    ->where('status','1')
+                    ->get();
+        $students = Oex_student::orderBy('id','desc')
+                        ->join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
+                        ->select('oex_students.*','oex_exam_masters.title as exam_name')
+                        ->get();
+        return view('admin.manage-student.index',compact('exams','students'));
+    }
+
+    public function storeStudent(Request $request)
+    {
+        $validateData = $request->validate([
+            'name' => ['required','max:255'],
+            'email' =>['required','unique:oex_students','max:255'],
+            'mobile_no' => ['required','unique:oex_students','max:11'],
+            'dob' => ['required','max:255'],
+            'exam' => ['required','max:255'],
+            'password' => ['required','max:255']
+        ]);
+
+        $student = new Oex_student();
+
+        $student->name = $request->name ;
+        $student->email = $request->email ;
+        $student->mobile_no = $request->mobile_no ;
+        $student->dob = $request->dob ;
+        $student->exam = $request->exam ;
+        $student->password = $request->password ;
+        $student->status = 1 ;
+        
+        $student->save();
+        $notification=array(
+            'message'=>'Student has been addedd successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+        
+    }
+
+    public function editStudent(Oex_student $student)
+    {
+        $exams = Oex_exam_master::orderBy('id','desc')
+        ->where('status','1')
+        ->get();
+        return view('admin.manage-student.edit',compact('student','exams'));
+    }
+
+    public function updateStudent(Oex_student $student,Request $request)
+    {
+
+        $vadiation = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_no' => ['required','max:11'],
+        ]);
+
+        $student->update($request->all());
+        $notification=array(
+            'message'=>'Student has been updated successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->route('admin.manage-student')->with($notification);
+    }
+
+    public function deleteStudent(Oex_student $student)
+    {
+
+        $student->delete();
+        $notification=array(
+            'message'=>'Student has been deleted successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+    }
+    
+
 }

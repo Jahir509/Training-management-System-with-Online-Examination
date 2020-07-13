@@ -36,3 +36,11 @@ Route::post('/admin/manage-exam', 'AdminController@storeExam')->name('manage-exa
 Route::get('/admin/edit/manage-exam/{exam}', 'AdminController@editExam')->name('manage-exam.edit');
 Route::put('/admin/manage-exam/{exam}', 'AdminController@updateExam')->name('manage-exam.update');
 Route::get('/admin/manage-exam/{exam}', 'AdminController@deleteExam')->name('manage-exam.delete');
+
+
+// Manage Student Route
+Route::get('/admin/manage-student', 'AdminController@manageStudent')->name('admin.manage-student');
+Route::post('/admin/manage-student', 'AdminController@storeStudent')->name('manage-student.store');
+Route::get('/admin/edit/manage-student/{student}', 'AdminController@editStudent')->name('manage-student.edit');
+Route::put('/admin/manage-student/{student}', 'AdminController@updateStudent')->name('manage-student.update');
+Route::get('/admin/manage-student/{student}', 'AdminController@deleteStudent')->name('manage-student.delete');
