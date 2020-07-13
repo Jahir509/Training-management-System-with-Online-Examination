@@ -59,6 +59,11 @@
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="status">Status</label>
+                                                    <input type="checkbox" class="form-control " name="statusCheck" id="statusCheck"  {{($category->status == 1) ? 'checked':''}}>
+                                                    <input type="hidden" class="form-control" name="status" id="status" value="{{old('status',$category->status)}}"> 
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <button type="submit" class="btn btn-sm btn-success">Update</button>
@@ -87,4 +92,18 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+@endsection
+@section('scripts')
+ <script>
+    $(document).ready(function(){
+        $("#statusCheck").click(function(){
+            if($(this).prop("checked") == true){
+                $("#status").val("1");
+            }
+            else if($(this).prop("checked") == false){
+                $("#status").val("0");
+            }
+        });
+    }); 
+</script>   
 @endsection
