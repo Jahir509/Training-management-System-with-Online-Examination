@@ -52,3 +52,22 @@ Route::post('/admin/manage-portal', 'AdminController@storePortal')->name('manage
 Route::get('/admin/edit/manage-portal/{portal}', 'AdminController@editPortal')->name('manage-portal.edit');
 Route::put('/admin/manage-portal/{portal}', 'AdminController@updatePortal')->name('manage-portal.update');
 Route::get('/admin/manage-portal/{portal}', 'AdminController@deletePortal')->name('manage-portal.delete');
+
+
+// Portal Controller Route
+Route::get('portal/signup', 'PortalController@signupPortalUser')->name('portal.sign-up');
+Route::post('portal/signup', 'PortalController@registerPortalUser')->name('portal.register');
+Route::get('portal/login', 'PortalController@loginPortalUser')->name('portal.login');
+Route::post('portal/login/user', 'PortalController@signedInPortalUser')->name('portal.signed-in');
+Route::get('portal/logout', 'PortalController@logoutPortalUser')->name('portal.logout');
+
+
+
+
+
+Route::get('portal/home', 'PortalOperationController@portalHome')->name('portal.home');
+Route::get('portal/exam/info/{exam}', 'PortalOperationController@portalExamInfo')->name('portal.exam-info');
+Route::post('portal/exam/info/', 'PortalOperationController@storeStudenExamInfo')->name('portal.student-exam-info');
+Route::get('portal/exam/print/{student}', 'PortalOperationController@printStudenExamInfo')->name('portal.print-accessCard');
+
+
