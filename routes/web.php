@@ -13,9 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index')->name('landing-page');
+Route::get('/courses', 'IndexController@showAllCourse')->name('showAllCourse');
+Route::get('/about', 'IndexController@about')->name('about');
+Route::get('/events', 'IndexController@events')->name('events');
+Route::get('/blog', 'IndexController@blog')->name('blog');
+Route::get('/contact', 'IndexController@contact')->name('contact');
+Route::get('/workshops', 'IndexController@workshops')->name('workshops');
+Route::get('/teachers', 'IndexController@teachers')->name('teachers');
+
+
 
 Auth::routes();
 
