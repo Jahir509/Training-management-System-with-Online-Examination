@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Degree;
+use App\Instructor;
 use App\Oex_portal;
 use App\Oex_student;
+use App\AssignCourse;
 use App\Oex_category;
 use App\Oex_exam_master;
 use Illuminate\Http\Request;
@@ -19,8 +22,9 @@ class AdminController extends Controller
 
     public function examCategory()
     {
+        $degrees = Degree::orderBy('name','asc')->get();
         $categories = Oex_category::orderBy('name','asc')->get();
-        return view('admin.exam-category',compact('categories'));
+        return view('admin.exam-category',compact('categories','degrees'));
     }
     public function examCategoryStore(Request $request)
     {
@@ -30,6 +34,7 @@ class AdminController extends Controller
 
         $category = new Oex_category();
         $category->name = $request->name;
+        $category->field = $request->field;
         $category->status = 1 ;
 
         $category->save();
@@ -55,7 +60,8 @@ class AdminController extends Controller
 
     public function examCategoryEdit(Oex_category $category)
     {
-        return view('admin.exam-category-edit',compact('category'));
+        $degrees = Degree::orderBy('name','asc')->get();
+        return view('admin.exam-category-edit',compact('category','degrees'));
     }
 
     public function examCategoryUpdate(Oex_category $category,Request $request)
@@ -284,6 +290,118 @@ class AdminController extends Controller
             'alert-type'=>'success'
              );
         return redirect()->back()->with($notification);
+    }
+
+
+
+
+    public function manageInstructor()
+    {
+        $degrees = Degree::orderBy('id','asc')->get();
+        $instructors = Instructor::orderBy('id','desc')->get();
+        return view('admin.manage-instructor.index',compact('instructors','degrees'));
+    }
+
+    public function storeInstructor(Request $request)
+    {
+        $validateData = $request->validate([
+            'name' => ['required','max:255'],
+            'email' =>['required','unique:instructors','max:255'],
+            'mobile_no' => ['required','unique:instructors','max:11'],
+            'field' => 'required',
+            'password' => ['required','max:255']
+        ]);
+
+        $instructor = new Instructor();
+
+        $instructor->name = $request->name ;
+        $instructor->email = $request->email ;
+        $instructor->mobile_no = $request->mobile_no ;
+        $instructor->field = $request->field ;
+        $instructor->password = $request->password ;
+        $instructor->status = 1 ;
+        
+        $instructor->save();
+        $notification=array(
+            'message'=>'Instructor has been addedd successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+        
+    }
+
+    public function editInstructor(Instructor $instructor)
+    {
+        $degrees = Degree::orderBy('id','asc')->get();
+        return view('admin.manage-instructor.edit',compact('instructor','degrees'));      
+    }
+
+    public function updateInstructor(Instructor $instructor,Request $request)
+    {
+        $vadiation = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile_no' => ['required','max:11'],
+        ]);
+
+        $instructor->update($request->all());
+        $notification=array(
+            'message'=>'Instructor has been updated successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->route('admin.manage-instructor')->with($notification);
+
+    }
+
+    public function deleteInstructor(Instructor $instructor)
+    {
+        $instructor->delete();
+        $notification=array(
+            'message'=>'Instructor has been deleted successfully',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+    }
+
+    public function assignCourseToInstructor(Instructor $instructor)
+    {
+        $courses = Oex_exam_master::orderBy('id','asc')
+        ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
+        ->select(['oex_exam_masters.*','oex_categories.name as category_name','oex_categories.field as field'])
+        ->where('oex_categories.field',$instructor->field)
+        ->get();
+        $assignedCoursesToInstructor = AssignCourse::join('oex_exam_masters','assign_courses.course_id','=','oex_exam_masters.id')
+                                                    ->select(['assign_courses.*','oex_exam_masters.title as name'])
+                                                    ->where('instructor_name',$instructor->name)->get();
+        return view('admin.manage-instructor.assign-course',compact('courses','instructor','assignedCoursesToInstructor'));
+    }
+
+    public function assignInstructor(Instructor $instructor,Request $request)
+    {
+        $isCourseAssigned = AssignCourse::where('instructor_name',$request->name)->where('course_id',$request->course_id)->exists();
+        if($isCourseAssigned == 1){
+            $notification=array(
+                'message'=>'Course has already assigned',
+                'alert-type'=>'error'
+                 );
+            return redirect()->back()->with($notification);
+        }
+        else{
+            $course = new AssignCourse();
+            $course->instructor_name = $instructor->name;
+            $course->course_id = $request->course_id;
+
+            $course->save();
+            $notification=array(
+                'message'=>'Course has been assigned successfully',
+                'alert-type'=>'success'
+                );
+            return redirect()->back()->with($notification);
+        
+        }
+       
+        //  die($course);
+        //dd($request->all());
     }
 
 }

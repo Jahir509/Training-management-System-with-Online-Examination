@@ -46,6 +46,20 @@ Route::put('/admin/manage-student/{student}', 'AdminController@updateStudent')->
 Route::get('/admin/manage-student/{student}', 'AdminController@deleteStudent')->name('manage-student.delete');
 
 
+// Manage Instuctor Route
+Route::get('/admin/manage-instructor', 'AdminController@manageInstructor')->name('admin.manage-instructor');
+Route::post('/admin/manage-instructor', 'AdminController@storeInstructor')->name('manage-instructor.store');
+Route::get('/admin/edit/manage-instructor/{instructor}', 'AdminController@editInstructor')->name('manage-instructor.edit');
+Route::put('/admin/manage-instructor/{instructor}', 'AdminController@updateInstructor')->name('manage-instructor.update');
+Route::get('/admin/manage-instructor/{instructor}', 'AdminController@deleteInstructor')->name('manage-instructor.delete');
+Route::get('/admin/asign-instructor/{instructor}', 'AdminController@assignCourseToInstructor')->name('assign-instructor');
+Route::post('/admin/asign-instructor/{instructor}', 'AdminController@assignInstructor')->name('assign-instructor.store');
+
+
+
+
+
+
 // Manage Portal Route
 Route::get('/admin/manage-portal', 'AdminController@managePortal')->name('admin.manage-portal');
 Route::post('/admin/manage-portal', 'AdminController@storePortal')->name('manage-portal.store');

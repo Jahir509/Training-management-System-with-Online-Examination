@@ -241,7 +241,7 @@
             <a href="{{route('admin.manage-exam')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-               Exams
+               Coursees
               </p>
             </a>
           </li>
@@ -250,6 +250,14 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                Students
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.manage-instructor')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Instructors
               </p>
             </a>
           </li>

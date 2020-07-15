@@ -60,6 +60,15 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="name">Department</label>
+                                                        <select class="form-control" name="field" id="field">
+                                                            <option value="">Select Department</option>
+                                                            @foreach ($degrees as $degree)
+                                                                <option value="{{$degree->name}}" {{($degree->name == $category->field) ? 'selected':''}}>{{$degree->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="status">Status</label>
                                                     <input type="checkbox" class="form-control " name="statusCheck" id="statusCheck"  {{($category->status == 1) ? 'checked':''}}>
                                                     <input type="hidden" class="form-control" name="status" id="status" value="{{old('status',$category->status)}}"> 

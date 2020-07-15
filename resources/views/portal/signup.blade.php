@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.portal')
 
 @section('content')
 <div class="container">
@@ -72,9 +72,8 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Signup') }}
+                                    {{ __('Register') }}
                                 </button>
-                                <a class="pull-right" href="{{route('portal.login')}}">Login</a>
                             </div>
                         </div>
                     </form>

@@ -72,8 +72,7 @@
                                                         <td>{{$index+1}}</td>
                                                         <td>{{$exam->title}}</td>
                                                         <td>{{$exam->exam_date}}</td>
-                                                        <td>{{$exam->category_name}}</td>
-                                                        <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                                        <td>{{$exam->category_name}}</td>                                                        <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
                                                             <a href="{{route('manage-exam.edit',$exam)}}" class="btn btn-sm btn-warning">Edit</a>
                                                             <a href="{{route('manage-exam.delete',$exam)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>

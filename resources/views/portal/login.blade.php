@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.portal')
 
 @section('content')
 <div class="container">
@@ -58,11 +58,10 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                    <a class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Are you Admin User?') }}
                                     </a>
                                 @endif
-                                <a class="pull-right" href="{{route('portal.sign-up')}}">Sign Up</a>
                             </div>
                         </div>
                     </form>

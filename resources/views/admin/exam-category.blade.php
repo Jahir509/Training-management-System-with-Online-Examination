@@ -60,6 +60,7 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Name</th>
+                                                        <th>Department</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                        
@@ -70,6 +71,7 @@
                                                         <tr class="odd gradeX">
                                                             <td>{{$index+1}}</td>
                                                             <td>{{$category->name}}</td>
+                                                            <td>{{$category->field}}</td>
                                                             <td>{{($category->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                             <td class="center">
                                                                 <a href="{{route('exam-category.edit',$category)}}" class="btn btn-sm btn-warning">Edit</a>
@@ -111,6 +113,15 @@
                                             <div class="form-group">
                                                 <label for="name">Name</label>
                                                 <input class="form-control" type="text" id="name" name="name" placeholder="Enter Category Name" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="field">Department</label>
+                                                <select name="field" id="field" class="form-control" required>
+                                                    <option value="">Select Department</option>
+                                                    @foreach ($degrees as $degree)
+                                                        <option value="{{$degree->name}}">{{$degree->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
