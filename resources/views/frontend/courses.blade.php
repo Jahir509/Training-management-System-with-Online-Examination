@@ -20,28 +20,61 @@
 
 @section('content')
 <div class="container">
-    <!-- course list -->
-    <div class="row justify-content-center">
-        @foreach ($courses as $course)
-            <div class="col-lg-4 col-sm-6 mb-5">
-            <div class="card p-0 border-primary rounded-0 hover-shadow">
-                <img class="card-img-top rounded-0" src="{{asset('home/images/courses/course-1.jpg')}}" alt="course thumb">
-                <div class="card-body">
-                <ul class="list-inline mb-2">
-                    <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{date('d-M-y',strtotime($course->created_at))}}</li>
-                    <li class="list-inline-item"><a class="text-color" href="#">{{$course->category_name}}</a></li>
-                </ul>
-                <a href="course-single.html">
-                    <h4 class="card-title">{{$course->title}}</h4>
-                </a>
-                <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna.</p>
-                <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
-                </div>
+    <section class="section">
+        <h2>Running Courses</h2>
+        <div class="container">
+            <!-- course list -->
+            <div class="row justify-content-center">
+                @foreach ($courses as $course)
+                    @if($course->is_upcoming != 1)
+                    <div class="col-lg-4 col-sm-6 mb-5">
+                        <div class="card p-0 border-primary rounded-0 hover-shadow">
+                            <img class="card-img-top rounded-0" src="{{asset('home/images/courses/course-1.jpg')}}" alt="course thumb">
+                            <div class="card-body">
+                            <ul class="list-inline mb-2">
+                                <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{date('d-M-y',strtotime($course->created_at))}}</li>
+                                <li class="list-inline-item"><a class="text-color" href="#">{{$course->category_name}}</a></li>
+                            </ul>
+                            <a href="course-single.html">
+                                <h4 class="card-title">{{$course->title}}</h4>
+                            </a>
+                            <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna.</p>
+                            <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+                            </div>
+                        </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
-            </div>
-        @endforeach
-    </div>
-    <!-- /course list -->   
+            <!-- /course list -->
+        <h2>Upcoming Courses</h2
+        <!-- course list -->
+        <div class="row justify-content-center">
+            @foreach ($courses as $course)
+                @if($course->is_upcoming == 1)
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card p-0 border-primary rounded-0 hover-shadow">
+                        <img class="card-img-top rounded-0" src="{{asset('home/images/courses/course-1.jpg')}}" alt="course thumb">
+                        <div class="card-body">
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{date('d-M-y',strtotime($course->created_at))}}</li>
+                            <li class="list-inline-item"><a class="text-color" href="#">{{$course->category_name}}</a></li>
+                        </ul>
+                        <a href="course-single.html">
+                            <h4 class="card-title">{{$course->title}}</h4>
+                        </a>
+                        <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna.</p>
+                        <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+                        </div>
+                    </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+        <!-- /course list -->   
+        </div>
+    </section>
 </div> 
 @endsection

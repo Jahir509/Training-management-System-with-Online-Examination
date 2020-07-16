@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Instructor;
 use App\Oex_exam_master;
 use Illuminate\Http\Request;
 
@@ -51,7 +52,8 @@ class IndexController extends Controller
         return view('frontend.workshops');
     }
     public function teachers(){
-        return view('frontend.teachers');
+        $instuctors = Instructor::orderBy('name','asc')->get();
+        return view('frontend.teachers',compact('instuctors'));
     }
 
 }
