@@ -33,8 +33,9 @@
         <div class="col-lg-6">
             <div class="card card-chart {{$cssClass}} ">
               <div class="card-header">
-                  <h3 class="card-title"><i class="tim-icons {{$icon}}"></i>{{$exam->title}}</h3>
-                  <h5 class="card-title">Exam Category : <strong>{{$exam->category_name}}</strong></h5>
+                  <h3 class="card-title"><i class="tim-icons {{$icon}}"></i>{{$exam->exam_title}}</h3>
+                  <h5 class="card-title">Exam Category : <strong>{{$exam->exam_category}}</strong></h5>
+                  <h5 class="card-title">Deaprtment : <strong>{{$exam->exam_department}}</strong></h5>
               </div>
               <div class="card-body">
                 <div class="row">

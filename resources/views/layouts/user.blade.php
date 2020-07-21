@@ -19,6 +19,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('assets/demo/demo.css')}}" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 
 </head>
 
@@ -45,6 +46,12 @@
             </a>
           </li>
           <li>
+            <a href="{{route('portal.exam')}}">
+              <i class="tim-icons icon-atom"></i>
+              <p>Exams</p>
+            </a>
+          </li>
+          <li>
             <a href="./icons.html">
               <i class="tim-icons icon-atom"></i>
               <p>Icons</p>
@@ -65,7 +72,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Hello !! {{$user->name}}</a>
+            <a class="navbar-brand" href="javascript:void(0)">Hello !!</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -216,6 +223,15 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/black-dashboard.min.js?v=1.0.0')}}"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('assets/demo/demo.js')}}"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+                  $('#dataTables-example1').DataTable({
+                          responsive: true
+                  });
+              });
+              
+  </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

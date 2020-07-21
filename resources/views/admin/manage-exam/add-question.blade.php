@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Examinations</h1>
+            <h1 class="m-0 text-dark">{{$exam->title}}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -28,9 +28,9 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Exams</h3>
+                        <h3 class="card-title">Set Exam Question</h3>
                         <div class="card-tools">
-                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Create new Exam</a>
+                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Question</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -58,27 +58,23 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Title</th>
-                                                    <th>Exam Date</th>
-                                                    <th>Category</th>
+                                                    <th>Questions</th>
+                                                    <th>Ans</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($exams as $index=>$exam)
+                                                @foreach ($questions as $index=>$question)
                                                     <tr class="odd gradeX">
                                                         <td>{{$index+1}}</td>
-                                                        <td>{{$exam->title}}</td>
-                                                        <td>{{$exam->exam_date}}</td>
-                                                        <td>{{$exam->category_name}}</td>
-                                                        <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                                        <td>{{$question->question}}</td>
+                                                        <td>{{$question->ans}}</td>
+                                                        <td>{{($question->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
-                                                            <a href="{{route('manage-exam.edit',$exam)}}" class="btn btn-sm btn-warning">Edit</a>
-                                                            <a href="{{route('manage-exam.delete',$exam)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
-                                                            <a href="{{route('manage-exam.question',$exam)}}" class="btn btn-sm btn-info">Add Question</a>
-
+                                                            <a href="{{route('manage-exam-question.edit',$question)}}" class="btn btn-sm btn-warning">Edit</a>
+                                                            <a href="{{route('manage-exam-question.delete',$question)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -98,39 +94,51 @@
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                         
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Create new Exam</h4>
+                                <h4 class="modal-title">Add New Question</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-exam.store')}}" method="post">
+                                <form action="{{route('manage-exam-question.store')}}" method="post">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
+                                            <input class="form-control" type="hidden" id="exam_id" name="exam_id" value="{{$exam->id}}">
                                             <div class="form-group">
-                                                <label for="title">Title</label>
-                                                <input class="form-control" type="text" id="title" name="title" placeholder="Enter Exam Title" >
+                                                <label for="question">Question ? </label>
+                                                <input class="form-control" type="text" id="question" name="question" placeholder="Enter you question" >
                                             </div>
                                             <div class="form-group">
-                                                <label for="exam_date">Exam Date</label>
-                                                <input class="form-control" type="date" id="exam_date" name="exam_date">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label for="option_1">Options 1</label>
+                                                        <input class="form-control" type="text" id="option_1" name="option_1">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="option_2">Options 2</label>
+                                                        <input class="form-control" type="text" id="option_2" name="option_2">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="option_3">Options 3</label>
+                                                        <input class="form-control" type="text" id="option_3" name="option_3">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="option_4">Options 4</label>
+                                                        <input class="form-control" type="text" id="option_4" name="option_4">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <select class="form-control" name="category" id="category" required>
-                                                    <option value="">Select Category</option>
-                                                    @foreach ($categories as $index=>$category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="ans">Answer</label>
+                                                <input class="form-control" type="text" id="ans" name="ans">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-sm btn-success">Create</button>
+                                            <button type="submit" class="btn btn-md btn-success">Create</button>
                                         </div>
                                     </div>
                                 </form>

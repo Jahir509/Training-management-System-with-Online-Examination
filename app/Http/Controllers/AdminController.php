@@ -8,12 +8,18 @@ use App\Oex_portal;
 use App\Oex_student;
 use App\AssignCourse;
 use App\Oex_category;
+use App\Oex_question;
 use App\Oex_exam_master;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
 
@@ -143,6 +149,102 @@ class AdminController extends Controller
              );
         return redirect()->route('admin.manage-exam')->with($notification);
     }
+
+    public function manageExamQuestion(Oex_exam_master $exam)
+    {
+        $questions = Oex_question::orderBy('id','asc')->where('exam_id',$exam->id)->get();
+        return view ('admin.manage-exam.add-question',compact('exam','questions'));
+    }
+    public function storeExamQuestion(Request $request)
+    {
+       $validateData = $request->validate([
+        'exam_id' => 'required',
+        'question' => 'required',
+        'option_1'=> 'required',
+        'option_2'=> 'required',
+        'option_3'=> 'required',
+        'option_4'=> 'required',
+        'ans' => 'required',
+       ]);
+
+       $exam_question = new Oex_question();
+    //    dd($request->all());\
+        $exam_question->exam_id = $request->exam_id ;
+        $exam_question->question = $request->question ;
+        $exam_question->ans = $request->ans ;
+        $exam_question->options = json_encode(array(
+            'option_1'=> $request->option_1,
+            'option_2'=> $request->option_2,
+            'option_3'=> $request->option_3,
+            'option_4'=> $request->option_4
+        ));
+        $exam_question->status = 1;
+
+        $exam_question->save();
+        $notification=array(
+            'message'=>'Question has been added',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+
+    }
+
+
+    public function editExamQuestion(Oex_question $question)
+    {
+        $options=json_decode($question->options,true);
+        //dd($a['option_1']);
+        return view('admin.manage-exam.edit-question',compact('question','options'));
+
+    }
+
+
+    public function updateExamQuestion(Oex_question $question, Request $request)
+    {
+       // return 
+       $validateData = $request->validate([
+        'question' => 'required',
+        'option_1'=> 'required',
+        'option_2'=> 'required',
+        'option_3'=> 'required',
+        'option_4'=> 'required',
+        'ans' => 'required',
+       ]);
+       $question->options =  json_encode(array(
+        'option_1'=> $request->option_1,
+        'option_2'=> $request->option_2,
+        'option_3'=> $request->option_3,
+        'option_4'=> $request->option_4
+        ));
+        // $question->status = $request->status;
+        // dd($question);
+        $question->update($request->all());
+        $notification=array(
+            'message'=>'Question has been updated',
+            'alert-type'=>'success'
+             );
+        return redirect()->route('manage-exam.question',$question->exam_id)->with($notification);
+       
+    }
+
+
+    public function deleteExamQuestion(Oex_question $question)
+    {
+        $question->delete();
+        $notification=array(
+            'message'=>'Question has been deleted',
+            'alert-type'=>'success'
+             );
+        return redirect()->back()->with($notification);
+    }
+
+
+
+
+
+
+
+
 
     public function manageStudent()
     {

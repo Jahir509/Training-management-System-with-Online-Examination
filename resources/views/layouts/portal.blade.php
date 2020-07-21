@@ -30,27 +30,8 @@
         <!-- /.navbar-header -->
         <div class="collapse navbar-collapse" id="navbar-toggler">
           <ul class="navbar-nav ml-auto">
-              @guest
-                <li class="nav-item mr-2"><a href="{{ route('portal.login') }}" class="btn btn-outline-secondary">Login</a></li>
-                <li class="nav-item"><a href="{{ route('portal.sign-up') }}" class="btn btn-outline-primary">Register</a></li>  
-              @else
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="DropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{auth()->user()->name}}
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="{{ route('edit-profile')}}">Settings</a>
-                    <a class="dropdown-item" href="#"
-                        onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      @csrf
-                    </form>
-                  </div>
-                </li>
-              @endguest
+              <li class="nav-item mr-2"><a href="{{ route('portal.login') }}" class="btn btn-outline-secondary">Login</a></li>
+              <li class="nav-item"><a href="{{ route('portal.sign-up') }}" class="btn btn-outline-primary">Register</a></li>  
           </ul>
         </div>
       </div>
