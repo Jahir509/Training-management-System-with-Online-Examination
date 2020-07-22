@@ -39,6 +39,8 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:student')->except('logout');
+
     }
 
 
@@ -55,6 +57,24 @@ class LoginController extends Controller
         if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/teacher');
+        }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+
+     // This is for Student Login
+     public function showStudentLoginForm(){
+        return view('auth.login',['url' => 'student']);
+    }
+    public function studentLogin(Request $request){
+        $this->validate($request,[
+            'email' =>'required|email',
+            'password'=>'required|min:8'
+        ]);
+
+        if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+
+            return redirect()->intended('/student');
         }
         return back()->withInput($request->only('email', 'remember'));
     }

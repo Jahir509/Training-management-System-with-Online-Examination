@@ -24,6 +24,9 @@ class RedirectIfAuthenticated
         if ($guard == "teacher" && Auth::guard($guard)->check()) {
             return redirect('/teacher');
         }
+        if ($guard == "student" && Auth::guard($guard)->check()) {
+            return redirect('/student');
+        }
 
         return $next($request);
     }

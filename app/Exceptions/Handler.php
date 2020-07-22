@@ -61,6 +61,9 @@ class Handler extends ExceptionHandler
             if ($request->is('teacher') || $request->is('teacher/*')) {
                 return redirect()->guest('/login/teacher');
             }
+            if ($request->is('student') || $request->is('student/*')) {
+                return redirect()->guest('/login/student');
+            }
             return redirect()->guest(route('login'));
         }
 }

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Student;
 use App\Teacher;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 
 
 class RegisterController extends Controller
@@ -43,6 +44,8 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:teacher');
+        $this->middleware('guest:student');
+
     }
 
     /**
@@ -92,6 +95,23 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         return redirect()->intended('login/teacher');
+    }
+
+    // This is for Student Register
+    public function showStudentRegisterForm()
+    {
+        return view('auth.register', ['url' => 'student']);
+    }
+
+    protected function createStudent(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $student = Student::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/student');
     }
 
 }
