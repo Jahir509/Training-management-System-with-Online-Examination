@@ -30,7 +30,7 @@
                       <input type="text" class="form-control"  id="mobile_no" name="mobile_no" value="{{auth()->user()->mobile_no}}" placeholder="ex: 01xxxxxxxxx">
                     </div>
                 </div>
-                <div class="col-md-6 pl-md-1">
+                {{-- <div class="col-md-6 pl-md-1">
                     <div class="form-group">
                       <label>DOB</label>
                       <input type="date" class="form-control @error('dob') is-invalid @enderror" id="dob" name="dob" required>
@@ -38,7 +38,7 @@
                     @error('dob')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 
                 <div class="col-md-6 pr-md-1">
                     <div class="form-group">
@@ -78,7 +78,7 @@
               </div>
             </p>
             <div class="card-description">
-              Do not be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+              {{$exam->details}}
             </div>
           </div>
           <div class="card-footer">

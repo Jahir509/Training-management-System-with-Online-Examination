@@ -46,12 +46,10 @@
     <div class="container">
       <div class="row no-gutters">
         <div class="col-lg-4 text-center text-lg-left">
-          <a class="text-color mr-3" href="callto:+443003030266"><strong>CALL</strong> +44 300 303 0266</a>
+          <a class="text-color mr-3" href="callto:+443003030266"><strong>CALL</strong> +880 1788-670149</a>
           <ul class="list-inline d-inline">
-            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i class="ti-facebook"></i></a></li>
-            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i class="ti-twitter-alt"></i></a></li>
-            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i class="ti-linkedin"></i></a></li>
-            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i class="ti-instagram"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.facebook.com/CDIP.info/"><i class="ti-facebook"></i></a></li>
+            <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="https://www.linkedin.com/company/center-for-development-of-it-professionals-cdip-uiu/"><i class="ti-linkedin"></i></a></li>
           </ul>
         </div>
         <div class="col-lg-8 text-center text-lg-right">
@@ -82,15 +80,15 @@
             <li class="nav-item {{(Request::url() === 'http://localhost:8000') ? ' active':''}}">
               <a class="nav-link" href="{{route('landing-page')}}">Home</a>
             </li>
-            <li class="nav-item {{(Request::url() === 'http://localhost:8000/about') ? ' active':''}}"">
+            <li class="nav-item {{(Request::url() === 'http://localhost:8000/about') ? ' active':''}}">
               <a class="nav-link" href="{{route('about')}}">About</a>
             </li>
             <li class="nav-item {{(Request::url() === 'http://localhost:8000/courses') ? ' active':''}}">
               <a class="nav-link" href="{{route('showAllCourse')}}">COURSES</a>
             </li>
-            <li class="nav-item {{(Request::url() === 'http://localhost:8000/events') ? ' active':''}}"">
+            {{-- <li class="nav-item {{(Request::url() === 'http://localhost:8000/events') ? ' active':''}}"">
               <a class="nav-link" href="{{route('events')}}">EVENTS</a>
-            </li>
+            </li> --}}
             <li class="nav-item {{(Request::url() === 'http://localhost:8000/blog') ? ' active':''}}"">
               <a class="nav-link" href="{{route('blog')}}">BLOG</a>
             </li>
@@ -114,7 +112,7 @@
                 <a class="dropdown-item" href="blog-single.ahtmls">Blog Details</a>
               </div>
             </li> --}}
-            <li class="nav-item {{(Request::url() === 'http://localhost:8000/contact') ? ' active':''}}"">
+            <li class="nav-item {{(Request::url() === 'http://localhost:8000/contact') ? ' active':''}}">
               <a class="nav-link" href="{{route('contact')}}">CONTACT</a>
             </li>
           </ul>
@@ -178,10 +176,10 @@
           <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
             <h4 class="text-white mb-5">LINKS</h4>
             <ul class="list-unstyled">
-              <li class="mb-3"><a class="text-color" href="courses.html">Courses</a></li>
-              <li class="mb-3"><a class="text-color" href="event.html">Events</a></li>
-              <li class="mb-3"><a class="text-color" href="gallary.html">Gallary</a></li>
-              <li class="mb-3"><a class="text-color" href="faqs.html">FAQs</a></li>
+              <li class="mb-3"><a class="text-color" href="{{route('contact')}}">Courses</a></li>
+              <li class="mb-3"><a class="text-color" href="{{route('contact')}}">Workshops</a></li>
+              <li class="mb-3"><a class="text-color" href="#">Gallary</a></li>
+              <li class="mb-3"><a class="text-color" href="#">FAQs</a></li>
             </ul>
           </div>
           <!-- support -->
@@ -198,10 +196,10 @@
           <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
             <h4 class="text-white mb-5">Thankful To</h4>
             <ul class="list-unstyled">
-              <li class="mb-3"><a class="text-color" href="#">PHP</a></li>
-              <li class="mb-3"><a class="text-color" href="#">Laravel</a></li>
-              <li class="mb-3"><a class="text-color" href="#">MySQL</a></li>
-              <li class="mb-3"><a class="text-color" href="#">Github</a></li>
+              <li class="mb-3"><a class="text-color" href="https://www.php.net/">PHP</a></li>
+              <li class="mb-3"><a class="text-color" href="https://laravel.comphp">Laravel</a></li>
+              <li class="mb-3"><a class="text-color" href="https://www.mysql.com/">MySQL</a></li>
+              <li class="mb-3"><a class="text-color" href="https://www.github.com/">Github</a></li>
             </ul>
           </div>
         </div>

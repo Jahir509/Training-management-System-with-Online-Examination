@@ -200,37 +200,16 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="{{route('admin.home')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin') ? ' active':''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.exam-category')}}" class="nav-link">
+            <a href="{{route('admin.exam-category')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/course-category') ? ' active':''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                Category
@@ -238,7 +217,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.manage-exam')}}" class="nav-link">
+            <a href="{{route('admin.manage-exam')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/manage-course') ? ' active':''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                Courses
@@ -246,7 +225,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.manage-student')}}" class="nav-link">
+            <a href="{{route('admin.manage-student')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/manage-student') ? ' active':''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                Students
@@ -254,92 +233,21 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.manage-instructor')}}" class="nav-link">
+            <a href="{{route('admin.manage-instructor')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/manage-instructor') ? ' active':''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                Instructors
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
-            <a href="{{route('admin.manage-portal')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-               Portals
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('admin.show-event')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-               Events
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('admin.show-workshop')}}" class="nav-link">
+            <a href="{{route('admin.show-workshop')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/workshops') ? ' active':''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                Workshop
               </p>
             </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Layout Options
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation + Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Navbar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Footer</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Collapsed Sidebar</p>
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
       </nav>

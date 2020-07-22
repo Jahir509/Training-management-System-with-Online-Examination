@@ -29,7 +29,11 @@ class AdminController extends Controller
     public function index()
     {
 
-        return view('admin.dashboard');
+        $categoryCount = Degree::count();
+        $courseCount = Oex_exam_master::count();
+        $instructorCount = Teacher::count();
+        $workshopCount = Workshop::count();
+        return view('admin.dashboard',compact('categoryCount','courseCount','instructorCount','workshopCount'));
     }
 
     public function examCategory()
@@ -41,7 +45,7 @@ class AdminController extends Controller
     public function examCategoryStore(Request $request)
     {
         $validateData=$request->validate([
-            'name' => ['required','unique:oex_categories','max:55']
+            'name' => ['required','unique:oex_categories','max:55'],
         ]);
 
         $category = new Oex_category();
@@ -105,16 +109,29 @@ class AdminController extends Controller
     {
         $validateData = $request->validate([
             'title' => 'required',
+            'details' => 'required',
             'category' =>'required',
-            'exam_date' => 'required'
+            'exam_date' => 'required',
+            'image'=>'required'
         ]);
 
         $exam = new Oex_exam_master();
 
         $exam->title = $request->title ;
+        $exam->details = $request->details;
         $exam->exam_date = $request->exam_date ;
         $exam->category = $request->category ;
         $exam->status = 1 ;
+
+        $banner_image = $request->image;
+
+       if($banner_image) 
+       {
+           $imagePath=public_path('media/courses/');
+           $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
+           Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
+           $exam->image = $imageName;
+       }
         
         $exam->save();
         $notification=array(
@@ -144,6 +161,7 @@ class AdminController extends Controller
     {
         $validateData = $request->validate([
             'title' => 'required',
+            'details' => 'required',
             'category' =>'required',
             'exam_date' => 'required'
         ]);

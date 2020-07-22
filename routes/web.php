@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index')->name('landing-page');
 Route::get('/courses', 'IndexController@showAllCourse')->name('showAllCourse');
+Route::get('/courses/{id}', 'IndexController@showCourse')->name('course.show');
 Route::get('/about', 'IndexController@about')->name('about');
 Route::get('/events', 'IndexController@events')->name('events');
 Route::get('/events/{event}', 'IndexController@showEvent')->name('event.show');
@@ -32,26 +33,26 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin.home');
 
 // Category Route
-Route::get('/admin/exam-category', 'AdminController@examCategory')->name('admin.exam-category');
-Route::post('/admin/exam-category', 'AdminController@examCategoryStore')->name('exam-category.store');
-Route::get('/admin/edit/exam-category/{category}', 'AdminController@examCategoryEdit')->name('exam-category.edit');
-Route::put('/admin/exam-category/{category}', 'AdminController@examCategoryUpdate')->name('exam-category.update');
-Route::get('/admin/exam-category/{category}', 'AdminController@examCategoryDelete')->name('exam-category.delete');
+Route::get('/admin/course-category', 'AdminController@examCategory')->name('admin.exam-category');
+Route::post('/admin/course-category', 'AdminController@examCategoryStore')->name('exam-category.store');
+Route::get('/admin/edit/course-category/{category}', 'AdminController@examCategoryEdit')->name('exam-category.edit');
+Route::put('/admin/course-category/{category}', 'AdminController@examCategoryUpdate')->name('exam-category.update');
+Route::get('/admin/course-category/{category}', 'AdminController@examCategoryDelete')->name('exam-category.delete');
 
 
 //Exam Manage Route
-Route::get('/admin/manage-exam', 'AdminController@manageExam')->name('admin.manage-exam');
-Route::post('/admin/manage-exam', 'AdminController@storeExam')->name('manage-exam.store');
-Route::get('/admin/edit/manage-exam/{exam}', 'AdminController@editExam')->name('manage-exam.edit');
-Route::put('/admin/manage-exam/{exam}', 'AdminController@updateExam')->name('manage-exam.update');
-Route::get('/admin/manage-exam/{exam}', 'AdminController@deleteExam')->name('manage-exam.delete');
+Route::get('/admin/manage-course', 'AdminController@manageExam')->name('admin.manage-exam');
+Route::post('/admin/manage-course', 'AdminController@storeExam')->name('manage-exam.store');
+Route::get('/admin/edit/manage-course/{exam}', 'AdminController@editExam')->name('manage-exam.edit');
+Route::put('/admin/manage-course/{exam}', 'AdminController@updateExam')->name('manage-exam.update');
+Route::get('/admin/manage-course/{exam}', 'AdminController@deleteExam')->name('manage-exam.delete');
 
 
 Route::get('/admin/exam/question/{exam}', 'AdminController@manageExamQuestion')->name('manage-exam.question');
-Route::post('/admin/manage-exam-question/', 'AdminController@storeExamQuestion')->name('manage-exam-question.store');
-Route::get('/admin/edit/manage-exam/question/{question}', 'AdminController@editExamQuestion')->name('manage-exam-question.edit');
-Route::put('/admin/manage-exam/question/{question}', 'AdminController@updateExamQuestion')->name('manage-exam-question.update');
-Route::get('/admin/manage-exam/question/{question}', 'AdminController@deleteExamQuestion')->name('manage-exam-question.delete');
+Route::post('/admin/manage-course-question/', 'AdminController@storeExamQuestion')->name('manage-exam-question.store');
+Route::get('/admin/edit/manage-course/question/{question}', 'AdminController@editExamQuestion')->name('manage-exam-question.edit');
+Route::put('/admin/manage-course/question/{question}', 'AdminController@updateExamQuestion')->name('manage-exam-question.update');
+Route::get('/admin/manage-course/question/{question}', 'AdminController@deleteExamQuestion')->name('manage-exam-question.delete');
 
 
 

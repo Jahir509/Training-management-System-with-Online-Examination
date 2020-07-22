@@ -23,7 +23,7 @@ class StudentController extends Controller
 
         $user_id = auth()->user()->id;
         $totalCourse = Oex_exam_master::count();
-        $student = Oex_portal::findOrFail($user_id);
+        $student = Student::findOrFail($user_id);
         $yourCourseCount = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
                                     ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
                                     ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_categories.name as exam_category','oex_categories.field as exam_department')
@@ -61,12 +61,11 @@ class StudentController extends Controller
     {
 
         
-        $user = Oex_portal::findOrFail(auth()->user()->id);
+        $user = Student::findOrFail(auth()->user()->id);
         $validateData = $request->validate([
             'name' => 'required',
             'email' => 'required',
             'mobile_no' => ['required','max:11'],
-            'dob' => 'required',
             'exam' => 'required',
             
         ]);
@@ -77,7 +76,6 @@ class StudentController extends Controller
         $student->name = $request->name ;
         $student->email = $request->email ;
         $student->mobile_no = $request->mobile_no ;
-        $student->dob = $request->dob ;
         $student->exam = $request->exam ;
         $student->status = 1 ;
 
@@ -115,7 +113,7 @@ class StudentController extends Controller
     public function portalExam()
     {
         
-        $student = Oex_portal::findOrFail(auth()->user()->id);
+        $student = Student::findOrFail(auth()->user()->id);
         $student_exams = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
         ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_exam_masters.category as exam_category')
         ->where('email',$student->email)->get();

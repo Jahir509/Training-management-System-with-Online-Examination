@@ -74,8 +74,16 @@ class LoginController extends Controller
 
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
+            $notification=array(
+                'message'=>'Welcome',
+                'alert-type'=>'success'
+                 );
             return redirect()->intended('/student');
         }
+        $notification=array(
+            'message'=>'Incorrect Credentials',
+            'alert-type'=>'error'
+             );
         return back()->withInput($request->only('email', 'remember'));
     }
     

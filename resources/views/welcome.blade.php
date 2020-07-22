@@ -97,10 +97,10 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-6 order-2 order-md-1">
-        <h2 class="section-title">About Educenter</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat </p>
-        <p>cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-        <a href="about.html" class="btn btn-primary-outline">Learn more</a>
+        <h2 class="section-title">About Zodiac</h2>
+        <p>The goal to prepare or develop the students properly for fitting themselves in to industry.  Zodiac conducts different IT industrial training’s for enhancing the IT skills of the students and to make them ready for both local/global IT industries. The initial mission of Zodiac is to support the students, guide them, train them, and bridging them into the IT industry. </p>
+        <p>Zodiac provides high configured lab facilities, highly qualified instructors and industry driven environment. Zodiac also ensures job placement of successful candidates.</p>
+        <a href="{{route('about')}}" class="btn btn-primary-outline">Learn more</a>
       </div>
       <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0">
         <img class="img-fluid w-100" src="{{asset('home/images/about/about-us.jpg')}}" alt="about image">
@@ -129,7 +129,7 @@
         @foreach ($courses as $course)
           <div class="col-lg-4 col-sm-6 mb-5">
             <div class="card p-0 border-primary rounded-0 hover-shadow">
-              <img class="card-img-top rounded-0" src="{{asset('home/images/courses/course-1.jpg')}}" alt="course thumb">
+              <img class="card-img-top rounded-0" src="{{asset('media/courses/'.$course->image)}}" alt="course thumb">
               <div class="card-body">
                 <ul class="list-inline mb-2">
                   <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{date('d-M-y',strtotime($course->created_at))}}</li>
@@ -138,9 +138,8 @@
                 <a href="course-single.html">
                   <h4 class="card-title">{{$course->title}}</h4>
                 </a>
-                <p class="card-text mb-4"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna.</p>
-                <a href="course-single.html" class="btn btn-primary btn-sm">Apply now</a>
+                <p class="card-text mb-4"> {{$course->details}}</p>
+                <a href="{{route('course.show',$course)}}" class="btn btn-primary btn-sm">Apply now</a>
               </div>
             </div>
           </div>

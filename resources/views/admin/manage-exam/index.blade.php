@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Examinations</h1>
+            <h1 class="m-0 text-dark">Courses Information</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Teacher</a></li>
-              <li class="breadcrumb-item" >Exam</li>
+              <li class="breadcrumb-item"><a href="#">Admin</a></li>
+              <li class="breadcrumb-item" >Courses</li>
             </ol>
           </div><!-- /.col -->
           
@@ -28,9 +28,9 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Exams</h3>
+                        <h3 class="card-title">Manage Coures</h3>
                         <div class="card-tools">
-                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Create new Exam</a>
+                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Create new Course</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -75,7 +75,7 @@
                                                         <td>{{$exam->category_name}}</td>
                                                         <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
-                                                            <a href="{{route('manage-exam.edit',$exam->)}}" class="btn btn-sm btn-warning">Edit</a>
+                                                            <a href="{{route('manage-exam.edit',$exam)}}" class="btn btn-sm btn-warning">Edit</a>
                                                             <a href="{{route('manage-exam.delete',$exam)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                             <a href="{{route('manage-exam.question',$exam)}}" class="btn btn-sm btn-info">Add Question</a>
 
@@ -103,17 +103,21 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Create new Exam</h4>
+                                <h4 class="modal-title">Create new Course</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-exam.store')}}" method="post">
+                                <form action="{{route('manage-exam.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="title">Title</label>
                                                 <input class="form-control" type="text" id="title" name="title" placeholder="Enter Exam Title" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="details">Details</label>
+                                                <textarea class="form-control" type="text" id="details" name="details" placeholder="Enter Exam details" ></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exam_date">Exam Date</label>
@@ -127,6 +131,10 @@
                                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exam_date">Banner Image</label>
+                                                <input class="form-control" type="file" id="image" name="image" accept="images/*">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">

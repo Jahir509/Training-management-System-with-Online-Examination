@@ -38,10 +38,10 @@
           </form>
         </div>
         <div class="col-lg-5">
-          <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit recusandae voluptates doloremque veniam temporibus porro culpa ipsa, nisi soluta minima saepe laboriosam debitis nesciunt. Dolore, labore. Accusamus nulla sed cum aliquid exercitationem debitis error harum porro maxime quo iusto aliquam dicta modi earum fugiat, vel possimus commodi, deleniti et veniam, fuga ipsum praesentium. Odit unde optio nulla ipsum quae obcaecati! Quod esse natus quibusdam asperiores quam vel, tempore itaque architecto ducimus expedita</p>
-          <a href="tel:+8802057843248" class="text-color h5 d-block">+880 20 5784 3248</a>
-          <a href="mailto:yourmail@email.com" class="mb-5 text-color h5 d-block">yourmail@email.com</a>
-          <p>71 Shelton Street<br>London WC2H 9JQ England</p>
+          <p class="mb-5">Every Year 20% students get 25%-100% tuition fee waiver based on previous results and trimester results. Zodiac provides about 10 to 12 crore taka as scholarship in every year, one of the highest amongst the private sector. If you are a committed student, take the challenge and build your future with Zodiac.</p>
+          <p class="mb-5">United City, Madani Avenue,  Badda, Dhaka 1212, Bangladesh.</p>
+          <a href="tel:+8809604848848" class="text-color h5 d-block">Phone: +88 09604-848-848</a>
+          <a href="mailto:info@uiu.ac.bd" class="mb-5 text-color h5 d-block">info@uiu.ac.bd</a>
         </div>
       </div>
     </div>

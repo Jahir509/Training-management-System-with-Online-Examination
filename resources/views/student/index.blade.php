@@ -9,7 +9,7 @@
                 <div class="card-header">
                   
                 </div>
-                <a href="{{route('portal.showAll')}}">
+                <a href="{{($totalCourse != 0 ) ? route('portal.showAll') : "#"}}">
                     <div class="card-body">
                         <h1 class="card-category">Total Course</h1>
                         <h2 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> {{$totalCourse}}</h2>

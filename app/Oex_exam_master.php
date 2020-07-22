@@ -9,5 +9,5 @@ class Oex_exam_master extends Model
     //
     protected $table="oex_exam_masters";
     protected $primaryKey = "id";
-    protected $fillable = ['title','category','exam_date','status'];
+    protected $fillable = ['title','details','category','exam_date','status'];
 }

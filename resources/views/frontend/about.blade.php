@@ -10,7 +10,7 @@
             <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">About Us</a></li>
             <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
           </ul>
-          <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+          <p class="text-lighten">Zodiac provides high configured lab facilities, highly qualified instructors and industry driven environment. Zodiac also ensures job placement of successful candidates.</p>
         </div>
       </div>
     </div>
@@ -26,9 +26,9 @@
         <div class="col-12">
           <img class="img-fluid w-100 mb-4" src="{{asset('home/images/about/about-page.jpg')}}" alt="about image">
           <h2 class="section-title">ABOUT OUR JOURNY</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.dolore magna aliqua. Ut enim ad minim veniam, quis nostrud. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe ipsa illo quod veritatis, magni debitis fugiat dolore voluptates! Consequatur, aliquid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat perferendis sint optio similique. Et amet magni facilis vero corporis quos.</p>
-          <p>exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum a, facere fugit error accusamus est officiis vero in, nostrum laboriosam corrupti explicabo, cumque repudiandae deleniti perspiciatis quae consectetur enim. Laboriosam!</p>
-        </div>
+          <p>The goal to prepare or develop the students properly for fitting themselves in to industry.  Zodiac conducts different IT industrial training’s for enhancing the IT skills of the students and to make them ready for both local/global IT industries. The initial mission of Zodiac is to support the students, guide them, train them, and bridging them into the IT industry. </p>
+          <p>Zodiac provides high configured lab facilities, highly qualified instructors and industry driven environment. Zodiac also ensures job placement of successful candidates.</p>
+          </div>
       </div>
     </div>
   </section>

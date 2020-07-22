@@ -59,6 +59,15 @@
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
+
+                                                    <div class="form-group">
+                                                        <label for="title">Title</label>
+                                                        <textarea rows="8" class="form-control @error('title') is-invalid @enderror" type="text" id="details" name="details"  placeholder="Enter Category details" >{{$exam->details}}</textarea>
+                                                        @error('details')
+                                                            <br>
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                     
                                                     <div class="form-group">
                                                         <label for="exam_date">Exam Date</label>

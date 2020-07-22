@@ -39,13 +39,13 @@
           </a>
         </div>
         <ul class="nav">
-          <li class="active ">
+          <li class="{{(Request::url() === 'http://localhost:8000/student') ? ' active':''}}">
             <a href="{{route('portal.home')}}">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
+          <li class="{{(Request::url() === 'http://localhost:8000/student/course') ? ' active':''}}"">
             <a href="{{route('portal.exam')}}">
               <i class="tim-icons icon-atom"></i>
               <p>Exams</p>

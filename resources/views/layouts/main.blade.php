@@ -15,10 +15,21 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
     @yield('styles')
+    <style>
+          body,#navigation{
+            background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,118,121,1) 39%, rgba(9,118,121,1) 47%, rgba(9,119,123,1) 52%, rgba(0,212,255,1) 100%);
+    }
+    #fixedbutton {
+    position: fixed;
+    bottom: 0px;
+    right: 0px; 
+}
+    </style>
   </head>
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" id="navigation">
       <div class="container">
         <a class="navbar-brand text-uppercase" href="#">            
             <strong>TMS</strong> Application
@@ -29,10 +40,19 @@
             
         <!-- /.navbar-header -->
         <div class="collapse navbar-collapse" id="navbar-toggler">
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ml-auto" >
               @guest
-                <li class="nav-item mr-2"><a href="{{ route('login') }}" class="btn btn-outline-secondary">Login</a></li>
+                @if (Request::url() == "http://localhost:8000/login/student" || Request::url() == "http://localhost:8000/register/student")
+                  <li class="nav-item mr-2"><a href="{{  route('student.login') }}" class="btn btn-outline-secondary">Login</a></li>
+                  <li class="nav-item"><a href="{{ route('student.register') }}" class="btn btn-outline-primary">Register</a></li> 
+                @elseif(Request::url() == "http://localhost:8000/login/teacher" || Request::url() == "http://localhost:8000/register/teacher")
+                  <li class="nav-item mr-2"><a href="{{  route('teacher.login') }}" class="btn btn-outline-secondary">Login</a></li>
+                  <li class="nav-item"><a href="{{ route('teacher.register') }}" class="btn btn-outline-primary">Register</a></li> 
+                @else
+                <li class="nav-item mr-2"><a href="{{  route('login') }}" class="btn btn-outline-secondary">Login</a></li>
                 <li class="nav-item"><a href="{{ route('register') }}" class="btn btn-outline-primary">Register</a></li>  
+                @endif
+               
               @else
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="DropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

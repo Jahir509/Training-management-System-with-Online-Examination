@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container">
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -46,11 +46,11 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    {{-- <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
-                                    </label>
+                                    </label> --}}
                                 </div>
                             </div>
                         </div>
@@ -69,6 +69,14 @@
                             </div>
                         </div>
                     </form>
+                    @if (Request::url() == "http://localhost:8000/login/student" || Request::url() == "http://localhost:8000/register/student")
+                        <a  class="btn btn-warning" id="fixedbutton" href="{{route('teacher.login')}}">Are you a Teacher ? Click Here to Login</a>
+                    @elseif(Request::url() == "http://localhost:8000/login/teacher" || Request::url() == "http://localhost:8000/register/teacher")
+                        <a  class="btn btn-warning" id="fixedbutton" href="{{route('student.login')}}">Are you a Student ? Click Here to Login</a>
+                    @else
+                    <a  class="btn btn-warning" id="fixedbutton">This Page is For Admin</a>
+                    @endif
+                    
                 </div>
             </div>
         </div>
