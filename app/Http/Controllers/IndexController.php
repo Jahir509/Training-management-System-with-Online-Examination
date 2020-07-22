@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
+use App\Teacher;
+use App\Workshop;
 use App\Instructor;
 use App\Oex_exam_master;
 use Illuminate\Http\Request;
@@ -40,7 +43,11 @@ class IndexController extends Controller
         return view('frontend.about');
     }
     public function events(){
-        return view('frontend.events');
+        $events = Event::orderBy('id','desc')->where('status','1')->get();
+        return view('frontend.events',compact('events'));
+    }
+    public function showEvent(Event $event){
+        return view('frontend.show-event',compact('event'));
     }
     public function blog(){
         return view('frontend.blog');
@@ -49,10 +56,14 @@ class IndexController extends Controller
         return view('frontend.contact');
     }
     public function workshops(){
-        return view('frontend.workshops');
+        $workshops = Workshop::orderBy('id','desc')->where('status','1')->get();
+        return view('frontend.workshops',compact('workshops'));
+    }
+    public function showWorkshop(Workshop $workshop){
+        return view('frontend.show-workshop',compact('workshop'));
     }
     public function teachers(){
-        $instuctors = Instructor::orderBy('name','asc')->get();
+        $instuctors = Teacher::orderBy('name','asc')->get();
         return view('frontend.teachers',compact('instuctors'));
     }
 

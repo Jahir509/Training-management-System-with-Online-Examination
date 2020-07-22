@@ -17,9 +17,11 @@ Route::get('/', 'IndexController@index')->name('landing-page');
 Route::get('/courses', 'IndexController@showAllCourse')->name('showAllCourse');
 Route::get('/about', 'IndexController@about')->name('about');
 Route::get('/events', 'IndexController@events')->name('events');
+Route::get('/events/{event}', 'IndexController@showEvent')->name('event.show');
 Route::get('/blog', 'IndexController@blog')->name('blog');
 Route::get('/contact', 'IndexController@contact')->name('contact');
 Route::get('/workshops', 'IndexController@workshops')->name('workshops');
+Route::get('/workshops/{workshop}', 'IndexController@showWorkshop')->name('workshop.show');
 Route::get('/teachers', 'IndexController@teachers')->name('teachers');
 
 
@@ -65,12 +67,29 @@ Route::get('/admin/manage-student/{student}', 'AdminController@deleteStudent')->
 // Manage Instuctor Route
 Route::get('/admin/manage-instructor', 'AdminController@manageInstructor')->name('admin.manage-instructor');
 Route::post('/admin/manage-instructor', 'AdminController@storeInstructor')->name('manage-instructor.store');
-Route::get('/admin/edit/manage-instructor/{instructor}', 'AdminController@editInstructor')->name('manage-instructor.edit');
-Route::put('/admin/manage-instructor/{instructor}', 'AdminController@updateInstructor')->name('manage-instructor.update');
-Route::get('/admin/manage-instructor/{instructor}', 'AdminController@deleteInstructor')->name('manage-instructor.delete');
-Route::get('/admin/asign-instructor/{instructor}', 'AdminController@assignCourseToInstructor')->name('assign-instructor');
-Route::post('/admin/asign-instructor/{instructor}', 'AdminController@assignInstructor')->name('assign-instructor.store');
+Route::get('/admin/edit/manage-instructor/{teacher}', 'AdminController@editInstructor')->name('manage-instructor.edit');
+Route::put('/admin/manage-instructor/{teacher}', 'AdminController@updateInstructor')->name('manage-instructor.update');
+Route::get('/admin/manage-instructor/{teacher}', 'AdminController@deleteInstructor')->name('manage-instructor.delete');
+Route::get('/admin/asign-instructor/{teacher}', 'AdminController@assignCourseToInstructor')->name('assign-instructor');
+Route::post('/admin/asign-instructor/{teacher}', 'AdminController@assignInstructor')->name('assign-instructor.store');
+Route::get('/admin/assign-course/{course}', 'AdminController@deleteAssignedCourse')->name('assign-course.delete');
 
+
+// Event 
+Route::get('/admin/events', 'AdminController@showAllEvent')->name('admin.show-event');
+Route::post('/admin/events', 'AdminController@storeEvent')->name('admin.store-event');
+Route::get('/admin/events/show/{event}', 'AdminController@showEvent')->name('manage-event.show');
+Route::get('/admin/events/edit/{event}', 'AdminController@editEvent')->name('manage-event.edit');
+Route::put('/admin/events/{event}', 'AdminController@updateEvent')->name('manage-event.update');
+Route::get('/admin/events/{event}', 'AdminController@deleteEvent')->name('manage-event.delete');
+
+// Event 
+Route::get('/admin/workshops', 'AdminController@showAllWorkshop')->name('admin.show-workshop');
+Route::post('/admin/workshops', 'AdminController@storeWorkshop')->name('admin.store-workshop');
+Route::get('/admin/workshops/show/{workshop}', 'AdminController@showWorkshop')->name('manage-workshop.show');
+Route::get('/admin/workshops/edit/{workshop}', 'AdminController@editWorkshop')->name('manage-workshop.edit');
+Route::put('/admin/workshops/{workshop}', 'AdminController@updateWorkshop')->name('manage-workshop.update');
+Route::get('/admin/workshops/{workshop}', 'AdminController@deleteWorkshop')->name('manage-workshop.delete');
 
 
 
@@ -119,3 +138,9 @@ Route::post('register/teacher', 'Auth\RegisterController@createTeacher')->name('
 
 
 Route::get('/teacher', 'TeacherController@index')->name('teacher.home');
+Route::get('/teacher/exam/question/{id}', 'TeacherController@addQuestion')->name('add-exam-question');
+Route::post('/teacher/manage-exam-question/', 'TeacherController@storeQuestion')->name('store-exam-question');
+Route::get('/teacher/manage-exam/edit/question/{question}', 'TeacherController@editQuestion')->name('edit-exam-question');
+Route::put('/teacher/manage-exam/question/{question}', 'TeacherController@updateQuestion')->name('update-exam-question');
+Route::get('/teacher/manage-exam/question/{question}', 'TeacherController@deleteQuestion')->name('delete-exam-question');
+Route::get('/teacher/assign-course-material/', 'TeacherController@addCourseMaterial')->name('teacher.add-course-material');

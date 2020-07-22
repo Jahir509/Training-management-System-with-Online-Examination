@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Instructors</h1>
+            <h1 class="m-0 text-dark">Teachers</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              <li class="breadcrumb-item" >Instructor</li>
+              <li class="breadcrumb-item" >Teacher</li>
               <li class="breadcrumb-item active"><a href="#">Edit</a></li>
             </ol>
           </div><!-- /.col -->
@@ -29,7 +29,7 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Instructor : <strong>{{$instructor->name}}</strong></h3>
+                        <h3 class="card-title">Teacher : <strong>{{$teacher->name}}</strong></h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -40,22 +40,22 @@
                                        
                                     </div>
                                     <div class="panel-body">
-                                        <form action="{{route('assign-instructor.store',$instructor)}}" method="post">
+                                        <form action="{{route('assign-instructor.store',$teacher)}}" method="post">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <label for="name">Name</label>
-                                                        <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" value={{$instructor->name}} readonly>
+                                                        <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" value={{$teacher->name}} readonly>
                                                     </div>
                                                     
                                                     <div class="form-group">
                                                         <label for="email">Email</label>
-                                                        <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" value={{$instructor->email}} readonly>
+                                                        <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" value={{$teacher->email}} readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="mobile_no">Mobile</label>
-                                                        <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." value={{$instructor->mobile_no}} readonly>
+                                                        <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." value={{$teacher->mobile_no}} readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="name">Course</label>
@@ -117,6 +117,7 @@
                                                     <tr class="odd gradeX">
                                                         <td>{{$index+1}}</td>
                                                         <td>{{$course->name}}</td>
+                                                        <td><a href="{{route('assign-course.delete',$course)}}" class="btn btn-sm btn-danger" id="delete1">Unassign</a></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -140,6 +141,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
+
 
 @endsection

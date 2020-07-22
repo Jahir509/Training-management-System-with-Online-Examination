@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Students Information</h1>
+            <h1 class="m-0 text-dark">Add Course Material</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              <li class="breadcrumb-item" >Student</li>
+              <li class="breadcrumb-item"><a href="#">Teacher</a></li>
+              <li class="breadcrumb-item" >Course</li>
             </ol>
           </div><!-- /.col -->
           
@@ -28,9 +28,9 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Teacher</h3>
+                        <h3 class="card-title">Manage Material</h3>
                         <div class="card-tools">
-                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Instructor</a>
+                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Material</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -58,31 +58,29 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Mobile</th>
-                                                    <th>Field</th>
-                                                    <th>Status</th>
+                                                    <th>Course Title</th>
+                                                    <th>File</th>
+                                                    <th>Upload TIme</th>
                                                     <th>Action</th>
                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($teachers as $index=>$teacher)
+                                                {{-- @foreach ($exams as $index=>$exam)
                                                     <tr class="odd gradeX">
                                                         <td>{{$index+1}}</td>
-                                                        <td>{{$teacher->name}}</td>
-                                                        <td>{{$teacher->email}}</td>
-                                                        <td>{{$teacher->mobile_no}}</td>
-                                                        <td>{{$teacher->field}}</td>
-                                                        <td>{{($teacher->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                                        <td>{{$exam->title}}</td>
+                                                        <td>{{$exam->exam_date}}</td>
+                                                        <td>{{$exam->category_name}}</td>
+                                                        <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
-                                                            <a href="{{route('manage-instructor.edit',$teacher)}}" class="btn btn-sm btn-warning">Edit</a>
-                                                            <a href="{{route('manage-instructor.delete',$teacher)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
-                                                            <a href="{{route('assign-instructor',$teacher)}}" class="btn btn-sm btn-info">Assign Course</a>
+                                                            <a href="{{route('manage-exam.edit',$exam->)}}" class="btn btn-sm btn-warning">Edit</a>
+                                                            <a href="{{route('manage-exam.delete',$exam)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+                                                            <a href="{{route('manage-exam.question',$exam)}}" class="btn btn-sm btn-info">Add Question</a>
+
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -104,43 +102,30 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Create new instructor</h4>
+                                <h4 class="modal-title">Create new Exam</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-instructor.store')}}" method="post">
+                                <form action="{{route('manage-exam.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" >
-                                            </div>
-                                            
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" >
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="mobile_no">Mobile</label>
-                                                <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." >
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Department</label>
-                                                <select class="form-control" name="field" id="field" required>
-                                                    <option value="">Select Department</option>
-                                                    @foreach ($degrees as $degree)
-                                                        <option value="{{$degree->name}}">{{$degree->name}}</option>
+                                                <label for="name">Course Title</label>
+                                                <select class="form-control" name="category" id="category" required>
+                                                    <option value="">Select Course</option>
+                                                    @foreach ($assignedCoursesToInstructor as $index=>$course)
+                                                        <option value="{{$course->course_id}}">{{$course->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input class="form-control" type="password" id="password" name="password" placeholder="Enter your Password" >
+                                                <label for="file_name">File </label>
+                                                <input class="form-control" type="file" id="file_name" name="file_name" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-sm btn-success">Create</button>
+                                            <button type="submit" class="btn btn-sm btn-success">Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -153,7 +138,6 @@
                         </div>
                     </div>	
                     <!--End modal -->
-
                     <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->
@@ -163,5 +147,5 @@
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- /.content-wrapper --> 
 @endsection

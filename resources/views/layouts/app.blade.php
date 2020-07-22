@@ -241,7 +241,7 @@
             <a href="{{route('admin.manage-exam')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-               Coursees
+               Courses
               </p>
             </a>
           </li>
@@ -271,11 +271,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{route('admin.show-event')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-               Wdigets
+               Events
                 <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.show-workshop')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Workshop
               </p>
             </a>
           </li>

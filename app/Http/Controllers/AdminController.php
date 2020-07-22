@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Image;
+use App\Event;
 use App\Degree;
+use App\Teacher;
+use App\Workshop;
 use App\Instructor;
 use App\Oex_portal;
 use App\Oex_student;
@@ -10,7 +14,9 @@ use App\AssignCourse;
 use App\Oex_category;
 use App\Oex_question;
 use App\Oex_exam_master;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -400,85 +406,86 @@ class AdminController extends Controller
     public function manageInstructor()
     {
         $degrees = Degree::orderBy('id','asc')->get();
-        $instructors = Instructor::orderBy('id','desc')->get();
-        return view('admin.manage-instructor.index',compact('instructors','degrees'));
+        $teachers = Teacher::orderBy('id','desc')->get();
+        return view('admin.manage-instructor.index',compact('teachers','degrees'));
     }
 
     public function storeInstructor(Request $request)
     {
         $validateData = $request->validate([
             'name' => ['required','max:255'],
-            'email' =>['required','unique:instructors','max:255'],
-            'mobile_no' => ['required','unique:instructors','max:11'],
+            'email' =>['required','unique:teachers','max:255'],
+            'mobile_no' => ['required','unique:teachers','max:11'],
             'field' => 'required',
             'password' => ['required','max:255']
         ]);
 
-        $instructor = new Instructor();
+        $teacher = new Teacher();
 
-        $instructor->name = $request->name ;
-        $instructor->email = $request->email ;
-        $instructor->mobile_no = $request->mobile_no ;
-        $instructor->field = $request->field ;
-        $instructor->password = $request->password ;
-        $instructor->status = 1 ;
+        $teacher->name = $request->name ;
+        $teacher->email = $request->email ;
+        $teacher->mobile_no = $request->mobile_no ;
+        $teacher->field = $request->field ;
+        $teacher->password = Hash::make($request->password) ;
+        $teacher->status = 1 ;
         
-        $instructor->save();
+        $teacher->save();
         $notification=array(
-            'message'=>'Instructor has been addedd successfully',
+            'message'=>'Teacher has been addedd successfully',
             'alert-type'=>'success'
              );
         return redirect()->back()->with($notification);
         
     }
 
-    public function editInstructor(Instructor $instructor)
+    public function editInstructor(Teacher $teacher)
     {
         $degrees = Degree::orderBy('id','asc')->get();
-        return view('admin.manage-instructor.edit',compact('instructor','degrees'));      
+        return view('admin.manage-instructor.edit',compact('teacher','degrees'));      
+        
     }
 
-    public function updateInstructor(Instructor $instructor,Request $request)
+    public function updateInstructor(Teacher $teacher,Request $request)
     {
         $vadiation = $request->validate([
             'name' => 'required',
             'email' => 'required',
             'mobile_no' => ['required','max:11'],
         ]);
-
-        $instructor->update($request->all());
+        $teacher->status = $request->status;
+        $teacher->update($request->all());
         $notification=array(
-            'message'=>'Instructor has been updated successfully',
+            'message'=>'teacher has been updated successfully',
             'alert-type'=>'success'
              );
         return redirect()->route('admin.manage-instructor')->with($notification);
 
     }
 
-    public function deleteInstructor(Instructor $instructor)
+    public function deleteInstructor(Teacher $teacher)
     {
-        $instructor->delete();
+        $teacher->delete();
         $notification=array(
-            'message'=>'Instructor has been deleted successfully',
+            'message'=>'Teacher has been deleted successfully',
             'alert-type'=>'success'
              );
         return redirect()->back()->with($notification);
     }
 
-    public function assignCourseToInstructor(Instructor $instructor)
+    public function assignCourseToInstructor(Teacher $teacher)
     {
         $courses = Oex_exam_master::orderBy('id','asc')
         ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
         ->select(['oex_exam_masters.*','oex_categories.name as category_name','oex_categories.field as field'])
-        ->where('oex_categories.field',$instructor->field)
+        ->where('oex_categories.field',$teacher->field)
         ->get();
         $assignedCoursesToInstructor = AssignCourse::join('oex_exam_masters','assign_courses.course_id','=','oex_exam_masters.id')
                                                     ->select(['assign_courses.*','oex_exam_masters.title as name'])
-                                                    ->where('instructor_name',$instructor->name)->get();
-        return view('admin.manage-instructor.assign-course',compact('courses','instructor','assignedCoursesToInstructor'));
+                                                    ->where('instructor_name',$teacher->name)->get();
+        return view('admin.manage-instructor.assign-course',compact('courses','teacher','assignedCoursesToInstructor'));
     }
 
-    public function assignInstructor(Instructor $instructor,Request $request)
+    public function assignInstructor(Teacher $teacher,Request $request)
     {
         $isCourseAssigned = AssignCourse::where('instructor_name',$request->name)->where('course_id',$request->course_id)->exists();
         if($isCourseAssigned == 1){
@@ -490,7 +497,7 @@ class AdminController extends Controller
         }
         else{
             $course = new AssignCourse();
-            $course->instructor_name = $instructor->name;
+            $course->instructor_name = $teacher->name;
             $course->course_id = $request->course_id;
 
             $course->save();
@@ -505,5 +512,235 @@ class AdminController extends Controller
         //  die($course);
         //dd($request->all());
     }
+    public function deleteAssignedCourse(AssignCourse $course)
+    {
+        $course->delete();
+        $notification=array(
+            'message'=>'Course has been unassigned successfully',
+            'alert-type'=>'success'
+            );
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function showAllEvent()
+    {
+        $events = Event::orderBy('id','desc')->get();
+        return view('admin.event.index',compact('events'));
+    }
+
+    public function storeEvent(Request $request)
+    {
+       $validateData = $request->validate([
+        'title' => 'required', 
+        'place' => 'required',
+        'time' => 'required',  
+        'date' => 'required', 
+        'details' => 'required', 
+        'contact_phone' => 'required', 
+        'contact_email' => 'required', 
+        
+       ]);
+
+
+       $event = new Event();
+       $event->title = $request->title;
+       $event->place = $request->place;
+       $event->time = $request->time;
+       $event->date = $request->date;
+       $event->details = $request->details;
+       $event->contact_phone = $request->contact_phone;
+       $event->contact_email = $request->contact_email;
+       $event->status = 1;
+       
+       $banner_image = $request->image;
+
+       if($banner_image) 
+       {
+           $imagePath=public_path('media/events/');
+           $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
+           Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
+           $event->image = $imageName;
+       }
+       
+
+       $event->save();
+       $notification=array(
+        'message'=>'Event has been added successfully',
+        'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+    public function showEvent(Event $event)
+    {
+        return view('admin.event.show',compact('event'));
+    }
+    public function editEvent(Event $event)
+    {
+        return view('admin.event.edit',compact('event'));
+    }
+    public function deleteEvent(Event $event)
+    {
+        $event->delete();
+        $notification=array(
+            'message'=>'Event has been deleted successfully',
+            'alert-type'=>'success'
+            );
+            return redirect()->back()->with($notification);
+
+    }
+    public function updateEvent(Event $event, Request $request){
+        $validateData = $request->validate([
+            'title' => 'required', 
+            'place' => 'required',
+            'time' => 'required',  
+            'date' => 'required', 
+            'details' => 'required', 
+            'contact_phone' => 'required', 
+            'contact_email' => 'required', 
+            
+           ]);
+    
+    
+           $event->title = $request->title;
+           $event->place = $request->place;
+           $event->time = $request->time;
+           $event->date = $request->date;
+           $event->details = $request->details;
+           $event->contact_phone = $request->contact_phone;
+           $event->contact_email = $request->contact_email;
+           $event->status = $request->status;
+           
+        //    $banner_image = $request->image;
+    
+        //    if($banner_image) 
+        //    {
+        //        $imagePath=public_path('media/events/');
+        //        $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
+        //        Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
+        //        $event->image = $imageName;
+        //    }
+        //    dd($request->all());
+    
+           $event->update($request->all());
+           $notification=array(
+            'message'=>'Event has been added successfully',
+            'alert-type'=>'success'
+            );
+            return redirect()->route('admin.show-event')->with($notification);
+    }
+
+
+
+
+    public function showAllWorkshop()
+    {
+        $workshops = Workshop::orderBy('id','desc')->get();
+        return view('admin.workshop.index',compact('workshops'));
+    }
+
+    public function storeWorkshop(Request $request)
+    {
+       $validateData = $request->validate([
+        'title' => 'required', 
+        'place' => 'required',
+        'time' => 'required',  
+        'date' => 'required', 
+        'details' => 'required', 
+        'contact_phone' => 'required', 
+        'contact_email' => 'required', 
+        
+       ]);
+
+
+       $workshop = new Workshop();
+       $workshop->title = $request->title;
+       $workshop->place = $request->place;
+       $workshop->time = $request->time;
+       $workshop->date = $request->date;
+       $workshop->details = $request->details;
+       $workshop->contact_phone = $request->contact_phone;
+       $workshop->contact_email = $request->contact_email;
+       $workshop->status = 1;
+       
+       $banner_image = $request->image;
+
+       if($banner_image) 
+       {
+           $imagePath=public_path('media/workshops/');
+           $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
+           Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
+           $workshop->image = $imageName;
+       }
+       
+
+       $workshop->save();
+       $notification=array(
+        'message'=>'workshop has been added successfully',
+        'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+    public function showWorkshop(Workshop $workshop)
+    {
+        return view('admin.workshop.show',compact('workshop'));
+    }
+    public function editWorkshop(Workshop $workshop)
+    {
+        return view('admin.workshop.edit',compact('workshop'));
+    }
+    public function deleteWorkshop(Workshop $workshop)
+    {
+        $workshop->delete();
+        $notification=array(
+            'message'=>'workshop has been deleted successfully',
+            'alert-type'=>'success'
+            );
+            return redirect()->back()->with($notification);
+
+    }
+    public function updateWorkshop(Workshop $workshop, Request $request){
+        $validateData = $request->validate([
+            'title' => 'required', 
+            'place' => 'required',
+            'time' => 'required',  
+            'date' => 'required', 
+            'details' => 'required', 
+            'contact_phone' => 'required', 
+            'contact_email' => 'required', 
+            
+           ]);
+    
+    
+           $workshop->title = $request->title;
+           $workshop->place = $request->place;
+           $workshop->time = $request->time;
+           $workshop->date = $request->date;
+           $workshop->details = $request->details;
+           $workshop->contact_phone = $request->contact_phone;
+           $workshop->contact_email = $request->contact_email;
+           $workshop->status = $request->status;
+           
+        //    $banner_image = $request->image;
+    
+        //    if($banner_image) 
+        //    {
+        //        $imagePath=public_path('media/workshops/');
+        //        $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
+        //        Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
+        //        $workshop->image = $imageName;
+        //    }
+        //    dd($request->all());
+    
+           $workshop->update($request->all());
+           $notification=array(
+            'message'=>'workshop has been added successfully',
+            'alert-type'=>'success'
+            );
+            return redirect()->route('admin.show-workshop')->with($notification);
+    }
+        
 
 }

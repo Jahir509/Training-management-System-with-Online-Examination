@@ -17,9 +17,9 @@ class CreateTeachersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->string('mobile_no')->nullable();
             $table->string('password');
-            $table->string('department')->nullable();
+            $table->string('field')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

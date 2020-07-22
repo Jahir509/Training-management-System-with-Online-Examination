@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Students Information</h1>
+            <h1 class="m-0 text-dark">Workshops Information</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              <li class="breadcrumb-item" >Student</li>
+              <li class="breadcrumb-item" >Workshop</li>
             </ol>
           </div><!-- /.col -->
           
@@ -28,9 +28,9 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Teacher</h3>
+                        <h3 class="card-title">Manage workshops</h3>
                         <div class="card-tools">
-                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Instructor</a>
+                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new workshop</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -58,28 +58,29 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Mobile</th>
-                                                    <th>Field</th>
+                                                    <th>Title</th>
+                                                    <th>Place</th>
+                                                    <th>Time</th>
+                                                    <th>Date</th>
                                                     <th>Status</th>
+                                                    <th>Contact</th>
                                                     <th>Action</th>
-                                                   
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($teachers as $index=>$teacher)
+                                                @foreach ($workshops as $index=>$workshop)
                                                     <tr class="odd gradeX">
                                                         <td>{{$index+1}}</td>
-                                                        <td>{{$teacher->name}}</td>
-                                                        <td>{{$teacher->email}}</td>
-                                                        <td>{{$teacher->mobile_no}}</td>
-                                                        <td>{{$teacher->field}}</td>
-                                                        <td>{{($teacher->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                                        <td>{{$workshop->title}}</td>
+                                                        <td>{{$workshop->place}}</td>
+                                                        <td>{{$workshop->time}}</td>
+                                                        <td>{{$workshop->date}}</td>
+                                                        <td>{{$workshop->contact_phone}}<br>{{$workshop->contact_email}}</td>
+                                                        <td>{{($workshop->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
-                                                            <a href="{{route('manage-instructor.edit',$teacher)}}" class="btn btn-sm btn-warning">Edit</a>
-                                                            <a href="{{route('manage-instructor.delete',$teacher)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
-                                                            <a href="{{route('assign-instructor',$teacher)}}" class="btn btn-sm btn-info">Assign Course</a>
+                                                            <a href="{{route('manage-workshop.show',$workshop)}}" class="btn btn-sm btn-info">Details</a>
+                                                            <a href="{{route('manage-workshop.edit',$workshop)}}" class="btn btn-sm btn-warning">Edit</a>
+                                                            <a href="{{route('manage-workshop.delete',$workshop)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -99,48 +100,57 @@
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                         
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Create new instructor</h4>
+                                <h4 class="modal-title">Add new workshop</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-instructor.store')}}" method="post">
+                                <form action="{{route('admin.store-workshop')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" >
+                                                <label for="title">workshop title</label>
+                                                <input class="form-control" type="text" id="title" name="title" placeholder="Enter your title" >
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" >
+                                                <label for="place">Place</label>
+                                                <input class="form-control" type="text" id="place" name="place" placeholder="Enter your place" >
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="time">workshop Time</label>
+                                                <input class="form-control" type="time" id="time" name="time" >
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="date">workshop Date</label>
+                                                <input class="form-control" type="date" id="date" name="date" >
                                             </div>
                                             <div class="form-group">
-                                                <label for="mobile_no">Mobile</label>
-                                                <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." >
+                                                <label for="details">Details</label>
+                                                <textarea class="form-control" name="details" id="details" rows="5"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Department</label>
-                                                <select class="form-control" name="field" id="field" required>
-                                                    <option value="">Select Department</option>
-                                                    @foreach ($degrees as $degree)
-                                                        <option value="{{$degree->name}}">{{$degree->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="contact_phone">Contact Phone</label>
+                                                <input class="form-control" type="text" id="contact_phone" name="contact_phone" placeholder="Enter your email for contact" >
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input class="form-control" type="password" id="password" name="password" placeholder="Enter your Password" >
+                                                <label for="contact_email">Contact Email</label>
+                                                <input class="form-control" type="email" id="contact_email" name="contact_email" placeholder="Enter your email for contact" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="image">Banner</label>
+                                                <input class="form-control" type="file" id="image" name="image" accept="image/*">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-sm btn-success">Create</button>
+                                            <button type="submit" class="btn btn-sm btn-success">Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -153,7 +163,6 @@
                         </div>
                     </div>	
                     <!--End modal -->
-
                     <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->

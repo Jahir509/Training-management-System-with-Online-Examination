@@ -8,7 +8,40 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    Hi there, awesome Teacher
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <!-- /.panel-heading -->
+                                <div class="panel-heading">
+                                   
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Course</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($assignedCoursesToInstructor as $index=>$course)
+                                                <tr class="odd gradeX">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{$course->name}}</td>
+                                                    <td>
+                                                        <a href="{{route('add-exam-question',$course->course_id)}}" class="btn btn-sm btn-info" >Add Question</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
                 </div>
             </div>
         </div>

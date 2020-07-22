@@ -10,7 +10,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Admin</a></li>
+              <li class="breadcrumb-item"><a href="#">Teacher</a></li>
               <li class="breadcrumb-item" >Exam</li>
             </ol>
           </div><!-- /.col -->
@@ -75,7 +75,7 @@
                                                         <td>{{$exam->category_name}}</td>
                                                         <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
-                                                            <a href="{{route('manage-exam.edit',$exam)}}" class="btn btn-sm btn-warning">Edit</a>
+                                                            <a href="{{route('manage-exam.edit',$exam->)}}" class="btn btn-sm btn-warning">Edit</a>
                                                             <a href="{{route('manage-exam.delete',$exam)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                             <a href="{{route('manage-exam.question',$exam)}}" class="btn btn-sm btn-info">Add Question</a>
 

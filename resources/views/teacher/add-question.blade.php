@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Students Information</h1>
+            <h1 class="m-0 text-dark">{{$exam->title}}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              <li class="breadcrumb-item" >Student</li>
+              <li class="breadcrumb-item" >Exam</li>
             </ol>
           </div><!-- /.col -->
           
@@ -28,9 +28,9 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Teacher</h3>
+                        <h3 class="card-title">Set Exam Question</h3>
                         <div class="card-tools">
-                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Instructor</a>
+                            <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Question</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -58,28 +58,23 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Mobile</th>
-                                                    <th>Field</th>
+                                                    <th>Questions</th>
+                                                    <th>Ans</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($teachers as $index=>$teacher)
+                                                @foreach ($questions as $index=>$question)
                                                     <tr class="odd gradeX">
                                                         <td>{{$index+1}}</td>
-                                                        <td>{{$teacher->name}}</td>
-                                                        <td>{{$teacher->email}}</td>
-                                                        <td>{{$teacher->mobile_no}}</td>
-                                                        <td>{{$teacher->field}}</td>
-                                                        <td>{{($teacher->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                                        <td>{{$question->question}}</td>
+                                                        <td>{{$question->ans}}</td>
+                                                        <td>{{($question->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
-                                                            <a href="{{route('manage-instructor.edit',$teacher)}}" class="btn btn-sm btn-warning">Edit</a>
-                                                            <a href="{{route('manage-instructor.delete',$teacher)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
-                                                            <a href="{{route('assign-instructor',$teacher)}}" class="btn btn-sm btn-info">Assign Course</a>
+                                                            <a href="{{route('edit-exam-question',$question)}}" class="btn btn-sm btn-warning">Edit</a>
+                                                            <a href="{{route('delete-exam-question',$question)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -99,48 +94,51 @@
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                         
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Create new instructor</h4>
+                                <h4 class="modal-title">Add New Question</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-instructor.store')}}" method="post">
+                                <form action="{{route('store-exam-question')}}" method="post">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
+                                            <input class="form-control" type="hidden" id="exam_id" name="exam_id" value="{{$exam->id}}">
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" >
-                                            </div>
-                                            
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" >
+                                                <label for="question">Question ? </label>
+                                                <input class="form-control" type="text" id="question" name="question" placeholder="Enter you question" >
                                             </div>
                                             <div class="form-group">
-                                                <label for="mobile_no">Mobile</label>
-                                                <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." >
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label for="option_1">Options 1</label>
+                                                        <input class="form-control" type="text" id="option_1" name="option_1">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="option_2">Options 2</label>
+                                                        <input class="form-control" type="text" id="option_2" name="option_2">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="option_3">Options 3</label>
+                                                        <input class="form-control" type="text" id="option_3" name="option_3">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="option_4">Options 4</label>
+                                                        <input class="form-control" type="text" id="option_4" name="option_4">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Department</label>
-                                                <select class="form-control" name="field" id="field" required>
-                                                    <option value="">Select Department</option>
-                                                    @foreach ($degrees as $degree)
-                                                        <option value="{{$degree->name}}">{{$degree->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input class="form-control" type="password" id="password" name="password" placeholder="Enter your Password" >
+                                                <label for="ans">Answer</label>
+                                                <input class="form-control" type="text" id="ans" name="ans">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-sm btn-success">Create</button>
+                                            <button type="submit" class="btn btn-md btn-success">Create</button>
                                         </div>
                                     </div>
                                 </form>
@@ -153,7 +151,6 @@
                         </div>
                     </div>	
                     <!--End modal -->
-
                     <!-- /.card-footer-->
                 </div>
                 <!-- /.card -->
