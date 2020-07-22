@@ -103,26 +103,30 @@ Route::put('/admin/manage-portal/{portal}', 'AdminController@updatePortal')->nam
 Route::get('/admin/manage-portal/{portal}', 'AdminController@deletePortal')->name('manage-portal.delete');
 
 
-// Portal Controller Route
-Route::get('/student/signup', 'PortalController@signupPortalUser')->name('portal.sign-up');
-Route::post('/student/signup', 'PortalController@registerPortalUser')->name('portal.register');
-Route::get('/student/login', 'PortalController@loginPortalUser')->name('portal.login');
-Route::post('/student/login/user', 'PortalController@signedInPortalUser')->name('portal.signed-in');
-Route::get('/student/logout', 'PortalController@logoutPortalUser')->name('portal.logout');
+// // Portal Controller Route
+// Route::get('/student/signup', 'PortalController@signupPortalUser')->name('portal.sign-up');
+// Route::post('/student/signup', 'PortalController@registerPortalUser')->name('portal.register');
+// Route::get('/student/login', 'PortalController@loginPortalUser')->name('portal.login');
+// Route::post('/student/login/user', 'PortalController@signedInPortalUser')->name('portal.signed-in');
+// Route::get('/student/logout', 'PortalController@logoutPortalUser')->name('portal.logout');
 
 
 
 
 
-Route::get('/student', 'PortalOperationController@portalHome')->name('portal.home');
-Route::get('/student/exam', 'PortalOperationController@portalExam')->name('portal.exam');
-Route::get('/student/exam/join/{exam_id}', 'PortalOperationController@portalJoinExam')->name('portal.join-exam');
-Route::post('/student/exam/submit', 'PortalOperationController@portalSubmitExam')->name('portal.submit-exam');
-Route::get('/student/exam/view-result/{exam_result}', 'PortalOperationController@portalViewExamResult')->name('portal.view-result');
+Route::get('/student', 'StudentController@portalHome')->name('portal.home');
+Route::get('/student/profile', 'StudentController@profile')->name('portal.profile');
+Route::put('/student/profile', 'StudentController@updateProfile')->name('portal.updateProfile');
+Route::get('/student/courses/show-all', 'StudentController@showAllCourse')->name('portal.showAll');
+// Route::get('/student/courses/my', 'StudentController@showMyCourse')->name('portal.myCourse');
+Route::get('/student/course', 'StudentController@portalExam')->name('portal.exam');
+Route::get('/student/course/join/{exam_id}', 'StudentController@portalJoinExam')->name('portal.join-exam');
+Route::post('/student/course/submit', 'StudentController@portalSubmitExam')->name('portal.submit-exam');
+Route::get('/student/course/view-result/{exam_result}', 'StudentController@portalViewExamResult')->name('portal.view-result');
 
-Route::get('/student/exam/info/{exam}', 'PortalOperationController@portalExamInfo')->name('portal.exam-info');
-Route::post('/student/exam/info/', 'PortalOperationController@storeStudenExamInfo')->name('portal.student-exam-info');
-Route::get('/student/exam/print/{student}', 'PortalOperationController@printStudenExamInfo')->name('portal.print-accessCard');
+Route::get('/student/course/info/{exam}', 'StudentController@portalExamInfo')->name('portal.exam-info');
+Route::post('/student/course/info/', 'StudentController@storeStudenExamInfo')->name('portal.student-exam-info');
+Route::get('/student/course/print/{student}', 'StudentController@printStudenExamInfo')->name('portal.print-accessCard');
 
 
 
