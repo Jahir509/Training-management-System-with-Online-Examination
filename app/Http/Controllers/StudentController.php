@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Student;
 use App\Oex_portal;
 use App\Oex_result;
@@ -16,17 +17,15 @@ class StudentController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth:student');
+        $this->middleware('auth');
     }
-    public function portalHome()
+    public function index()
     {
 
         $user_id = auth()->user()->id;
         $totalCourse = Oex_exam_master::count();
-        $student = Student::findOrFail($user_id);
+        $student = User::findOrFail($user_id);
         $yourCourseCount = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
-                                    ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
-                                    ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_categories.name as exam_category','oex_categories.field as exam_department')
                                     ->where('email',$student->email)->count();
 
         
@@ -36,9 +35,7 @@ class StudentController extends Controller
 
     public function showAllCourse()
     {
-        $portalExams = Oex_exam_master::orderBy('name','asc')
-        ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
-        ->select('oex_exam_masters.*','oex_categories.name as category_name','oex_categories.field as category_field')
+        $portalExams = Oex_exam_master::orderBy('title','asc')
         ->get();
         return view('student.showAllCourse',compact('portalExams'));
     }
@@ -46,9 +43,8 @@ class StudentController extends Controller
     public function showMyCourse()
     {
         $portalExams = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
-        ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
-        ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_categories.name as exam_category','oex_categories.field as exam_department')
-        ->where('email',$student->email)->get();
+                                    ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_categories.name as exam_category','oex_categories.field as exam_department')
+                                    ->where('email',$student->email)->get();
         return view('student.showMyCourse',compact('portalExams'));
     }
 
@@ -61,7 +57,7 @@ class StudentController extends Controller
     {
 
         
-        $user = Student::findOrFail(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
         $validateData = $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -103,9 +99,7 @@ class StudentController extends Controller
     public function printStudenExamInfo(Oex_student $student)
     {
         
-        $exam = Oex_exam_master::join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
-                                ->select(['oex_exam_masters.*','oex_categories.name as category_name'])
-                                ->findOrFail($student->exam);
+        $exam = Oex_exam_master::findOrFail($student->exam);
 
         return view('portal.print-student-info',compact('student','exam'));
     }
@@ -113,7 +107,7 @@ class StudentController extends Controller
     public function portalExam()
     {
         
-        $student = Student::findOrFail(auth()->user()->id);
+        $student = User::findOrFail(auth()->user()->id);
         $student_exams = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
         ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_exam_masters.category as exam_category')
         ->where('email',$student->email)->get();
@@ -123,7 +117,7 @@ class StudentController extends Controller
     public function portalJoinExam($exam_id)
     {
         $user_id = auth()->user()->id;
-        $student = Student::findOrFail($user_id);
+        $student = User::findOrFail($user_id);
         $exam_questions = Oex_question::orderBy('id','asc')->where('exam_id',$exam_id)->get();
         return view ('portal.join-exam',compact('student','exam_questions'));
     }
@@ -154,7 +148,7 @@ class StudentController extends Controller
         }
 
         $user_id = auth()->user()->id;
-        $get_user = Student::findOrFail($user_id);
+        $get_user = User::findOrFail($user_id);
         $update_student = Oex_student::where('email',$get_user->email)->where('exam',$request->exam_id)->first();
         $exam_result = new Oex_result();
         $exam_result->exam_id = $request->exam_id;
@@ -192,7 +186,7 @@ class StudentController extends Controller
     }
     public function updateProfile(Request $request){
         
-        $user = Student::findOrFail(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
         // $user->name = $request->name;
         // $user->email = $request->email;
         // $user->mobile_no = $request->mobile_no;

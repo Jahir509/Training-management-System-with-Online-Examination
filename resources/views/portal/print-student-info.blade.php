@@ -12,7 +12,7 @@
                         </div>
                         <div class="card-body">
                             <div class="container">
-                                <h5> <i class="fas fa-info"> </i> Note: This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.</h5>
+                                <h5> <i class="fas fa-info"> </i> Note: Click the print button at the bottom of the invoice to test.</h5>
                             </div>
                         </div>
                     </div>
@@ -41,10 +41,7 @@
                   From
                   <address>
                     <strong>Course Title: {{$exam->title}}</strong><br>
-                    Category: {{$exam->category_name}}<br>
-                    San Francisco, CA 94107<br>
-                    Phone: (804) 123-5432<br>
-                    Email: info@almasaeedstudio.com
+                    Category: {{$exam->category}}<br>
                   </address>
                 </div>
                 <!-- /.col -->
@@ -52,19 +49,14 @@
                   To
                   <address>
                    <strong>{{$student->name}}</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
                     Phone: {{$student->mobile_no}}<br>
                     Email: {{$student->email}}
                   </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col" style="color:white">
-                  <b>Invoice </b><br>
+                  <b>Course Enrollment Slip </b><br>
                   <br>
-                  <b>Order ID:</b> <br>
-                  <b>Payment Due:</b> <br>
-                  <b>Account:</b> 
                 </div>
                 <!-- /.col -->
               </div>
@@ -73,77 +65,22 @@
               <!-- Table row -->
               <div class="row">
                 <div class="col-12 table-responsive">
-                  <table class="table table-striped">
+                  <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Qty</th>
-                      <th>Product</th>
-                      <th>Serial #</th>
-                      <th>Description</th>
-                      <th>Subtotal</th>
+                      <th>Course Name</th>
+                      <th>Category</th>
+                      <th>Purchased By </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                      <td>1</td>
-                      <td>Call of Duty</td>
-                      <td>455-981-221</td>
-                      <td>El snort testosterone trophy driving gloves handsome</td>
-                      <td>$64.50</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Grown Ups Blue Ray</td>
-                      <td>422-568-642</td>
-                      <td>Tousled lomo letterpress</td>
-                      <td>$25.99</td>
+                      <td>{{$exam->title}}</td>
+                      <td>{{$exam->category}}</td>
+                      <td>{{$student->name}}</td>
                     </tr>
                     </tbody>
                   </table>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-  
-              <div class="row" >
-                <!-- accepted payments column -->
-                <div class="col-6">
-                  <p class="lead">Payment Methods:</p>
-                  <img src="{{asset('assets/img/credit/visa.png')}}" alt="Visa">
-                  <img src="{{asset('assets/img/credit/mastercard.png')}}" alt="Mastercard">
-                  <img src="{{asset('assets/img/credit/american-express.png')}}" alt="American Express">
-                  <img src="{{asset('assets/img/credit/paypal2.png')}}" alt="Paypal">
-  
-                  <p class="well well-sm shadow-none" style="margin-top: 10px; color:white"">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                    plugg
-                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                  </p>
-                </div>
-                <!-- /.col -->
-                <div class="col-6" >
-                  <p class="lead">Amount Due 2/22/2014</p>
-  
-                  <div class="table-responsive">
-                    <table class="table" style="color: white">
-                      <tr>
-                        <th style="width:50%">Subtotal:</th>
-                        <td>$250.30</td>
-                      </tr>
-                      <tr>
-                        <th>Tax (9.3%)</th>
-                        <td>$10.34</td>
-                      </tr>
-                      <tr>
-                        <th>Shipping:</th>
-                        <td>$5.80</td>
-                      </tr>
-                      <tr>
-                        <th>Total:</th>
-                        <td>$265.24</td>
-                      </tr>
-                    </table>
-                  </div>
                 </div>
                 <!-- /.col -->
               </div>
@@ -153,12 +90,12 @@
               <div class="row no-print">
                 <div class="col-12">
                   <button  class="btn btn-default" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                  {{-- <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
                     Payment
                   </button>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
-                  </button>
+                  </button> --}}
                 </div>
               </div>
                     </div>

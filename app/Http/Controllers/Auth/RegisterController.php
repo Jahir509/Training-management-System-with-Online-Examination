@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -43,8 +43,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->middleware('guest:teacher');
-        $this->middleware('guest:student');
+        // $this->middleware('guest:teacher');
+        // $this->middleware('guest:student');
 
     }
 
@@ -71,47 +71,64 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        if($data['is_teacher'] == 'true')
+        {
+            $user->attachRole('teacher');
+            $teacher = new Teacher();
+            $teacher->name =  $data['name'];
+            $teacher->email =  $data['email'];
+            $teacher->password = Hash::make($data['password']);
+            $teacher->status = 1;
+
+            $teacher->save();
+        }
+        else
+        {
+            $user->attachRole('student');
+        }
+        
+        return $user;
     }
 
 
 
-    // This is for Teacher Register
-    public function showTeacherRegisterForm()
-    {
-        return view('auth.register', ['url' => 'teacher']);
-    }
+    // // This is for Teacher Register
+    // public function showTeacherRegisterForm()
+    // {
+    //     return view('auth.register', ['url' => 'teacher']);
+    // }
 
-    protected function createTeacher(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        $teacher = Teacher::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
-        return redirect()->intended('login/teacher');
-    }
+    // protected function createTeacher(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+    //     $teacher = Teacher::create([
+    //         'name' => $request['name'],
+    //         'email' => $request['email'],
+    //         'password' => Hash::make($request['password']),
+    //     ]);
+    //     return redirect()->intended('login/teacher');
+    // }
 
-    // This is for Student Register
-    public function showStudentRegisterForm()
-    {
-        return view('auth.register', ['url' => 'student']);
-    }
+    // // This is for Student Register
+    // public function showStudentRegisterForm()
+    // {
+    //     return view('auth.register', ['url' => 'student']);
+    // }
 
-    protected function createStudent(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        $student = Student::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
-        return redirect()->intended('login/student');
-    }
+    // protected function createStudent(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+    //     $student = Student::create([
+    //         'name' => $request['name'],
+    //         'email' => $request['email'],
+    //         'password' => Hash::make($request['password']),
+    //     ]);
+    //     return redirect()->intended('login/student');
+    // }
 
 }

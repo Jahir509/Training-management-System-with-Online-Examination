@@ -1,18 +1,14 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container py-5">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ isset($url) ? ucwords($url) : ""}} {{ __('Register') }}</div>
+                <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    @isset($url)
-                    <form method="POST" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
-                    @else    
-                        <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
-                    @endisset
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -56,6 +52,7 @@
                                 @enderror
                             </div>
                         </div>
+                        
 
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
@@ -65,11 +62,22 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right"></label>
+                            <div class="col-md-6">
+                                <input type="checkbox" id="checkbox1" /> Is A Teacher 
+                                <input type="hidden" id="is_teacher" name="is_teacher"/> 
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <a class="btn btn-link" href="{{ route('login') }}">
+                                    {{ __('Click to Login') }}
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -78,4 +86,20 @@
         </div>
     </div>
 </div>
+
+@endsection
+@section('scripts')
+<script> 
+    $(document).ready(function() { 
+
+        // Set initial state 
+        $('#is_teacher').val($(this).is(':checked')); 
+
+        // It gets checked to false as uncheck 
+        // is the default 
+        $('#checkbox1').click(function() { 
+            $('#is_teacher').val($(this).is(':checked')); 
+        }); 
+    }); 
+</script> 
 @endsection

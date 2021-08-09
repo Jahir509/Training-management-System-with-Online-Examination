@@ -30,7 +30,7 @@
         <!-- teacher -->
         <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
             <div class="card border-0 rounded-0 hover-shadow">
-              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher-1.jpg')}}" alt="teacher">
+              <img class="card-img-top rounded-0" src="{{asset('media/teachers/'.$instuctor->image)}}" alt="teacher" >
               <div class="card-body">
                 <a href="teacher-single.html">
                   <h4 class="card-title">{{$instuctor->name}}</h4>

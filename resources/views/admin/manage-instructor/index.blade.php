@@ -61,7 +61,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Mobile</th>
-                                                    <th>Field</th>
+                                                    <th>Expertise</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                    
@@ -73,8 +73,8 @@
                                                         <td>{{$index+1}}</td>
                                                         <td>{{$teacher->name}}</td>
                                                         <td>{{$teacher->email}}</td>
-                                                        <td>{{$teacher->mobile_no}}</td>
-                                                        <td>{{$teacher->field}}</td>
+                                                        <td>{{($teacher->mobile_no == '') ? 'Not updated yet': $teacher->mobile_no }}</td>
+                                                        <td>{{($teacher->field == '') ? 'Not updated yet': $teacher->field }}</td>
                                                         <td>{{($teacher->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
                                                             <a href="{{route('manage-instructor.edit',$teacher)}}" class="btn btn-sm btn-warning">Edit</a>
@@ -108,7 +108,7 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-instructor.store')}}" method="post">
+                                <form action="{{route('manage-instructor.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -126,13 +126,14 @@
                                                 <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." >
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Department</label>
-                                                <select class="form-control" name="field" id="field" required>
-                                                    <option value="">Select Department</option>
-                                                    @foreach ($degrees as $degree)
-                                                        <option value="{{$degree->name}}">{{$degree->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="form-group">
+                                                    <label for="field">Expert In</label>
+                                                    <input class="form-control" type="text" id="field" name="field"  placeholder="Enter Category field" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="image">Image</label>
+                                                <input class="form-control" type="file" id="image" name="image" accept="image/*">
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>

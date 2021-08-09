@@ -41,7 +41,7 @@
           <p class="mb-5">Every Year 20% students get 25%-100% tuition fee waiver based on previous results and trimester results. Zodiac provides about 10 to 12 crore taka as scholarship in every year, one of the highest amongst the private sector. If you are a committed student, take the challenge and build your future with Zodiac.</p>
           <p class="mb-5">United City, Madani Avenue,  Badda, Dhaka 1212, Bangladesh.</p>
           <a href="tel:+8809604848848" class="text-color h5 d-block">Phone: +88 09604-848-848</a>
-          <a href="mailto:info@uiu.ac.bd" class="mb-5 text-color h5 d-block">info@uiu.ac.bd</a>
+          <a href="mailto:info@zodiac.ac.bd" class="mb-5 text-color h5 d-block">zodiac@uiu.ac.bd</a>
         </div>
       </div>
     </div>

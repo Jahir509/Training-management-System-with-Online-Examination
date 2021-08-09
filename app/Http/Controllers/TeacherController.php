@@ -11,7 +11,7 @@ class TeacherController extends Controller
 {
     //
     public function __construct(){
-        $this->middleware('auth:teacher');
+        $this->middleware('auth');
     }
     public function index(){
         $assignedCoursesToInstructor = AssignCourse::join('oex_exam_masters','assign_courses.course_id','=','oex_exam_masters.id')

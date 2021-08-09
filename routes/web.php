@@ -32,12 +32,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin.home');
 
-// Category Route
-Route::get('/admin/course-category', 'AdminController@examCategory')->name('admin.exam-category');
-Route::post('/admin/course-category', 'AdminController@examCategoryStore')->name('exam-category.store');
-Route::get('/admin/edit/course-category/{category}', 'AdminController@examCategoryEdit')->name('exam-category.edit');
-Route::put('/admin/course-category/{category}', 'AdminController@examCategoryUpdate')->name('exam-category.update');
-Route::get('/admin/course-category/{category}', 'AdminController@examCategoryDelete')->name('exam-category.delete');
+// // Category Route
+// Route::get('/admin/course-category', 'AdminController@examCategory')->name('admin.exam-category');
+// Route::post('/admin/course-category', 'AdminController@examCategoryStore')->name('exam-category.store');
+// Route::get('/admin/edit/course-category/{category}', 'AdminController@examCategoryEdit')->name('exam-category.edit');
+// Route::put('/admin/course-category/{category}', 'AdminController@examCategoryUpdate')->name('exam-category.update');
+// Route::get('/admin/course-category/{category}', 'AdminController@examCategoryDelete')->name('exam-category.delete');
 
 
 //Exam Manage Route
@@ -115,7 +115,7 @@ Route::get('/admin/manage-portal/{portal}', 'AdminController@deletePortal')->nam
 
 
 
-Route::get('/student', 'StudentController@portalHome')->name('portal.home');
+Route::get('/student', 'StudentController@index')->name('portal.home');
 Route::get('/student/profile', 'StudentController@profile')->name('portal.profile');
 Route::put('/student/profile', 'StudentController@updateProfile')->name('portal.updateProfile');
 Route::get('/student/courses/show-all', 'StudentController@showAllCourse')->name('portal.showAll');
@@ -135,15 +135,15 @@ Route::get('/student/course/print/{student}', 'StudentController@printStudenExam
 
 
 
-Route::get('login/teacher', 'Auth\LoginController@showTeacherLoginForm')->name('teacher.show-login');
-Route::post('login/teacher', 'Auth\LoginController@teacherLogin')->name('teacher.login');
-Route::get('register/teacher', 'Auth\RegisterController@showTeacherRegisterForm')->name('teacher.show-register');
-Route::post('register/teacher', 'Auth\RegisterController@createTeacher')->name('teacher.register');
+// Route::get('login/teacher', 'Auth\LoginController@showTeacherLoginForm')->name('teacher.show-login');
+// Route::post('login/teacher', 'Auth\LoginController@teacherLogin')->name('teacher.login');
+// Route::get('register/teacher', 'Auth\RegisterController@showTeacherRegisterForm')->name('teacher.show-register');
+// Route::post('register/teacher', 'Auth\RegisterController@createTeacher')->name('teacher.register');
 
-Route::get('login/student', 'Auth\LoginController@showStudentLoginForm')->name('student.show-login');
-Route::post('login/student', 'Auth\LoginController@studentLogin')->name('student.login');
-Route::get('register/student', 'Auth\RegisterController@showStudentRegisterForm')->name('student.show-register');
-Route::post('register/student', 'Auth\RegisterController@createStudent')->name('student.register');
+// Route::get('login/student', 'Auth\LoginController@showStudentLoginForm')->name('student.show-login');
+// Route::post('login/student', 'Auth\LoginController@studentLogin')->name('student.login');
+// Route::get('register/student', 'Auth\RegisterController@showStudentRegisterForm')->name('student.show-register');
+// Route::post('register/student', 'Auth\RegisterController@createStudent')->name('student.register');
 
 
 

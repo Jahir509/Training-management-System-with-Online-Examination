@@ -40,29 +40,29 @@
         <!-- funfacts item -->
         <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
           <div class="text-center">
-            <h2 class="count text-white" data-count="60">0</h2>
+            <h2 class="count text-white" data-count="{{$insctructorCount}}"></h2>
             <h5 class="text-white">TEACHERS</h5>
           </div>
         </div>
         <!-- funfacts item -->
         <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
           <div class="text-center">
-            <h2 class="count text-white" data-count="50">0</h2>
+            <h2 class="count text-white" data-count="{{$courseCount}}">{</h2>
             <h5 class="text-white">COURSES</h5>
           </div>
         </div>
         <!-- funfacts item -->
         <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
           <div class="text-center">
-            <h2 class="count text-white" data-count="1000">0</h2>
+            <h2 class="count text-white" data-count="{{$studentCount}}"></h2>
             <h5 class="text-white">STUDENTS</h5>
           </div>
         </div>
         <!-- funfacts item -->
         <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
           <div class="text-center">
-            <h2 class="count text-white" data-count="3737">0</h2>
-            <h5 class="text-white">SATISFIED CLIENT</h5>
+            <h2 class="count text-white" data-count="{{$workshopCount}}"></h2>
+            <h5 class="text-white">Workshops</h5>
           </div>
         </div>
       </div>
@@ -82,8 +82,8 @@
         <div class="col-lg-6 col-sm-8">
           <div class="bg-white p-5">
             <h2 class="section-title">Success Stories</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
+            
+            <p>After the completation of the courses, many of our trainee able to get their expected jobs.Many of our trainees are working in some reputed companies.</p>
           </div>
         </div>
       </div>
@@ -96,24 +96,17 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12">
-            <h2 class="section-title">Our Teachers</h2>
+            <h2 class="section-title">Our Team</h2>
           </div>
           <!-- teacher -->
           <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
             <div class="card border-0 rounded-0 hover-shadow">
-              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher-1.jpg')}}" alt="teacher">
+              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher 1.webp')}}" alt="teacher">
               <div class="card-body">
-                <a href="teacher-single.html">
-                  <h4 class="card-title">Jacke Masito</h4>
+                <a href="#">
+                  <h4 class="card-title text-center">Tanvir</h4>
                 </a>
                 <div class="d-flex justify-content-between">
-                  <span>Teacher</span>
-                  <ul class="list-inline">
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-facebook"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-twitter-alt"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-google"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-linkedin"></i></a></li>
-                  </ul>
                 </div>
               </div>
             </div>
@@ -121,19 +114,12 @@
           <!-- teacher -->
           <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
             <div class="card border-0 rounded-0 hover-shadow">
-              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher-2.jpg')}}" alt="teacher">
+              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher 1.webp')}}" alt="teacher">
               <div class="card-body">
-                <a href="teacher-single.html">
-                  <h4 class="card-title">Clark Malik</h4>
+                <a href="#">
+                  <h4 class="card-title text-center">Suraya</h4>
                 </a>
                 <div class="d-flex justify-content-between">
-                  <span>Teacher</span>
-                  <ul class="list-inline">
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-facebook"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-twitter-alt"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-google"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-linkedin"></i></a></li>
-                  </ul>
                 </div>
               </div>
             </div>
@@ -141,19 +127,38 @@
           <!-- teacher -->
           <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
             <div class="card border-0 rounded-0 hover-shadow">
-              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher-3.jpg')}}" alt="teacher">
-              <div class="card-body">
-                <a href="teacher-single.html">
-                  <h4 class="card-title">John Doe</h4>
+              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher 1.webp')}}" alt="teacher">
+              <div class="card-body ">
+                <a href="#">
+                  <h4 class="card-title text-center">Turna</h4>
                 </a>
                 <div class="d-flex justify-content-between">
-                  <span>Teacher</span>
-                  <ul class="list-inline">
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-facebook"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-twitter-alt"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-google"></i></a></li>
-                    <li class="list-inline-item"><a class="text-color" href="#"><i class="ti-linkedin"></i></a></li>
-                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- teacher -->
+          <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+            <div class="card border-0 rounded-0 hover-shadow">
+              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher 1.webp')}}" alt="teacher">
+              <div class="card-body ">
+                <a href="#">
+                  <h4 class="card-title text-center">Tahia</h4>
+                </a>
+                <div class="d-flex justify-content-between">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- teacher -->
+          <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+            <div class="card border-0 rounded-0 hover-shadow">
+              <img class="card-img-top rounded-0" src="{{asset('home/images/teachers/teacher 1.webp')}}" alt="teacher">
+              <div class="card-body ">
+                <a href="#">
+                  <h4 class="card-title text-center">Fahmedia</h4>
+                </a>
+                <div class="d-flex justify-content-between">
                 </div>
               </div>
             </div>

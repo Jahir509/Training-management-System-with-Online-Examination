@@ -26,7 +26,7 @@
                     }
                     else {
                         $cssClass = "";
-                        $text = "Exam Date: "."$examDate";
+                        $text = "Start Date: "."$examDate";
                     }
                     
             @endphp
@@ -34,15 +34,13 @@
             <div class="card card-chart {{$cssClass}} ">
               <div class="card-header">
                   <h3 class="card-title"><i class="tim-icons {{$icon}}"></i>{{$exam->title}}</h3>
-                  <h5 class="card-title">Exam Category : <strong>{{$exam->category_name}}</strong></h5>
-                  <h5 class="card-title">Deaprtment : <strong>{{$exam->category_field}}</strong></h5>
-              </div>
+                  <h5 class="card-title">Course Category : <strong>{{$exam->category}}</strong></h5>              </div>
               <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 offset-6">
                         <i class="tim-icons icon-paper text-success"></i><h4 class="txt-white">{{$text}}</h4>
                         @if(strtotime($currentDate) < strtotime($examDate))
-                            <a href="{{route('portal.exam-info',$exam)}}" >Register</a>
+                            <a href="{{route('portal.exam-info',$exam)}}" class="btn btn-sm btn-success">Enroll</a>
                         @endif
                     </div>
                 </div>

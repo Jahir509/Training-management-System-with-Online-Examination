@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\User;
 use App\Event;
 use App\Degree;
 use App\Teacher;
@@ -13,8 +14,8 @@ use App\Oex_student;
 use App\AssignCourse;
 use App\Oex_category;
 use App\Oex_question;
-use App\Oex_exam_master;
 
+use App\Oex_exam_master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,80 +37,77 @@ class AdminController extends Controller
         return view('admin.dashboard',compact('categoryCount','courseCount','instructorCount','workshopCount'));
     }
 
-    public function examCategory()
-    {
-        $degrees = Degree::orderBy('name','asc')->get();
-        $categories = Oex_category::orderBy('name','asc')->get();
-        return view('admin.exam-category',compact('categories','degrees'));
-    }
-    public function examCategoryStore(Request $request)
-    {
-        $validateData=$request->validate([
-            'name' => ['required','unique:oex_categories','max:55'],
-        ]);
+    // public function examCategory()
+    // {
+    //     $degrees = Degree::orderBy('name','asc')->get();
+    //     $categories = Oex_category::orderBy('name','asc')->get();
+    //     return view('admin.exam-category',compact('categories','degrees'));
+    // }
+    // public function examCategoryStore(Request $request)
+    // {
+    //     $validateData=$request->validate([
+    //         'name' => ['required','unique:oex_categories','max:55'],
+    //     ]);
 
-        $category = new Oex_category();
-        $category->name = $request->name;
-        $category->field = $request->field;
-        $category->status = 1 ;
+    //     $category = new Oex_category();
+    //     $category->name = $request->name;
+    //     $category->field = $request->field;
+    //     $category->status = 1 ;
 
-        $category->save();
-        $notification=array(
-            'message'=>'Category has been added successfully',
-            'alert-type'=>'success'
-             );
+    //     $category->save();
+    //     $notification=array(
+    //         'message'=>'Category has been added successfully',
+    //         'alert-type'=>'success'
+    //          );
         
-        return redirect()->back()->with($notification);
+    //     return redirect()->back()->with($notification);
 
-    }
+    // }
 
-    public function examCategoryDelete(Oex_category $category)
-    {
-        $category->delete();
-        $notification=array(
-            'message'=>'Category has been deleted successfully',
-            'alert-type'=>'error'
-             );
+    // public function examCategoryDelete(Oex_category $category)
+    // {
+    //     $category->delete();
+    //     $notification=array(
+    //         'message'=>'Category has been deleted successfully',
+    //         'alert-type'=>'error'
+    //          );
         
-        return redirect()->back()->with($notification);
-    }
+    //     return redirect()->back()->with($notification);
+    // }
 
-    public function examCategoryEdit(Oex_category $category)
-    {
-        $degrees = Degree::orderBy('name','asc')->get();
-        return view('admin.exam-category-edit',compact('category','degrees'));
-    }
+    // public function examCategoryEdit(Oex_category $category)
+    // {
+    //     $degrees = Degree::orderBy('name','asc')->get();
+    //     return view('admin.exam-category-edit',compact('category','degrees'));
+    // }
 
-    public function examCategoryUpdate(Oex_category $category,Request $request)
-    {
-        $validateData=$request->validate([
-            'name' => ['required','max:55']
-        ]);
+    // public function examCategoryUpdate(Oex_category $category,Request $request)
+    // {
+    //     $validateData=$request->validate([
+    //         'name' => ['required','max:55']
+    //     ]);
         
-        $category->update($request->all());
-        $notification=array(
-            'message'=>'Category has been updated successfully',
-            'alert-type'=>'success'
-             );
+    //     $category->update($request->all());
+    //     $notification=array(
+    //         'message'=>'Category has been updated successfully',
+    //         'alert-type'=>'success'
+    //          );
         
-        return redirect()->route('admin.exam-category')->with($notification);
-    }
+    //     return redirect()->route('admin.exam-category')->with($notification);
+    // }
 
     public function manageExam()
     {
-        $categories = Oex_category::orderBy('name','asc')->where('status','1')->get();
         $exams = Oex_exam_master::orderBy('id','desc')
-                    ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
-                    ->select(['oex_exam_masters.*','oex_categories.name as category_name'])
                     ->get();
-        return view('admin.manage-exam.index',compact('categories','exams'));
+        return view('admin.manage-exam.index',compact('exams'));
     }
 
     public function storeExam(Request $request)
     {
         $validateData = $request->validate([
-            'title' => 'required',
-            'details' => 'required',
+            'title' => ['required','max:55'],
+            'details' => ['required','max:350'],
             'category' =>'required',
             'exam_date' => 'required',
             'image'=>'required'
@@ -129,7 +127,7 @@ class AdminController extends Controller
        {
            $imagePath=public_path('media/courses/');
            $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
-           Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
+           Image::make($banner_image)->resize(371,308)->save($imagePath.$imageName);
            $exam->image = $imageName;
        }
         
@@ -160,10 +158,10 @@ class AdminController extends Controller
     public function updateExam(Oex_exam_master $exam,Request $request)
     {
         $validateData = $request->validate([
-            'title' => 'required',
-            'details' => 'required',
+            'title' => ['required','max:55'],
+            'details' => ['required','max:350'],
             'category' =>'required',
-            'exam_date' => 'required'
+            'exam_date' => 'required',
         ]);
 
         $exam->update($request->all());
@@ -431,10 +429,11 @@ class AdminController extends Controller
     public function storeInstructor(Request $request)
     {
         $validateData = $request->validate([
-            'name' => ['required','max:255'],
+            'name' => ['required','max:55'],
             'email' =>['required','unique:teachers','max:255'],
             'mobile_no' => ['required','unique:teachers','max:11'],
             'field' => 'required',
+            'image' => 'required',
             'password' => ['required','max:255']
         ]);
 
@@ -444,10 +443,29 @@ class AdminController extends Controller
         $teacher->email = $request->email ;
         $teacher->mobile_no = $request->mobile_no ;
         $teacher->field = $request->field ;
-        $teacher->password = Hash::make($request->password) ;
+        $hashPassword = Hash::make($request->password);
+        $teacher->password = $hashPassword;
         $teacher->status = 1 ;
+
+        $teacher_image = $request->image;
+
+       if($teacher_image) 
+       {
+           $imagePath=public_path('media/teachers/');
+           $imageName = hexdec(uniqid()).'.'.$teacher_image->getClientOriginalExtension();
+           Image::make($teacher_image)->resize(371,418)->save($imagePath.$imageName);
+           $teacher->image = $imageName;
+       }
         
         $teacher->save();
+
+        $user = new User();
+        $user->name = $request->name ;
+        $user->email = $request->email ;
+        $user->password = $hashPassword;
+        $user->save();
+
+
         $notification=array(
             'message'=>'Teacher has been addedd successfully',
             'alert-type'=>'success'
@@ -466,12 +484,29 @@ class AdminController extends Controller
     public function updateInstructor(Teacher $teacher,Request $request)
     {
         $vadiation = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
+            'name' => ['required','max:55'],
+            'email' =>['required','max:255'],
             'mobile_no' => ['required','max:11'],
         ]);
+
+        $user = User::where('email',$teacher->email)->first();
+        $user->name = $request->name ;
+        $user->email = $request->email ;
+        $hashPassword = Hash::make($request->password);
+        $user->password = $hashPassword ;
+        
+        $teacher->name = $request->name;
+        $teacher->email = $request->email;
+        $teacher->mobile_no = $request->mobile_no;
         $teacher->status = $request->status;
-        $teacher->update($request->all());
+        $teacher->password = $hashPassword;
+        
+       
+        // echo( $request->email.'Request'.$request->password .'<br> User'.$user->password.'<br>'.'Teacher:'.$teacher->password.'<br>');
+       
+       
+        $user->update();
+        $teacher->update();
         $notification=array(
             'message'=>'teacher has been updated successfully',
             'alert-type'=>'success'
@@ -482,6 +517,9 @@ class AdminController extends Controller
 
     public function deleteInstructor(Teacher $teacher)
     {
+        
+        $user = User::where('email',$teacher->email)->first();
+        $user->delete();
         $teacher->delete();
         $notification=array(
             'message'=>'Teacher has been deleted successfully',
@@ -493,9 +531,6 @@ class AdminController extends Controller
     public function assignCourseToInstructor(Teacher $teacher)
     {
         $courses = Oex_exam_master::orderBy('id','asc')
-        ->join('oex_categories','oex_exam_masters.category','=','oex_categories.id')
-        ->select(['oex_exam_masters.*','oex_categories.name as category_name','oex_categories.field as field'])
-        ->where('oex_categories.field',$teacher->field)
         ->get();
         $assignedCoursesToInstructor = AssignCourse::join('oex_exam_masters','assign_courses.course_id','=','oex_exam_masters.id')
                                                     ->select(['assign_courses.*','oex_exam_masters.title as name'])

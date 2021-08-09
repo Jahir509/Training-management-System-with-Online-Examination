@@ -10,7 +10,7 @@
             <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="@@page-link">Workshops</a></li>
             <li class="list-inline-item text-white h3 font-secondary @@nasted"></li>
           </ul>
-          <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+          <p class="text-lighten"></p>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="card-body">
               <!-- location -->
-              <p><i class="ti-location-pin text-primary mr-2"></i>Dhanmondi Lake, Dhaka</p>
+              <p><i class="ti-location-pin text-primary mr-2"></i>{{$workshop->place}}</p>
               <a href="{{route('workshop.show',$workshop)}}">
                 <h4 class="card-title">{{$workshop->title}}</h4>
               </a>

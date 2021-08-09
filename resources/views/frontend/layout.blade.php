@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Educenter</title>
+  <title>Zodiac</title>
 
   <!-- mobile responsive meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,9 +57,9 @@
             {{-- <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="notice.html">notice</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="research.html">research</a></li>
             <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="scholarship.html">SCHOLARSHIP</a></li> --}}
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{{route('student.login')}}">login</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{{route('login')}}">login</a></li>
             {{-- data-toggle="modal" data-target="#loginModal" --}}
-            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{{route('student.register')}}">register</a></li>
+            <li class="list-inline-item"><a class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block" href="{{route('register')}}">register</a></li>
           </ul>
         </div>
       </div>
@@ -69,7 +69,7 @@
   <div class="navigation w-100">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark p-0">
-        <a class="navbar-brand" href="index.html"><img src="{{asset('home/images/logo.png')}}" alt="logo"></a>
+        <a class="navbar-brand"  href="{{route('landing-page')}}"><img src="{{asset('home/images/logo.png')}}" alt="logo"></a>
         <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
           aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -89,8 +89,8 @@
             {{-- <li class="nav-item {{(Request::url() === 'http://localhost:8000/events') ? ' active':''}}"">
               <a class="nav-link" href="{{route('events')}}">EVENTS</a>
             </li> --}}
-            <li class="nav-item {{(Request::url() === 'http://localhost:8000/blog') ? ' active':''}}"">
-              <a class="nav-link" href="{{route('blog')}}">BLOG</a>
+            <li class="nav-item {{(Request::url() === 'http://localhost:8000/teachers') ? ' active':''}}"">
+              <a class="nav-link"  href="{{route('teachers')}}">Instructors</a>
             </li>
             <li class="nav-item {{(Request::url() === 'http://localhost:8000/workshops') ? ' active':''}}"">
               <a class="nav-link" href="{{route('workshops')}}">Workshop</a>
@@ -132,29 +132,14 @@
   
   <!-- footer -->
   <footer>
-    <!-- newsletter -->
-    <div class="newsletter">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
-            <h3 class="text-white">Subscribe Now</h3>
-            <form action="#">
-              <div class="input-wrapper">
-                <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">
-                <button type="submit" value="send" class="btn btn-primary">Join</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- footer content -->
     <div class="footer bg-footer section border-bottom">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
             <!-- logo -->
-            <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="{{asset('home/images/logo.png')}}" alt="logo"></a>
+            <a class="logo-footer"  href="{{route('landing-page')}}"><img class="img-fluid mb-4" src="{{asset('home/images/logo.png')}}" alt="logo"></a>
             <ul class="list-unstyled">
               <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>
               <li class="mb-2">+1 (2) 345 6789</li>
@@ -167,7 +152,7 @@
             <h4 class="text-white mb-5">COMPANY</h4>
             <ul class="list-unstyled">
               <li class="mb-3"><a class="text-color" href="{{route('about')}}">About Us</a></li>
-              <li class="mb-3"><a class="text-color" href="{{route('teachers')}}">Our Teacher</a></li>
+              <li class="mb-3"><a class="text-color" href="{{route('teachers')}}">Instructors</a></li>
               <li class="mb-3"><a class="text-color" href="{{route('contact')}}">Contact</a></li>
               <li class="mb-3"><a class="text-color" href="{{route('blog')}}">Blog</a></li>
             </ul>
@@ -178,21 +163,8 @@
             <ul class="list-unstyled">
               <li class="mb-3"><a class="text-color" href="{{route('contact')}}">Courses</a></li>
               <li class="mb-3"><a class="text-color" href="{{route('contact')}}">Workshops</a></li>
-              <li class="mb-3"><a class="text-color" href="#">Gallary</a></li>
-              <li class="mb-3"><a class="text-color" href="#">FAQs</a></li>
             </ul>
           </div>
-          <!-- support -->
-          <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
-            <h4 class="text-white mb-5">SUPPORT</h4>
-            <ul class="list-unstyled">
-              <li class="mb-3"><a class="text-color" href="#">Forums</a></li>
-              <li class="mb-3"><a class="text-color" href="#">Documentation</a></li>
-              <li class="mb-3"><a class="text-color" href="#">Language</a></li>
-              <li class="mb-3"><a class="text-color" href="#">Release Status</a></li>
-            </ul>
-          </div>
-          <!-- support -->
           <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
             <h4 class="text-white mb-5">Thankful To</h4>
             <ul class="list-unstyled">

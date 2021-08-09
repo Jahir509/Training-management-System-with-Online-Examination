@@ -59,7 +59,7 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Title</th>
-                                                    <th>Exam Date</th>
+                                                    <th>Start Date</th>
                                                     <th>Category</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
@@ -72,7 +72,7 @@
                                                         <td>{{$index+1}}</td>
                                                         <td>{{$exam->title}}</td>
                                                         <td>{{$exam->exam_date}}</td>
-                                                        <td>{{$exam->category_name}}</td>
+                                                        <td>{{$exam->category}}</td>
                                                         <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
                                                             <a href="{{route('manage-exam.edit',$exam)}}" class="btn btn-sm btn-warning">Edit</a>
@@ -113,24 +113,19 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="title">Title</label>
-                                                <input class="form-control" type="text" id="title" name="title" placeholder="Enter Exam Title" >
+                                                <input class="form-control" type="text" id="title" name="title" placeholder="Enter Course Title" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="details">Details</label>
-                                                <textarea class="form-control" type="text" id="details" name="details" placeholder="Enter Exam details" ></textarea>
+                                                <textarea class="form-control" type="text" id="details" name="details" placeholder="Enter Course details" ></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exam_date">Exam Date</label>
+                                                <label for="exam_date">Date</label>
                                                 <input class="form-control" type="date" id="exam_date" name="exam_date">
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <select class="form-control" name="category" id="category" required>
-                                                    <option value="">Select Category</option>
-                                                    @foreach ($categories as $index=>$category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="category">Category</label>
+                                                <input class="form-control" type="text" id="category" name="category" placeholder="Enter Course category" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="exam_date">Banner Image</label>

@@ -17,6 +17,7 @@ class CreateOexStudent extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->date('dob')->nullable();
             $table->string('mobile_no')->nullable();
             $table->string('category')->nullable();
             $table->string('exam')->nullable();

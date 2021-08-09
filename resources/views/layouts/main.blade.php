@@ -12,97 +12,27 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-
     @yield('styles')
     <style>
-          body,#navigation{
-            background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,118,121,1) 39%, rgba(9,118,121,1) 47%, rgba(9,119,123,1) 52%, rgba(0,212,255,1) 100%);
-    }
-    #fixedbutton {
-    position: fixed;
-    bottom: 0px;
-    right: 0px; 
-}
+          body{
+            background: rgb(209,226,230);
+            background: linear-gradient(90deg, rgba(209,226,230,1) 0%, rgba(75,172,194,1) 41%, rgba(0,212,255,1) 100%);
+            
+          }
     </style>
   </head>
   <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light" id="navigation">
-      <div class="container">
-        <a class="navbar-brand text-uppercase" href="#">            
-            <strong>TMS</strong> Application
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-            
-        <!-- /.navbar-header -->
-        <div class="collapse navbar-collapse" id="navbar-toggler">
-          <ul class="navbar-nav ml-auto" >
-              @guest
-                @if (Request::url() == "http://localhost:8000/login/student" || Request::url() == "http://localhost:8000/register/student")
-                  <li class="nav-item mr-2"><a href="{{  route('student.login') }}" class="btn btn-outline-secondary">Login</a></li>
-                  <li class="nav-item"><a href="{{ route('student.register') }}" class="btn btn-outline-primary">Register</a></li> 
-                @elseif(Request::url() == "http://localhost:8000/login/teacher" || Request::url() == "http://localhost:8000/register/teacher")
-                  <li class="nav-item mr-2"><a href="{{  route('teacher.login') }}" class="btn btn-outline-secondary">Login</a></li>
-                  <li class="nav-item"><a href="{{ route('teacher.register') }}" class="btn btn-outline-primary">Register</a></li> 
-                @else
-                <li class="nav-item mr-2"><a href="{{  route('login') }}" class="btn btn-outline-secondary">Login</a></li>
-                <li class="nav-item"><a href="{{ route('register') }}" class="btn btn-outline-primary">Register</a></li>  
-                @endif
-               
-              @else
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="DropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{auth()->user()->name}}
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="{{ route('edit-profile')}}">Settings</a>
-                    <a class="dropdown-item" href="#"
-                        onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      @csrf
-                    </form>
-                  </div>
-                </li>
-              @endguest
-          </ul>
-        </div>
-      </div>
-    </nav>
 
     {{-- content --}}
     @yield('content')
 
+    <script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
+    </script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script>
-      @if(Session::has('message'))
-        var type="{{Session::get('alert-type','info')}}"
-        switch(type){
-            case 'info':
-                toastr.info("{{ Session::get('message') }}");
-                break;
-            case 'success':
-                toastr.success("{{ Session::get('message') }}");
-                break;
-            case 'warning':
-              toastr.warning("{{ Session::get('message') }}");
-                break;
-            case 'error':
-                toastr.error("{{ Session::get('message') }}");
-                break;
-        }
-      @endif
-    </script>
     @yield('scripts')
     
 

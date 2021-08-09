@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Examinations</h1>
+            <h1 class="m-0 text-dark">Course</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              <li class="breadcrumb-item" >Exams</li>
+              <li class="breadcrumb-item" >Course</li>
               <li class="breadcrumb-item active"><a href="#">Edit</a></li>
             </ol>
           </div><!-- /.col -->
@@ -29,7 +29,7 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Exam : <strong>{{$exam->title}}</strong></h3>
+                        <h3 class="card-title">Edit course : <strong>{{$exam->title}}</strong></h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -61,8 +61,8 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="title">Title</label>
-                                                        <textarea rows="8" class="form-control @error('title') is-invalid @enderror" type="text" id="details" name="details"  placeholder="Enter Category details" >{{$exam->details}}</textarea>
+                                                        <label for="details">Details</label>
+                                                        <textarea rows="8" class="form-control @error('details') is-invalid @enderror" type="text" id="details" name="details"  placeholder="Enter Category details" >{{$exam->details}}</textarea>
                                                         @error('details')
                                                             <br>
                                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -70,23 +70,20 @@
                                                     </div>
                                                     
                                                     <div class="form-group">
-                                                        <label for="exam_date">Exam Date</label>
+                                                        <label for="exam_date">Start Date</label>
                                                         <input class="form-control @error('exam_date') is-invalid @enderror" type="date" id="exam_date" name="exam_date" value="{{old('exam_date',$exam->exam_date)}}">
                                                         @error('exam_date')
                                                             <br>
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-
-                                                    
                                                     <div class="form-group">
-                                                        <label for="title">Category</label>
-                                                        <select class="form-control" name="category" id="category" required>
-                                                            <option value="">Select Category</option>
-                                                            @foreach ($categories as $category)
-                                                                <option value="{{$category->id}}" {{($category->id == $exam->category) ? 'selected' : '' }}>{{$category->name}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <label for="category">Category</label>
+                                                        <input class="form-control @error('category') is-invalid @enderror" type="text" id="category" name="category"  value="{{old('category',$exam->category)}}" placeholder="Enter Category category" >
+                                                        @error('details')
+                                                            <br>
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="status">Status</label>
