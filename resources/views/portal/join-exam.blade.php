@@ -16,7 +16,7 @@
             <div class="category">
                 <div class="row">
                     <div class="col-4">
-                        <h4>TIME : 3 HOURS</h4>
+                        <h4 >TIME : <span class="js-text">1 hour</span></h4>
                     </div>
                     <div class="col-4">
                         <h4 class="text-center"><span class="js-timeout alert alert-danger">59:59</span></h4>
@@ -98,7 +98,9 @@
 	  }, 1000);
 	}
 
-	$('.js-timeout').text("00:30");
+	$('.js-timeout').text("01:00");
+  $('.js-text').text("01:00");
+
 	countdown();
 
 </script>
