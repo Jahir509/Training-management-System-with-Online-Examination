@@ -12,13 +12,17 @@
                 <div class="alert alert-success">
                     You have passed the exam <br>
                     Right Answere : {{$result->right_ans}}<br>
+{{--
                     Wrong Answere : {{$result->wrong_ans}}
+--}}
                 </div>
             @else
                 <div class="alert alert-danger">
                     You have failed the exam <br>
                     Right Answere : {{$result->right_ans}}<br>
+{{--
                     Wrong Answere : {{$result->wrong}}
+--}}
                 </div>
             @endif    
           </div>
