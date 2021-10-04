@@ -31,11 +31,8 @@
     -->
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-mini">
-            CT
-          </a>
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            Student Site
+            <img src="{{asset('home/images/logo.png')}}" alt="">
           </a>
         </div>
         <ul class="nav">
