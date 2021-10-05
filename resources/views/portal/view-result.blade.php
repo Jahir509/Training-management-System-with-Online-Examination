@@ -26,7 +26,21 @@
                 </div>
             @endif    
           </div>
-          <a href="{{route('portal.exam')}}" class="btn bntn-md btn-success">Close</a>
+          <div class="row no-print">
+            <div class="col-6">
+              <button  class="btn btn-default" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+              {{-- <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+				Payment
+			  </button>
+			  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+				<i class="fas fa-download"></i> Generate PDF
+			  </button> --}}
+            </div>
+            <div class="col-6">
+              <a href="{{route('portal.exam')}}" class="btn bntn-md btn-success">Close</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
