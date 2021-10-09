@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
 </head>
@@ -216,6 +216,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('show-results')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Results
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -283,7 +291,7 @@
                         responsive: true
                 });
             });
-            
+
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
@@ -306,7 +314,7 @@
   @endif
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>  
+<script>
   $(document).on("click", "#delete", function(e){
       e.preventDefault();
       var link = $(this).attr("href");
@@ -325,7 +333,7 @@
            }
          });
      });
-</script> 
+</script>
 @yield('scripts')
 </body>
 </html>

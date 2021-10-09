@@ -9,5 +9,5 @@ class Oex_student extends Model
     //
     protected $table="oex_students";
     protected $primaryKey = "id";
-    protected $fillable = ['name','email','mobile_no','exam','password','status'];
+    protected $fillable = ['name','email','mobile_no','exam','status'];
 }

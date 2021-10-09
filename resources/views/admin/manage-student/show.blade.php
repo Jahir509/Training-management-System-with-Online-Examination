@@ -28,7 +28,7 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Students</h3>
+                        <h3 class="card-title">Students</h3>
                         <div class="card-tools">
                             <a href="javascript:;" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">Add new Student</a>
                         </div>
@@ -61,13 +61,7 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Mobile</th>
-                                                    <th>Exam Date</th>
-                                                    <th>Exam</th>
-                                                    <th>Status</th>
-                                                    <th>Results</th>
-{{--
                                                     <th>Action</th>
---}}
 
                                                 </tr>
                                             </thead>
@@ -78,14 +72,12 @@
                                                         <td>{{$student->name}}</td>
                                                         <td>{{$student->email}}</td>
                                                         <td>{{$student->mobile_no}}</td>
-                                                        <td>{{$student->dob}}</td>
-                                                        <td>{{$student->exam_name}}</td>
-                                                        <td>{{($student->status == 1) ? 'Active' : 'Inactive'}}</td>
-                                                        <td>{{$student->result}}</td>
-                                                       {{-- <td class="center">
-                                                            <a href="{{route('manage-student.edit',$student)}}" class="btn btn-sm btn-warning">Edit</a>
-                                                            <a href="{{route('manage-student.delete',$student)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
-                                                        </td>--}}
+                                                        <td class="center">
+{{--
+                                                            <a href="{{route('admin.edit-student',$student)}}" class="btn btn-sm btn-warning">Edit</a>
+--}}
+                                                            <a href="{{route('admin.delete-student',$student)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -101,69 +93,46 @@
                     <!-- /.card-body -->
                     <div class="card-footer">
                         <button  class="btn btn-default" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
-
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Create new Student</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{route('manage-student.store')}}" method="post">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" >
-                                            </div>
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Create new Student</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{route('admin.store-student')}}" method="post">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" >
+                                                </div>
 
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" >
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password">Password</label>
+                                                    <input class="form-control" type="password" id="password" name="password" placeholder="Enter your Password" >
+                                                </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label for="mobile_no">Mobile</label>
-                                                <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." >
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="dob">Date of Exam</label>
-                                                <input class="form-control" type="date" id="dob" name="dob" >
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name">Exam</label>
-                                                <select class="form-control" name="exam" id="exam" required>
-                                                    <option value="">Select Exam</option>
-                                                    @foreach ($exams as $exam)
-                                                    <tr class="odd gradeX">
-                                                        <option value="{{$exam->id}}">{{$exam->title}}</option>
-                                                    </tr>
-                                                @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input class="form-control" type="password" id="password" name="password" placeholder="Enter your Password" >
+                                            <div class="col-sm-12">
+                                                <button type="submit" class="btn btn-sm btn-success">Create</button>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-sm btn-success">Create</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
 
                         </div>
                     </div>

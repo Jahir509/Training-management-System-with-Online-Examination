@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
 </head>
@@ -107,7 +107,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.manage-student')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/manage-student') ? ' active':''}}">
+            <a href="{{route('admin.show-students')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/show-student') ? ' active':''}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                Students
@@ -131,6 +131,14 @@
               </p>
             </a>
           </li>
+            <li class="nav-item">
+                <a href="{{route('admin.manage-student')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/manage-student') ? ' active':''}}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Result - Student
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -198,7 +206,7 @@
                         responsive: true
                 });
             });
-            
+
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
@@ -221,7 +229,7 @@
   @endif
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>  
+<script>
   $(document).on("click", "#delete", function(e){
       e.preventDefault();
       var link = $(this).attr("href");
@@ -240,7 +248,7 @@
            }
          });
      });
-</script> 
+</script>
 @yield('scripts')
 </body>
 </html>

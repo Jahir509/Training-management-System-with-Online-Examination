@@ -28,8 +28,8 @@ class StudentController extends Controller
         $yourCourseCount = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
                                     ->where('email',$student->email)->count();
 
-        
-       
+
+
         return view('student.index',compact('totalCourse','yourCourseCount'));
     }
 
@@ -50,29 +50,32 @@ class StudentController extends Controller
 
     public function portalExamInfo(Oex_exam_master $exam)
     {
+        //dd($exam);
        return view('student.course-info',compact('exam'));
     }
 
     public function storeStudenExamInfo(Request $request)
     {
 
-        
+       // dd($request);
         $user = User::findOrFail(auth()->user()->id);
         $validateData = $request->validate([
             'name' => 'required',
             'email' => 'required',
             'mobile_no' => ['required','max:11'],
             'exam' => 'required',
-            
+            'dob' => 'required',
+
         ]);
 
-       
+
         $student = new Oex_student();
 
         $student->name = $request->name ;
         $student->email = $request->email ;
         $student->mobile_no = $request->mobile_no ;
         $student->exam = $request->exam ;
+        $student->dob = $request->dob ;
         $student->status = 1 ;
 
         if($student->email == $user->email){
@@ -83,7 +86,7 @@ class StudentController extends Controller
                 );
             return redirect()->route('portal.print-accessCard',$student)->with($notification);
         }
-        
+
         else
         {
             $notification=array(
@@ -91,14 +94,14 @@ class StudentController extends Controller
                 'alert-type'=>'error'
                 );
             return redirect()->back()->with($notification);
-            
+
         }
 
     }
 
     public function printStudenExamInfo(Oex_student $student)
     {
-        
+
         $exam = Oex_exam_master::findOrFail($student->exam);
 
         return view('portal.print-student-info',compact('student','exam'));
@@ -106,7 +109,7 @@ class StudentController extends Controller
 
     public function portalExam()
     {
-        
+
         $student = User::findOrFail(auth()->user()->id);
         $student_exams = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
         ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_exam_masters.category as exam_category')
@@ -123,12 +126,12 @@ class StudentController extends Controller
     }
 
     public function portalSubmitExam(Request $request){
-        
+
         //result data
         $right_ans = 0;
         $wrong_ans = 0;
 
-
+       // die('Submitted');
         $data = $request->all();
         $result = array();
         for($i=1;$i<=$request->count;$i++)
@@ -144,7 +147,7 @@ class StudentController extends Controller
                     $result[$data['question'.$i]] = 'NO';
                     $wrong_ans++;
                 }
-            }        
+            }
         }
 
         $user_id = auth()->user()->id;
@@ -171,7 +174,7 @@ class StudentController extends Controller
         $update_student->update();
         return redirect()->route('portal.view-result',$exam_result);
 
-     
+
     }
     public function portalViewExamResult($exam_result)
     {
@@ -185,7 +188,7 @@ class StudentController extends Controller
         return view('student.profile',compact('user'));
     }
     public function updateProfile(Request $request){
-        
+
         $user = User::findOrFail(auth()->user()->id);
         // $user->name = $request->name;
         // $user->email = $request->email;

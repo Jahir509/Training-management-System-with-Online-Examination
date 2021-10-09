@@ -15,7 +15,7 @@
               <li class="breadcrumb-item active"><a href="#">Edit</a></li>
             </ol>
           </div><!-- /.col -->
-          
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -37,7 +37,7 @@
                                 <div class="panel panel-default">
                                     <!-- /.panel-heading -->
                                     <div class="panel-heading">
-                                       
+
                                     </div>
                                     <div class="panel-body">
                                         <form action="{{route('assign-instructor.store',$teacher)}}" method="post">
@@ -48,15 +48,15 @@
                                                         <label for="name">Name</label>
                                                         <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" value={{$teacher->name}} readonly>
                                                     </div>
-                                                    
+
                                                     <div class="form-group">
                                                         <label for="email">Email</label>
                                                         <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" value={{$teacher->email}} readonly>
                                                     </div>
-                                                    <div class="form-group">
+                                                   {{-- <div class="form-group">
                                                         <label for="mobile_no">Mobile</label>
                                                         <input class="form-control" type="text" id="mobile_no" name="mobile_no" placeholder="Enter your Mobile No." value={{$teacher->mobile_no}} readonly>
-                                                    </div>
+                                                    </div>--}}
                                                     <div class="form-group">
                                                         <label for="name">Course</label>
                                                         <select class="form-control" name="course_id" id="course_id" required>
@@ -67,7 +67,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-sm-12">
                                                     <button type="submit" class="btn btn-md btn-success">Assign</button>
                                                     <a href="{{route('admin.manage-instructor')}}" class="btn btn-md btn-danger">Cancel</a>
@@ -102,7 +102,7 @@
                                 <div class="panel panel-default">
                                     <!-- /.panel-heading -->
                                     <div class="panel-heading">
-                                       
+
                                     </div>
                                     <div class="panel-body">
                                         <table class="table table-striped table-bordered table-hover" id="dataTables-example1">

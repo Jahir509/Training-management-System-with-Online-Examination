@@ -19,7 +19,7 @@
                             <th>Status</th>
                             <th>Action</th>
                             <th>Result</th>
-                           
+
                         </tr>
                     </thead>
                     <tbody>
@@ -30,18 +30,18 @@
                                 <td>{{$exam->exam_date}}</td>
                                 <td>{{$exam->exam_category}}</td>
                                 @if (strtotime($exam->exam_date) < strtotime(date('Y-m-d')))
-                                    
+
                                     <td><p class="text-danger">Closed</p></td>
                                     <td>No Action Available</td>
-                                    <td>No Result Available</td>
-                                @elseif (strtotime($exam->exam_date) == strtotime(date('Y-m-d')))
-                                   
-                                    <td><p class="text-warning">Happening</p></td>
+                                    <td>{{($exam->result) ? $exam->result : 'No Result Available'}}</td>
+                                @elseif (strtotime($exam->exam_date) > strtotime(date('Y-m-d')))
+
+                                    <td><p class="text-warning">Upcoming</p></td>
                                     <td>Exam is in progress</td>
-                                    <td>No Result Available</td>
+                                    <td>{{($exam->result) ? $exam->result : 'No Result Available'}}</td>
                                 @else
-                                   
-                                   <td> <p class="text-success">Upcoming</p></td>
+
+                                   <td> <p class="text-success">Happening</p></td>
                                    <td>
                                         @if ( $exam->result != "Passed")
                                           <a href="{{route('portal.join-exam',$exam->exam_id)}}" class="btn btn-info"> Participate</a>

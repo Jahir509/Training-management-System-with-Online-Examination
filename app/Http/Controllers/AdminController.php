@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Role_User;
 use Image;
 use App\User;
 use App\Event;
 use App\Degree;
 use App\Teacher;
+use App\Student;
 use App\Workshop;
 use App\Instructor;
 use App\Oex_portal;
@@ -18,10 +20,12 @@ use App\Oex_question;
 use App\Oex_exam_master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class AdminController extends Controller
 {
-
+    use RegistersUsers;
     public function __construct()
     {
         $this->middleware('auth');
@@ -34,7 +38,9 @@ class AdminController extends Controller
         $courseCount = Oex_exam_master::count();
         $instructorCount = Teacher::count();
         $workshopCount = Workshop::count();
-        return view('admin.dashboard',compact('categoryCount','courseCount','instructorCount','workshopCount'));
+        $studentCount = Oex_student::count();
+        //dd($studentCount);
+        return view('admin.dashboard',compact('categoryCount','courseCount','instructorCount','workshopCount','studentCount'));
     }
 
     // public function examCategory()
@@ -59,7 +65,7 @@ class AdminController extends Controller
     //         'message'=>'Category has been added successfully',
     //         'alert-type'=>'success'
     //          );
-        
+
     //     return redirect()->back()->with($notification);
 
     // }
@@ -71,7 +77,7 @@ class AdminController extends Controller
     //         'message'=>'Category has been deleted successfully',
     //         'alert-type'=>'error'
     //          );
-        
+
     //     return redirect()->back()->with($notification);
     // }
 
@@ -86,13 +92,13 @@ class AdminController extends Controller
     //     $validateData=$request->validate([
     //         'name' => ['required','max:55']
     //     ]);
-        
+
     //     $category->update($request->all());
     //     $notification=array(
     //         'message'=>'Category has been updated successfully',
     //         'alert-type'=>'success'
     //          );
-        
+
     //     return redirect()->route('admin.exam-category')->with($notification);
     // }
 
@@ -123,14 +129,14 @@ class AdminController extends Controller
 
         $banner_image = $request->image;
 
-       if($banner_image) 
+       if($banner_image)
        {
            $imagePath=public_path('media/courses/');
            $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
            Image::make($banner_image)->resize(371,308)->save($imagePath.$imageName);
            $exam->image = $imageName;
        }
-        
+
         $exam->save();
         $notification=array(
             'message'=>'Exam has been updated successfully',
@@ -223,7 +229,7 @@ class AdminController extends Controller
 
     public function updateExamQuestion(Oex_question $question, Request $request)
     {
-       // return 
+       // return
        $validateData = $request->validate([
         'question' => 'required',
         'option_1'=> 'required',
@@ -246,7 +252,7 @@ class AdminController extends Controller
             'alert-type'=>'success'
              );
         return redirect()->route('manage-exam.question',$question->exam_id)->with($notification);
-       
+
     }
 
 
@@ -267,6 +273,65 @@ class AdminController extends Controller
 
 
 
+
+    public function showStudent()
+    {
+
+        $students = Student::orderBy('id','desc')
+                        ->get();
+        return view('admin.manage-student.show',compact('students'));
+    }
+
+    public function saveStudent(Request $request)
+    {
+        $validateData = $request->validate([
+            'name' => ['required','max:255'],
+            'email' =>['required','unique:oex_students','max:255'],
+            'password' => ['required','max:255']
+        ]);
+
+        $user = new User();
+        $user->name = $request->name ;
+        $user->email = $request->email ;
+        $user->password = Hash::make($request->password) ;
+
+        $user->save();
+        $role_user = new Role_User();
+        $role_user->role_id = 3;
+        $role_user->user_id = $user->id;
+        $role_user->user_type = 'App\User';
+        $role_user->save();
+
+
+        $student = new Student();
+
+        $student->name = $request->name ;
+        $student->email = $request->email ;
+        $student->password = Hash::make($request->password) ;
+        $student->save();
+        $notification=array(
+            'message'=>'Student has been addedd successfully',
+            'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function delStudent($student)
+    {
+        $data = Student::where('id',$student)->first();
+
+        Student::where('id',$data->id)->delete();
+        $userData = User::where('email',$data->email)->first();
+        User::where('email',$data->email)->delete();
+        Oex_student::where('email',$data->email)->delete();
+        Role_User::where('user_id',$userData->id)->delete();
+        $notification=array(
+            'message'=>'Student has been deleted successfully',
+            'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 
     public function manageStudent()
     {
@@ -291,6 +356,29 @@ class AdminController extends Controller
             'password' => ['required','max:255']
         ]);
 
+        // User
+        $user = new User();
+        $user->name = $request->name ;
+        $user->email = $request->email ;
+        $user->password = Hash::make($request->password) ;
+
+        $user->save();
+        //Role_Id
+        $role_user = new Role_User();
+        $role_user->role_id = 3;
+        $role_user->user_id = $user->id;
+        $role_user->user_type = 'App\User';
+        $role_user->save();
+
+        //Student
+
+        $student = new Student();
+
+        $student->name = $request->name ;
+        $student->email = $request->email ;
+        $student->password = Hash::make($request->password) ;
+        $student->save();
+        // Oex_student
         $student = new Oex_student();
 
         $student->name = $request->name ;
@@ -298,16 +386,16 @@ class AdminController extends Controller
         $student->mobile_no = $request->mobile_no ;
         $student->dob = $request->dob ;
         $student->exam = $request->exam ;
-        $student->password = $request->password ;
+        $student->password = Hash::make($request->password) ;
         $student->status = 1 ;
-        
+
         $student->save();
         $notification=array(
             'message'=>'Student has been addedd successfully',
             'alert-type'=>'success'
              );
         return redirect()->back()->with($notification);
-        
+
     }
 
     public function editStudent(Oex_student $student)
@@ -320,10 +408,11 @@ class AdminController extends Controller
 
     public function updateStudent(Oex_student $student,Request $request)
     {
-
+        //dd($request);
         $vadiation = $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'dob' => ['required','max:255'],
             'mobile_no' => ['required','max:11'],
         ]);
 
@@ -345,7 +434,7 @@ class AdminController extends Controller
              );
         return redirect()->back()->with($notification);
     }
-    
+
 
     public function managePortal()
     {
@@ -402,7 +491,7 @@ class AdminController extends Controller
             'alert-type'=>'success'
              );
         return redirect()->route('admin.manage-portal')->with($notification);
-  
+
     }
 
     public function deletePortal(Oex_portal $portal)
@@ -449,14 +538,14 @@ class AdminController extends Controller
 
         $teacher_image = $request->image;
 
-       if($teacher_image) 
+       if($teacher_image)
        {
            $imagePath=public_path('media/teachers/');
            $imageName = hexdec(uniqid()).'.'.$teacher_image->getClientOriginalExtension();
            Image::make($teacher_image)->resize(371,418)->save($imagePath.$imageName);
            $teacher->image = $imageName;
        }
-        
+
         $teacher->save();
 
         $user = new User();
@@ -471,14 +560,14 @@ class AdminController extends Controller
             'alert-type'=>'success'
              );
         return redirect()->back()->with($notification);
-        
+
     }
 
     public function editInstructor(Teacher $teacher)
     {
         $degrees = Degree::orderBy('id','asc')->get();
-        return view('admin.manage-instructor.edit',compact('teacher','degrees'));      
-        
+        return view('admin.manage-instructor.edit',compact('teacher','degrees'));
+
     }
 
     public function updateInstructor(Teacher $teacher,Request $request)
@@ -494,17 +583,17 @@ class AdminController extends Controller
         $user->email = $request->email ;
         $hashPassword = Hash::make($request->password);
         $user->password = $hashPassword ;
-        
+
         $teacher->name = $request->name;
         $teacher->email = $request->email;
         $teacher->mobile_no = $request->mobile_no;
         $teacher->status = $request->status;
         $teacher->password = $hashPassword;
-        
-       
+
+
         // echo( $request->email.'Request'.$request->password .'<br> User'.$user->password.'<br>'.'Teacher:'.$teacher->password.'<br>');
-       
-       
+
+
         $user->update();
         $teacher->update();
         $notification=array(
@@ -517,7 +606,7 @@ class AdminController extends Controller
 
     public function deleteInstructor(Teacher $teacher)
     {
-        
+
         $user = User::where('email',$teacher->email)->first();
         $user->delete();
         $teacher->delete();
@@ -559,9 +648,9 @@ class AdminController extends Controller
                 'alert-type'=>'success'
                 );
             return redirect()->back()->with($notification);
-        
+
         }
-       
+
         //  die($course);
         //dd($request->all());
     }
@@ -585,14 +674,14 @@ class AdminController extends Controller
     public function storeEvent(Request $request)
     {
        $validateData = $request->validate([
-        'title' => 'required', 
+        'title' => 'required',
         'place' => 'required',
-        'time' => 'required',  
-        'date' => 'required', 
-        'details' => 'required', 
-        'contact_phone' => 'required', 
-        'contact_email' => 'required', 
-        
+        'time' => 'required',
+        'date' => 'required',
+        'details' => 'required',
+        'contact_phone' => 'required',
+        'contact_email' => 'required',
+
        ]);
 
 
@@ -605,17 +694,17 @@ class AdminController extends Controller
        $event->contact_phone = $request->contact_phone;
        $event->contact_email = $request->contact_email;
        $event->status = 1;
-       
+
        $banner_image = $request->image;
 
-       if($banner_image) 
+       if($banner_image)
        {
            $imagePath=public_path('media/events/');
            $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
            Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
            $event->image = $imageName;
        }
-       
+
 
        $event->save();
        $notification=array(
@@ -645,17 +734,17 @@ class AdminController extends Controller
     }
     public function updateEvent(Event $event, Request $request){
         $validateData = $request->validate([
-            'title' => 'required', 
+            'title' => 'required',
             'place' => 'required',
-            'time' => 'required',  
-            'date' => 'required', 
-            'details' => 'required', 
-            'contact_phone' => 'required', 
-            'contact_email' => 'required', 
-            
+            'time' => 'required',
+            'date' => 'required',
+            'details' => 'required',
+            'contact_phone' => 'required',
+            'contact_email' => 'required',
+
            ]);
-    
-    
+
+
            $event->title = $request->title;
            $event->place = $request->place;
            $event->time = $request->time;
@@ -664,10 +753,10 @@ class AdminController extends Controller
            $event->contact_phone = $request->contact_phone;
            $event->contact_email = $request->contact_email;
            $event->status = $request->status;
-           
+
         //    $banner_image = $request->image;
-    
-        //    if($banner_image) 
+
+        //    if($banner_image)
         //    {
         //        $imagePath=public_path('media/events/');
         //        $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
@@ -675,7 +764,7 @@ class AdminController extends Controller
         //        $event->image = $imageName;
         //    }
         //    dd($request->all());
-    
+
            $event->update($request->all());
            $notification=array(
             'message'=>'Event has been added successfully',
@@ -696,14 +785,14 @@ class AdminController extends Controller
     public function storeWorkshop(Request $request)
     {
        $validateData = $request->validate([
-        'title' => 'required', 
+        'title' => 'required',
         'place' => 'required',
-        'time' => 'required',  
-        'date' => 'required', 
-        'details' => 'required', 
-        'contact_phone' => 'required', 
-        'contact_email' => 'required', 
-        
+        'time' => 'required',
+        'date' => 'required',
+        'details' => 'required',
+        'contact_phone' => 'required',
+        'contact_email' => 'required',
+
        ]);
 
 
@@ -716,17 +805,17 @@ class AdminController extends Controller
        $workshop->contact_phone = $request->contact_phone;
        $workshop->contact_email = $request->contact_email;
        $workshop->status = 1;
-       
+
        $banner_image = $request->image;
 
-       if($banner_image) 
+       if($banner_image)
        {
            $imagePath=public_path('media/workshops/');
            $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
            Image::make($banner_image)->resize(1160.580)->save($imagePath.$imageName);
            $workshop->image = $imageName;
        }
-       
+
 
        $workshop->save();
        $notification=array(
@@ -756,17 +845,17 @@ class AdminController extends Controller
     }
     public function updateWorkshop(Workshop $workshop, Request $request){
         $validateData = $request->validate([
-            'title' => 'required', 
+            'title' => 'required',
             'place' => 'required',
-            'time' => 'required',  
-            'date' => 'required', 
-            'details' => 'required', 
-            'contact_phone' => 'required', 
-            'contact_email' => 'required', 
-            
+            'time' => 'required',
+            'date' => 'required',
+            'details' => 'required',
+            'contact_phone' => 'required',
+            'contact_email' => 'required',
+
            ]);
-    
-    
+
+
            $workshop->title = $request->title;
            $workshop->place = $request->place;
            $workshop->time = $request->time;
@@ -775,10 +864,10 @@ class AdminController extends Controller
            $workshop->contact_phone = $request->contact_phone;
            $workshop->contact_email = $request->contact_email;
            $workshop->status = $request->status;
-           
+
         //    $banner_image = $request->image;
-    
-        //    if($banner_image) 
+
+        //    if($banner_image)
         //    {
         //        $imagePath=public_path('media/workshops/');
         //        $imageName = hexdec(uniqid()).'.'.$banner_image->getClientOriginalExtension();
@@ -786,7 +875,7 @@ class AdminController extends Controller
         //        $workshop->image = $imageName;
         //    }
         //    dd($request->all());
-    
+
            $workshop->update($request->all());
            $notification=array(
             'message'=>'workshop has been added successfully',
@@ -794,6 +883,6 @@ class AdminController extends Controller
             );
             return redirect()->route('admin.show-workshop')->with($notification);
     }
-        
+
 
 }

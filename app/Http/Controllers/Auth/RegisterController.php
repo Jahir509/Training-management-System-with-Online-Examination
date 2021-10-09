@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Oex_student;
 use App\User;
 use App\Student;
 use App\Teacher;
@@ -90,8 +91,13 @@ class RegisterController extends Controller
         else
         {
             $user->attachRole('student');
+            $student = new Student();
+            $student->name =  $data['name'];
+            $student->email =  $data['email'];
+            $student->password = Hash::make($data['password']);
+            $student->save();
         }
-        
+
         return $user;
     }
 

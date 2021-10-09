@@ -5,7 +5,7 @@
         list-style: none;
         padding:0px;
         line-height: 40px;
-   } 
+   }
 </style>
 <div class="content">
     <div class="row">
@@ -29,7 +29,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-                
+
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-                <form action="{{route('portal.submit-exam')}}" method="post">
+                <form action="{{route('portal.submit-exam')}}" method="post" >
                     @csrf
                     <input type="hidden" name="exam_id" value="{{ Request::segment(4) }}">
                     <input type="hidden" name="count" value="{{count($exam_questions)}}">
@@ -62,9 +62,9 @@
                             </div>
                         @endforeach
                     </div>
-                    
+
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button id="btn_data" type="submit" class="btn btn-success">Submit</button>
                     </div>
                 </form>
             </div>
@@ -75,7 +75,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
 
   <script type="text/javascript">
-	
+
 	var interval;
 	function countdown() {
 	  clearInterval(interval);
@@ -94,12 +94,14 @@
 
 	      $('.js-timeout').html(minutes + ':' + seconds);
 
-	      if (minutes == 0 && seconds == 0) { clearInterval(interval); alert('time UP'); }
+	      if (minutes == 0 && seconds == 0) { clearInterval(interval);alert('Time Up'); $('#btn_data').click()}
 	  }, 1000);
 	}
 
-	$('.js-timeout').text("01:00");
+	$('.js-timeout').text("1:00");
+/*
   $('.js-text').text("01:00");
+*/
 
 	countdown();
 

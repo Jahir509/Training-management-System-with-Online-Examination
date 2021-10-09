@@ -9,7 +9,7 @@
             <h5 class="title">Edit Profile</h5>
           </div>
           <div class="card-body">
-            
+
             @csrf
               <div class="row">
                 <div class="col-md-6 pr-md-1">
@@ -39,14 +39,15 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div> --}}
-                
+
                 <div class="col-md-6 pr-md-1">
                     <div class="form-group">
                       <label>Course</label>
                       <input type="text" class="form-control txt-white" style="color:#cdd9e6" value="{{$exam->title}}" readonly="readonly">
                       <input type="hidden" class="form-control" name="exam" id="exam" value="{{$exam->id}}" readonly="readonly">
+                      <input type="hidden" class="form-control" name="dob" id="dob" value="{{$exam->exam_date}}" readonly="readonly">
                     </div>
-                </div>  
+                </div>
                 {{-- <div class="col-md-6 pl-md-1">
                     <div class="form-group">
                       <label>Password</label>
@@ -82,7 +83,7 @@
             </div>
           </div>
           <div class="card-footer">
-            
+
             </div>
           </div>
         </div>

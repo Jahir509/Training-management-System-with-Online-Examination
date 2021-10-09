@@ -15,7 +15,7 @@
               <li class="breadcrumb-item active"><a href="#">Edit</a></li>
             </ol>
           </div><!-- /.col -->
-          
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -37,7 +37,7 @@
                                 <div class="panel panel-default">
                                     <!-- /.panel-heading -->
                                     <div class="panel-heading">
-                                       
+
                                     </div>
                                     <div class="panel-body">
                                         <form action="{{route('manage-student.update',$student)}}" method="post">
@@ -70,7 +70,7 @@
                                                             <br>
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
-                                                    </div>                                                   
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
@@ -82,7 +82,7 @@
                                                         @enderror
                                                     </div>
 
-                                                    
+
                                                     <div class="form-group">
                                                         <label for="title">Exam</label>
                                                         <select class="form-control" name="category" id="category" required>
@@ -92,22 +92,12 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    
-
-                                                    <div class="form-group">
-                                                        <label for="password">password</label>
-                                                        <input class="form-control @error('password') is-invalid @enderror" type="password" id="password" name="password" value="{{old('password',$student->password)}}" placeholder="Enter Category password" >
-                                                        @error('password')
-                                                            <br>
-                                                            <div class="alert alert-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
                                                 </div>
                                                 <div class="col-sm-1">
                                                     <div class="form-group">
                                                         <label for="status"> Status</label>
                                                         <input type="checkbox" class="form-control " name="statusCheck" id="statusCheck"  {{($student->status == 1) ? 'checked':''}}>
-                                                        <input type="text" class="form-control" name="status" id="status" value="{{old('status',$student->status)}}" style="display:none"> 
+                                                        <input type="text" class="form-control" name="status" id="status" value="{{old('status',$student->status)}}" style="display:none">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -150,6 +140,6 @@
                 $("#status").val("0");
             }
         });
-    }); 
-</script>   
+    });
+</script>
 @endsection

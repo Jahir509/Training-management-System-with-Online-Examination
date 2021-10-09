@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AssignCourse;
 use App\Oex_question;
 use App\Oex_exam_master;
+use App\Oex_student;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -39,7 +40,7 @@ class TeacherController extends Controller
             'option_4'=> 'required',
             'ans' => 'required',
            ]);
-    
+
            $exam_question = new Oex_question();
         //    dd($request->all());\
             $exam_question->exam_id = $request->exam_id ;
@@ -52,7 +53,7 @@ class TeacherController extends Controller
                 'option_4'=> $request->option_4
             ));
             $exam_question->status = 1;
-    
+
             $exam_question->save();
             $notification=array(
                 'message'=>'Question has been added',
@@ -113,5 +114,16 @@ class TeacherController extends Controller
 
         return view('teacher.add-course-material',compact('assignedCoursesToInstructor'));
 
+    }
+    public function manageStudent()
+    {
+        $exams = Oex_exam_master::orderBy('id','desc')
+            ->where('status','1')
+            ->get();
+        $students = Oex_student::orderBy('id','desc')
+            ->join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
+            ->select('oex_students.*','oex_exam_masters.title as exam_name')
+            ->get();
+        return view('teacher.student-result',compact('exams','students'));
     }
 }

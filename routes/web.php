@@ -58,6 +58,11 @@ Route::get('/admin/manage-course/question/{question}', 'AdminController@deleteEx
 
 
 // Manage Student Route
+Route::get('/admin/show-student', 'AdminController@showStudent')->name('admin.show-students');
+Route::post('/admin/student/store', 'AdminController@saveStudent')->name('admin.store-student');
+Route::get('/admin/edit/student/{id}', 'AdminController@editStudent')->name('admin.edit-student');
+Route::put('/admin/edit/student/{id}', 'AdminController@upStudent')->name('admin.update-student');
+Route::get('/admin/student/{id}', 'AdminController@delStudent')->name('admin.delete-student');
 Route::get('/admin/manage-student', 'AdminController@manageStudent')->name('admin.manage-student');
 Route::post('/admin/manage-student', 'AdminController@storeStudent')->name('manage-student.store');
 Route::get('/admin/edit/manage-student/{student}', 'AdminController@editStudent')->name('manage-student.edit');
@@ -76,7 +81,7 @@ Route::post('/admin/asign-instructor/{teacher}', 'AdminController@assignInstruct
 Route::get('/admin/assign-course/{course}', 'AdminController@deleteAssignedCourse')->name('assign-course.delete');
 
 
-// Event 
+// Event
 Route::get('/admin/events', 'AdminController@showAllEvent')->name('admin.show-event');
 Route::post('/admin/events', 'AdminController@storeEvent')->name('admin.store-event');
 Route::get('/admin/events/show/{event}', 'AdminController@showEvent')->name('manage-event.show');
@@ -84,7 +89,7 @@ Route::get('/admin/events/edit/{event}', 'AdminController@editEvent')->name('man
 Route::put('/admin/events/{event}', 'AdminController@updateEvent')->name('manage-event.update');
 Route::get('/admin/events/{event}', 'AdminController@deleteEvent')->name('manage-event.delete');
 
-// Event 
+// Event
 Route::get('/admin/workshops', 'AdminController@showAllWorkshop')->name('admin.show-workshop');
 Route::post('/admin/workshops', 'AdminController@storeWorkshop')->name('admin.store-workshop');
 Route::get('/admin/workshops/show/{workshop}', 'AdminController@showWorkshop')->name('manage-workshop.show');
@@ -149,6 +154,7 @@ Route::get('/student/course/print/{student}', 'StudentController@printStudenExam
 
 Route::get('/teacher', 'TeacherController@index')->name('teacher.home');
 Route::get('/teacher/exam/question/{id}', 'TeacherController@addQuestion')->name('add-exam-question');
+Route::get('/teacher/show/results', 'TeacherController@manageStudent')->name('show-results');
 Route::post('/teacher/manage-exam-question/', 'TeacherController@storeQuestion')->name('store-exam-question');
 Route::get('/teacher/manage-exam/edit/question/{question}', 'TeacherController@editQuestion')->name('edit-exam-question');
 Route::put('/teacher/manage-exam/question/{question}', 'TeacherController@updateQuestion')->name('update-exam-question');

@@ -14,7 +14,7 @@
             <li class="breadcrumb-item active">Dashboard</li>
           </ol>
         </div><!-- /.col -->
-        
+
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
@@ -30,7 +30,7 @@
           <div class="small-box bg-info">
             <div class="inner">
               <h3>{{$categoryCount}}</h3>
-  
+
               <p>Categories</p>
             </div>
             <div class="icon">
@@ -47,7 +47,7 @@
           <div class="small-box bg-success">
             <div class="inner">
               <h3>{{$courseCount}}<sup style="font-size: 20px"></sup></h3>
-  
+
               <p>Courses</p>
             </div>
             <div class="icon">
@@ -58,7 +58,7 @@
             @endif
           </div>
         </div>
-       
+
         <!-- ./col -->
       </div>
       <div class="row">
@@ -68,7 +68,7 @@
           <div class="small-box bg-warning">
             <div class="inner">
               <h3>{{$instructorCount}}</h3>
-  
+
               <p>Instructors</p>
             </div>
             <div class="icon">
@@ -85,7 +85,7 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <h3>{{$workshopCount}}</h3>
-  
+
               <p>Workhops</p>
             </div>
             <div class="icon">
@@ -96,6 +96,23 @@
             @endif
           </div>
         </div>
+          <!-- ./col -->
+          <div class="col-lg-6 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                  <div class="inner">
+                      <h3>{{$studentCount}}</h3>
+
+                      <p>Students</p>
+                  </div>
+                  <div class="icon">
+                      <i class="ion ion-pie-graph"></i>
+                  </div>
+                  @if ($studentCount!=0)
+                      <a href="{{route('admin.show-students')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  @endif
+              </div>
+          </div>
       </div>
       <!-- /.row -->
     </div><!-- /.container-fluid -->
