@@ -11,7 +11,7 @@
                 </div>
                 <a href="{{($totalCourse != 0 ) ? route('portal.showAll') : "#"}}">
                     <div class="card-body">
-                        <h1 class="card-category">Total Course</h1>
+                        <h1 class="card-category">All Courses</h1>
                         <h2 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> {{$totalCourse}}</h2>
                         <h5>Show all courses</h5>
                     </div>
@@ -25,7 +25,7 @@
                   </div>
                   <a href="{{route('portal.exam')}}">
                         <div class="card-body ">
-                            <h1 class="card-category">Total Course</h1>
+                            <h1 class="card-category">Your Courses</h1>
                             <h2 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> {{$yourCourseCount}}</h2>
                             <h5>Show your courses</h5>
                         </div>

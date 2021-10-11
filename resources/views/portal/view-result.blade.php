@@ -11,18 +11,14 @@
             @if ($result->status == 'Passed')
                 <div class="alert alert-success">
                     You have passed the exam <br>
-                    Right Answere : {{$result->right_ans}}<br>
-{{--
-                    Wrong Answere : {{$result->wrong_ans}}
---}}
+                    Right Answere : {{$result->right_ans ? $result->right_ans : 0}}<br>
+                    Wrong Answere : {{$result->wrong_ans ? $result->wrong_ans : 0}}
                 </div>
             @else
                 <div class="alert alert-danger">
                     You have failed the exam <br>
-                    Right Answere : {{$result->right_ans}}<br>
-{{--
-                    Wrong Answere : {{$result->wrong}}
---}}
+                    Right Answere : {{$result->right_ans ? $result->right_ans : 0}}<br>
+                    Wrong Answere : {{$result->wrong_ans ? $result->wrong_ans : 0}}
                 </div>
             @endif    
           </div>
@@ -44,6 +40,32 @@
         </div>
       </div>
     </div>
+  <!-- Thankyou Modal -->
+  @if($result->status !== 'Passed')
+    <button data-target="#pmd-title-dialog" data-toggle="modal" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" type="button">Retry Exam !</button>
+  @endif
+    <div tabindex="-1" class="modal pmd-modal fade text-center" id="pmd-title-dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          <div class="pmd-card-icon">
+            <img style="height:200px" src="{{asset('assets/img/R.png')}}" alt="">
+          </div>
+          <h2 style="margin: 0 auto">Thank you for participate in zodiac examination system!</h2>
+
+          <p>Thank you for participate in zodiac examination system. Unfortunately you don't pass the exam. You can try again.</p>
+          <p>Do you want to try again? </p>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer pmd-modal-border text-right">
+          <a href="{{route('portal.join-exam',$result->exam_id)}}" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-primary">Yes, I want</a>
+          <a href="{{route('portal.exam')}}" class="btn pmd-btn-flat pmd-ripple-effect btn-dark" type="button">No, I won't</a>
+        </div>
+      </div>
+    </div>
   </div>
+  </div>
+
    
 @endsection

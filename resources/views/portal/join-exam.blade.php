@@ -62,7 +62,7 @@
                             </div>
                         @endforeach
                     </div>
-
+				  <input type="hidden" name="exam_id" id="exam_id" value="{{$exam_id}}">
                     <div class="col-md-12">
                         <button id="btn_data" type="submit" class="btn btn-success">Submit</button>
                     </div>

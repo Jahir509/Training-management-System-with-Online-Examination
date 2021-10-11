@@ -6,6 +6,7 @@ use App\AssignCourse;
 use App\Oex_question;
 use App\Oex_exam_master;
 use App\Oex_student;
+use App\User;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -117,13 +118,20 @@ class TeacherController extends Controller
     }
     public function manageStudent()
     {
+    		$user = User::findOrFail(auth()->user()->id);
+    		$assignCourses = AssignCourse::where('instructor_name',$user->name)->get();
+    		$examId = [];
+    		foreach ($assignCourses as $course) array_push($examId,(int)$course->course_id);
+    		/*dd($examId);*/
         $exams = Oex_exam_master::orderBy('id','desc')
             ->where('status','1')
             ->get();
         $students = Oex_student::orderBy('id','desc')
             ->join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
             ->select('oex_students.*','oex_exam_masters.title as exam_name')
+						->whereIn('oex_students.exam',$examId)
             ->get();
+        //dd($students);
         return view('teacher.student-result',compact('exams','students'));
     }
 }

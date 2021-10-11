@@ -38,7 +38,7 @@ class AdminController extends Controller
         $courseCount = Oex_exam_master::count();
         $instructorCount = Teacher::count();
         $workshopCount = Workshop::count();
-        $studentCount = Oex_student::count();
+        $studentCount = Student::count();
         //dd($studentCount);
         return view('admin.dashboard',compact('categoryCount','courseCount','instructorCount','workshopCount','studentCount'));
     }
@@ -630,6 +630,7 @@ class AdminController extends Controller
     public function assignInstructor(Teacher $teacher,Request $request)
     {
         $isCourseAssigned = AssignCourse::where('instructor_name',$request->name)->where('course_id',$request->course_id)->exists();
+        $isCourseAssignedToOther = AssignCourse::where('course_id',$request->course_id)->exists();
         if($isCourseAssigned == 1){
             $notification=array(
                 'message'=>'Course has already assigned',
@@ -638,6 +639,13 @@ class AdminController extends Controller
             return redirect()->back()->with($notification);
         }
         else{
+        		if($isCourseAssignedToOther == 1){
+							$notification=array(
+								'message'=>'Course assigned to another instructor',
+								'alert-type'=>'error'
+							);
+							return redirect()->back()->with($notification);
+						}
             $course = new AssignCourse();
             $course->instructor_name = $teacher->name;
             $course->course_id = $request->course_id;

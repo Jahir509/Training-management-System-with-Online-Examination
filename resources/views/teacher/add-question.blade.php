@@ -90,7 +90,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        Footer
+                        <a href="{{route('teacher.home')}}" class="btn btn-fill btn-secondary">Go Back</a>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">

@@ -95,7 +95,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        Footer
+
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">

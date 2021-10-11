@@ -59,6 +59,7 @@
           </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-fill btn-success">Enroll</button>
+            <a href="{{route('portal.showAll')}}" class="btn btn-fill btn-danger">Go Back</a>
           </div>
         </div>
     </form>

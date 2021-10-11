@@ -69,33 +69,45 @@ class StudentController extends Controller
         ]);
 
 
-        $student = new Oex_student();
-
-        $student->name = $request->name ;
-        $student->email = $request->email ;
-        $student->mobile_no = $request->mobile_no ;
-        $student->exam = $request->exam ;
-        $student->dob = $request->dob ;
-        $student->status = 1 ;
-
-        if($student->email == $user->email){
-            $student->save();
-            $notification=array(
-                'message'=>'You have been registered successfully',
-                'alert-type'=>'success'
-                );
-            return redirect()->route('portal.print-accessCard',$student)->with($notification);
+			$alreadyRegistered = Oex_student::where('email',$user->email)->where('exam',(int)$request->exam)->first();
+        if($alreadyRegistered){
+						$notification = array(
+							'message' => 'You are already enrolled in this course',
+							'alert-type' => 'error'
+						);
+						return redirect()->back()->with($notification);
         }
 
-        else
-        {
-            $notification=array(
-                'message'=>'Password mismatch',
-                'alert-type'=>'error'
-                );
-            return redirect()->back()->with($notification);
+        else{
+					$student = new Oex_student();
 
-        }
+					$student->name = $request->name ;
+					$student->email = $request->email ;
+					$student->mobile_no = $request->mobile_no ;
+					$student->exam = $request->exam ;
+					$student->dob = $request->dob ;
+					$student->status = 1 ;
+
+					if($student->email == $user->email){
+						$student->save();
+						$notification=array(
+							'message'=>'You have been registered successfully',
+							'alert-type'=>'success'
+						);
+						return redirect()->route('portal.print-accessCard',$student)->with($notification);
+					}
+
+					else
+					{
+						$notification=array(
+							'message'=>'Request Timeout',
+							'alert-type'=>'error'
+						);
+						return redirect()->back()->with($notification);
+
+					}
+
+				}
 
     }
 
@@ -122,7 +134,7 @@ class StudentController extends Controller
         $user_id = auth()->user()->id;
         $student = User::findOrFail($user_id);
         $exam_questions = Oex_question::orderBy('id','asc')->where('exam_id',$exam_id)->get();
-        return view ('portal.join-exam',compact('student','exam_questions'));
+        return view ('portal.join-exam',compact('student','exam_questions','exam_id'));
     }
 
     public function portalSubmitExam(Request $request){
@@ -131,7 +143,7 @@ class StudentController extends Controller
         $right_ans = 0;
         $wrong_ans = 0;
 
-       // die('Submitted');
+        //die($request->exam_id);
         $data = $request->all();
         $result = array();
         for($i=1;$i<=$request->count;$i++)
@@ -171,6 +183,7 @@ class StudentController extends Controller
         $update_student->result = $exam_result->status;
         $exam_result->save();
         //dd($update_student->result);
+				$exam_id = $request->exam_id;
         $update_student->update();
         return redirect()->route('portal.view-result',$exam_result);
 

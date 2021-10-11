@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-12 offset-6">
                         <i class="tim-icons icon-paper text-success"></i><h4 class="txt-white">{{$text}}</h4>
-                        @if(strtotime($currentDate) < strtotime($examDate))
+                        @if(strtotime($currentDate) <= strtotime($examDate))
                             <a href="{{route('portal.exam-info',$exam)}}" class="btn btn-sm btn-success">Enroll</a>
                         @endif
                     </div>

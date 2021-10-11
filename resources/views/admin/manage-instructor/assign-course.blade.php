@@ -84,7 +84,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                       footer
+                      <a href="{{route('admin.manage-instructor')}}" class="btn btn-outline-info">Go Back</a>
                     </div>
                     <!-- /.card-footer-->
                 </div>
