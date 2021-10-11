@@ -345,6 +345,15 @@ class AdminController extends Controller
         return view('admin.manage-student.index',compact('exams','students'));
     }
 
+
+    public function showStudentReport()
+    {
+        $exams = Oex_exam_master::orderBy('id','desc')
+                    ->where('status','1')
+                    ->get();
+        return view('admin.manage-student.report',compact('exams'));
+    }
+
     public function storeStudent(Request $request)
     {
         $validateData = $request->validate([

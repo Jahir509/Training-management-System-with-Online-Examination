@@ -14,7 +14,7 @@
               <li class="breadcrumb-item" >Student</li>
             </ol>
           </div><!-- /.col -->
-          
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -61,10 +61,12 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Mobile</th>
+{{--
                                                     <th>Expertise</th>
+--}}
                                                     <th>Status</th>
                                                     <th>Action</th>
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -74,7 +76,9 @@
                                                         <td>{{$teacher->name}}</td>
                                                         <td>{{$teacher->email}}</td>
                                                         <td>{{($teacher->mobile_no == '') ? 'Not updated yet': $teacher->mobile_no }}</td>
+{{--
                                                         <td>{{($teacher->field == '') ? 'Not updated yet': $teacher->field }}</td>
+--}}
                                                         <td>{{($teacher->status == 1) ? 'Active' : 'Inactive'}}</td>
                                                         <td class="center">
                                                             <a href="{{route('manage-instructor.edit',$teacher)}}" class="btn btn-sm btn-warning">Edit</a>
@@ -100,7 +104,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
-                        
+
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -116,7 +120,7 @@
                                                 <label for="name">Name</label>
                                                 <input class="form-control" type="text" id="name" name="name" placeholder="Enter your Name" >
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="email">Email</label>
                                                 <input class="form-control" type="email" id="email" name="email" placeholder="Enter your Email" >
@@ -150,9 +154,9 @@
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
-                        
+
                         </div>
-                    </div>	
+                    </div>
                     <!--End modal -->
 
                     <!-- /.card-footer-->

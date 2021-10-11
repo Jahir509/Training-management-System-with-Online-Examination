@@ -137,6 +137,15 @@
                     </p>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.show-report')}}" class="nav-link {{(Request::url() === 'http://localhost:8000/admin/manage-student') ? ' active':''}}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Report
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

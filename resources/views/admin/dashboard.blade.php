@@ -24,6 +24,7 @@
   <section class="content">
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
+{{--
       <div class="row">
         <div class="col-lg-6 col-6">
           <!-- small box -->
@@ -61,6 +62,7 @@
 
         <!-- ./col -->
       </div>
+--}}
       <div class="row">
          <!-- ./col -->
          <div class="col-lg-6 col-6">

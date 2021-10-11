@@ -68,6 +68,7 @@ Route::post('/admin/manage-student', 'AdminController@storeStudent')->name('mana
 Route::get('/admin/edit/manage-student/{student}', 'AdminController@editStudent')->name('manage-student.edit');
 Route::put('/admin/manage-student/{student}', 'AdminController@updateStudent')->name('manage-student.update');
 Route::get('/admin/manage-student/{student}', 'AdminController@deleteStudent')->name('manage-student.delete');
+Route::get('/admin/exam/report', 'AdminController@showStudentReport')->name('admin.show-report');
 
 
 // Manage Instuctor Route
@@ -89,7 +90,7 @@ Route::get('/admin/events/edit/{event}', 'AdminController@editEvent')->name('man
 Route::put('/admin/events/{event}', 'AdminController@updateEvent')->name('manage-event.update');
 Route::get('/admin/events/{event}', 'AdminController@deleteEvent')->name('manage-event.delete');
 
-// Event
+// Workshop
 Route::get('/admin/workshops', 'AdminController@showAllWorkshop')->name('admin.show-workshop');
 Route::post('/admin/workshops', 'AdminController@storeWorkshop')->name('admin.store-workshop');
 Route::get('/admin/workshops/show/{workshop}', 'AdminController@showWorkshop')->name('manage-workshop.show');

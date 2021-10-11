@@ -15,7 +15,7 @@
               <li class="breadcrumb-item active"><a href="#">Edit</a></li>
             </ol>
           </div><!-- /.col -->
-          
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -37,7 +37,7 @@
                                 <div class="panel panel-default">
                                     <!-- /.panel-heading -->
                                     <div class="panel-heading">
-                                       
+
                                     </div>
                                     <div class="panel-body">
                                         <form action="{{route('manage-instructor.update',$teacher)}}" method="post">
@@ -70,10 +70,10 @@
                                                             <br>
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
-                                                    </div>                                                   
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-group">
+{{--                                                    <div class="form-group">
                                                         <label for="title">Exam</label>
                                                         <select class="form-control" name="field" id="field" required>
                                                             <option value="">Select Department</option>
@@ -82,7 +82,7 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    
+                                                    --}}
 
                                                     <div class="form-group">
                                                         <label for="password">password</label>
@@ -97,7 +97,7 @@
                                                     <div class="form-group">
                                                         <label for="status"> Status</label>
                                                         <input type="checkbox" class="form-control " name="statusCheck" id="statusCheck"  {{($teacher->status == 1) ? 'checked':''}}>
-                                                        <input type="text" class="form-control" name="status" id="status" value="{{old('status',$teacher->status)}}" style="display:none"> 
+                                                        <input type="text" class="form-control" name="status" id="status" value="{{old('status',$teacher->status)}}" style="display:none">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -140,6 +140,6 @@
                 $("#status").val("0");
             }
         });
-    }); 
-</script>   
+    });
+</script>
 @endsection

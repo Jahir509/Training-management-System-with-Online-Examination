@@ -14,7 +14,7 @@
               <li class="breadcrumb-item" >Workshop</li>
             </ol>
           </div><!-- /.col -->
-          
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -75,8 +75,8 @@
                                                         <td>{{$workshop->place}}</td>
                                                         <td>{{$workshop->time}}</td>
                                                         <td>{{$workshop->date}}</td>
-                                                        <td>{{$workshop->contact_phone}}<br>{{$workshop->contact_email}}</td>
                                                         <td>{{($workshop->status == 1) ? 'Active' : 'Inactive'}}</td>
+                                                        <td>{{$workshop->contact_phone}}<br>{{$workshop->contact_email}}</td>
                                                         <td class="center">
                                                             <a href="{{route('manage-workshop.show',$workshop)}}" class="btn btn-sm btn-info">Details</a>
                                                             <a href="{{route('manage-workshop.edit',$workshop)}}" class="btn btn-sm btn-warning">Edit</a>
@@ -101,7 +101,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog modal-lg">
-                        
+
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -117,7 +117,7 @@
                                                 <label for="title">workshop title</label>
                                                 <input class="form-control" type="text" id="title" name="title" placeholder="Enter your title" >
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <label for="place">Place</label>
                                                 <input class="form-control" type="text" id="place" name="place" placeholder="Enter your place" >
@@ -159,9 +159,9 @@
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
-                        
+
                         </div>
-                    </div>	
+                    </div>
                     <!--End modal -->
                     <!-- /.card-footer-->
                 </div>
