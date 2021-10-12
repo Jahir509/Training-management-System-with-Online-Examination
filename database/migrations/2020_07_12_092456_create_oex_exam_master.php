@@ -19,6 +19,7 @@ class CreateOexExamMaster extends Migration
             $table->string('category')->nullable();
             $table->string('exam_date')->nullable();
             $table->string('status')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

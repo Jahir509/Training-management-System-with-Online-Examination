@@ -59,28 +59,37 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Course Title</th>
+                                                    <th>Category</th>
+                                                    <th>Status</th>
                                                     <th>File</th>
-                                                    <th>Upload TIme</th>
-                                                    <th>Action</th>
                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($exams as $index=>$exam)
+                                                 @foreach ($assignedCoursesToInstructor as $index=>$exam)
                                                     <tr class="odd gradeX">
                                                         <td>{{$index+1}}</td>
                                                         <td>{{$exam->title}}</td>
-                                                        <td>{{$exam->exam_date}}</td>
-                                                        <td>{{$exam->category_name}}</td>
+                                                        <td>{{$exam->category}}</td>
                                                         <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td>
-                                                        <td class="center">
+                                                        @if($exam->file)
+                                                            <td>
+                                                                <a href="{{ route('books.download', $exam->file) }}" class="btn btn-outline-success"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                                <a href="{{route('books.delete',$exam->id)}}" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                                <span>( Uploaded {{$exam->updated_at->diffForHumans()}} )</span>
+                                                            </td>
+                                                        @else
+                                                            <td><span class="text-danger"> No file uploaded yet</span></td>
+                                                        @endif
+
+                                                       {{-- <td class="center">
                                                             <a href="{{route('manage-exam.edit',$exam->)}}" class="btn btn-sm btn-warning">Edit</a>
                                                             <a href="{{route('manage-exam.delete',$exam)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                                                             <a href="{{route('manage-exam.question',$exam)}}" class="btn btn-sm btn-info">Add Question</a>
 
-                                                        </td>
+                                                        </td>--}}
                                                     </tr>
-                                                @endforeach --}}
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -106,7 +115,7 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('manage-exam.store')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('teacher.upload-course-material')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -115,13 +124,13 @@
                                                 <select class="form-control" name="category" id="category" required>
                                                     <option value="">Select Course</option>
                                                     @foreach ($assignedCoursesToInstructor as $index=>$course)
-                                                        <option value="{{$course->course_id}}">{{$course->name}}</option>
+                                                        <option value="{{$course->course_id}}">{{$course->title}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="file_name">File </label>
-                                                <input class="form-control" type="file" id="file_name" name="file_name" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf">
+                                                <input class="form-control" type="file" id="file_name" name="file_name" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">

@@ -8,6 +8,8 @@ use App\Oex_exam_master;
 use App\Oex_student;
 use App\User;
 use Illuminate\Http\Request;
+use Webpatser\Uuid\Uuid;
+
 
 class TeacherController extends Controller
 {
@@ -110,12 +112,51 @@ class TeacherController extends Controller
     public function addCourseMaterial()
     {
         $assignedCoursesToInstructor = AssignCourse::join('oex_exam_masters','assign_courses.course_id','=','oex_exam_masters.id')
-        ->select(['assign_courses.*','oex_exam_masters.title as name'])
+        ->select(['assign_courses.*','oex_exam_masters.*'])
         ->where('instructor_name',auth()->user()->name)->get();
 
         return view('teacher.add-course-material',compact('assignedCoursesToInstructor'));
 
     }
+    public function uploadCourseMaterial(Request $request){
+			$vadiation = $request->validate([
+				'category' => ['required','max:55'],
+				'file_name' => ['required'],
+			]);
+			if($vadiation){
+				$exam = Oex_exam_master::findOrFail((int)$request->category);
+				$uuid = (string)Uuid::generate();
+				$data =  $request->file_name->getClientOriginalName();
+				$request->file_name->storeAs('materials',$data);
+				$exam->file = $data;
+				$exam->update();
+			}
+			$notification=array(
+				'message'=>'Course Material added successfully',
+				'alert-type'=>'success'
+			);
+			return redirect()->back()->with($notification);
+
+
+		}
+		public function deleteFile($examId){
+    	$exam = Oex_exam_master::findOrFail($examId);
+    	$exam->file = null;
+    	$exam->update();
+			$notification=array(
+				'message'=>'Course Material deleted successfully',
+				'alert-type'=>'success'
+			);
+			return redirect()->back()->with($notification);
+		}
+
+	public function download($uuid)
+	{
+		$book = Oex_exam_master::where('file', $uuid)->firstOrFail();
+		$pathToFile = storage_path('app/materials/' . $book->file);
+		return response()->download($pathToFile);
+	}
+
     public function manageStudent()
     {
     		$user = User::findOrFail(auth()->user()->id);

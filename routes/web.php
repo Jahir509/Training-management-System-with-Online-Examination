@@ -160,4 +160,7 @@ Route::post('/teacher/manage-exam-question/', 'TeacherController@storeQuestion')
 Route::get('/teacher/manage-exam/edit/question/{question}', 'TeacherController@editQuestion')->name('edit-exam-question');
 Route::put('/teacher/manage-exam/question/{question}', 'TeacherController@updateQuestion')->name('update-exam-question');
 Route::get('/teacher/manage-exam/question/{question}', 'TeacherController@deleteQuestion')->name('delete-exam-question');
-Route::get('/teacher/assign-course-material/', 'TeacherController@addCourseMaterial')->name('teacher.add-course-material');
+Route::get('/teacher/assign-course-material', 'TeacherController@addCourseMaterial')->name('teacher.add-course-material');
+Route::post('/teacher/assign-course-material', 'TeacherController@uploadCourseMaterial')->name('teacher.upload-course-material');
+Route::get('/teacher/materials/{uuid}/download', 'TeacherController@download')->name('books.download');
+Route::get('/teacher/materials/delete/{id}', 'TeacherController@deleteFile')->name('books.delete');
