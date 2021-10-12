@@ -124,7 +124,13 @@ class StudentController extends Controller
 
         $student = User::findOrFail(auth()->user()->id);
         $student_exams = Oex_student::join('oex_exam_masters','oex_students.exam','=','oex_exam_masters.id')
-        ->select('oex_students.*','oex_exam_masters.title as exam_title','oex_exam_masters.id as exam_id','oex_exam_masters.exam_date as exam_date','oex_exam_masters.category as exam_category')
+        ->select('oex_students.*',
+					'oex_exam_masters.title as exam_title',
+					'oex_exam_masters.id as exam_id',
+					'oex_exam_masters.exam_date as exam_date',
+					'oex_exam_masters.category as exam_category',
+					'oex_exam_masters.file as file'
+				)
         ->where('email',$student->email)->get();
         return view ('portal.exam',compact('student','student_exams'));
     }
@@ -215,4 +221,11 @@ class StudentController extends Controller
              );
         return redirect()->back()->with($notification);;
     }
+
+	public function download($uuid)
+	{
+		$book = Oex_exam_master::where('file', $uuid)->firstOrFail();
+		$pathToFile = storage_path('app/materials/' . $book->file);
+		return response()->download($pathToFile);
+	}
 }

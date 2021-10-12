@@ -134,6 +134,8 @@ Route::get('/student/course/view-result/{exam_result}', 'StudentController@porta
 Route::get('/student/course/info/{exam}', 'StudentController@portalExamInfo')->name('portal.exam-info');
 Route::post('/student/course/info/', 'StudentController@storeStudenExamInfo')->name('portal.student-exam-info');
 Route::get('/student/course/print/{student}', 'StudentController@printStudenExamInfo')->name('portal.print-accessCard');
+Route::get('/teacher/materials/{uuid}/download', 'StudentController@download')->name('books.download');
+
 
 
 

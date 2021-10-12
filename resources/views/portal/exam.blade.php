@@ -17,6 +17,7 @@
                             <th>Exam Date</th>
                             <th>Category</th>
                             <th>Status</th>
+                            <th>Course Material</th>
                             <th>Action</th>
                             <th>Result</th>
 
@@ -42,6 +43,14 @@
                                 @else
 
                                    <td> <p class="text-success">Happening</p></td>
+                                  @if($exam->file)
+                                    <td>
+                                      <a href="{{ route('books.download', $exam->file) }}" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                      <span>( Uploaded {{$exam->updated_at->diffForHumans()}} )</span>
+                                    </td>
+                                  @else
+                                    <td><span class="text-danger"> No file uploaded yet</span></td>
+                                  @endif
                                    <td>
                                         @if ( $exam->result != "Passed")
                                           <a href="{{route('portal.join-exam',$exam->exam_id)}}" class="btn btn-info"> Participate</a>
