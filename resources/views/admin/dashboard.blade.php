@@ -64,6 +64,23 @@
       </div>
 --}}
       <div class="row">
+        <!-- ./col -->
+        <div class="col-lg-6 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{$courseCount}}</h3>
+
+              <p>Courses</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            @if ($studentCount!=0)
+              <a href="{{route('admin.manage-exam')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            @endif
+          </div>
+        </div>
          <!-- ./col -->
          <div class="col-lg-6 col-6">
           <!-- small box -->

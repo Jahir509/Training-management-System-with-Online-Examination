@@ -46,7 +46,9 @@
                                   @if($exam->file)
                                     <td>
                                       <a href="{{ route('books.download', $exam->file) }}" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                      <span>( Uploaded {{$exam->updated_at->diffForHumans()}} )</span>
+{{--
+                                      <span>( Uploaded {{$exam->update->diffForHumans()}} )</span>
+--}}
                                     </td>
                                   @else
                                     <td><span class="text-danger"> No file uploaded yet</span></td>

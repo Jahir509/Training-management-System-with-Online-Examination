@@ -34,13 +34,12 @@ class AdminController extends Controller
     public function index()
     {
 
-        $categoryCount = Degree::count();
         $courseCount = Oex_exam_master::count();
         $instructorCount = Teacher::count();
         $workshopCount = Workshop::count();
         $studentCount = Student::count();
         //dd($studentCount);
-        return view('admin.dashboard',compact('categoryCount','courseCount','instructorCount','workshopCount','studentCount'));
+        return view('admin.dashboard',compact('courseCount','instructorCount','workshopCount','studentCount'));
     }
 
     // public function examCategory()
