@@ -76,7 +76,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            @if ($studentCount!=0)
+            @if ($courseCount!=0)
               <a href="{{route('admin.manage-exam')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             @endif
           </div>

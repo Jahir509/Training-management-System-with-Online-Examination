@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="card ">
           <div class="card-header">
-            <h4 class="card-title"> Simple Table</h4>
+            <h4 class="card-title"> Exam Information</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -33,26 +33,37 @@
                                 @if (strtotime($exam->exam_date) < strtotime(date('Y-m-d')))
 
                                     <td><p class="text-danger">Closed</p></td>
+                                    @if($exam->file)
+                                      <td>
+                                        <a href="{{ route('books.download', $exam->file) }}" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                        {{--
+                                                                              <span>( Uploaded {{$exam->update->diffForHumans()}} )</span>
+                                        --}}
+                                      </td>
+                                    @else
+                                      <td><span class="text-danger"> No file uploaded yet</span></td>
+                                    @endif
                                     <td>No Action Available</td>
                                     <td>{{($exam->result) ? $exam->result : 'No Result Available'}}</td>
                                 @elseif (strtotime($exam->exam_date) > strtotime(date('Y-m-d')))
 
                                     <td><p class="text-warning">Upcoming</p></td>
-                                    <td>Exam is in progress</td>
+                                    @if($exam->file)
+                                      <td>
+                                        <a href="{{ route('books.download', $exam->file) }}" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                        {{--
+                                                                              <span>( Uploaded {{$exam->update->diffForHumans()}} )</span>
+                                        --}}
+                                      </td>
+                                    @else
+                                      <td><span class="text-danger"> No file uploaded yet</span></td>
+                                    @endif
+                                    <td>Exam is not processed yet</td>
                                     <td>{{($exam->result) ? $exam->result : 'No Result Available'}}</td>
                                 @else
 
                                    <td> <p class="text-success">Happening</p></td>
-                                  @if($exam->file)
-                                    <td>
-                                      <a href="{{ route('books.download', $exam->file) }}" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i></a>
-{{--
-                                      <span>( Uploaded {{$exam->update->diffForHumans()}} )</span>
---}}
-                                    </td>
-                                  @else
-                                    <td><span class="text-danger"> No file uploaded yet</span></td>
-                                  @endif
+
                                    <td>
                                         @if ( $exam->result != "Passed")
                                           <a href="{{route('portal.join-exam',$exam->exam_id)}}" class="btn btn-info"> Participate</a>
