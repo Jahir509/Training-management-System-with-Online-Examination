@@ -63,6 +63,16 @@
                                 @else
 
                                    <td> <p class="text-success">Happening</p></td>
+                                  @if($exam->file)
+                                    <td>
+                                      <a href="{{ route('books.download', $exam->file) }}" class="btn btn-success"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                      {{--
+                                                                            <span>( Uploaded {{$exam->update->diffForHumans()}} )</span>
+                                      --}}
+                                    </td>
+                                  @else
+                                    <td><span class="text-danger"> No file uploaded yet</span></td>
+                                  @endif
 
                                    <td>
                                         @if ( $exam->result != "Passed")
