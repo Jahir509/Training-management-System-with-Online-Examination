@@ -159,7 +159,7 @@
     <strong>Copyright &copy; 2020 <a href="http://adminlte.io">Zodiac.com</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-        <img style="height: 35px;width:80px;margin-bottom: 10px" src="{{asset('home/images/logo.png')}}" alt="">
+        <img style="height: 50px;width:170px;margin-top:0;padding-bottom: 10px" src="{{asset('home/images/_logo_v.png')}}" alt="">
 
     </div>
   </footer>

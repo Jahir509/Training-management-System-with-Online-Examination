@@ -71,11 +71,14 @@ class StudentController extends Controller
 
 			$alreadyRegistered = Oex_student::where('email',$user->email)->where('exam',(int)$request->exam)->first();
         if($alreadyRegistered){
+        		$student = Oex_student::where('email',$user->email)->first();
+        		$student->result = null;
+						$student->update();
 						$notification = array(
-							'message' => 'You are already enrolled in this course',
-							'alert-type' => 'error'
+							'message' => 'Your Re-Registration completed again',
+							'alert-type' => 'success'
 						);
-						return redirect()->back()->with($notification);
+						return redirect()->route('portal.exam')->with($notification);
         }
 
         else{
@@ -197,8 +200,16 @@ class StudentController extends Controller
     }
     public function portalViewExamResult($exam_result)
     {
-        $result = Oex_result::findOrFail($exam_result);
-        return view('portal.view-result',compact('result'));
+				$user_id = auth()->user()->id;
+				$user = User::findOrFail($user_id);
+        $result = Oex_result::join('oex_exam_masters','oex_results.exam_id','=','oex_exam_masters.id')
+					->select('oex_results.*',
+						'oex_exam_masters.title as exam_title',
+						'oex_exam_masters.id as exam_id',
+						'oex_exam_masters.category as exam_category'
+					)
+					->where('oex_results.id',$exam_result)->first();
+        return view('portal.view-result',compact('result','user'));
         //echo($exam_result);
     }
 

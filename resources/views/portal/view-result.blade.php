@@ -5,7 +5,23 @@
       <div class="col-md-12">
         <div class="card ">
           <div class="card-header">
-            <h4 class="card-title"> Status</h4>
+            <h4 class="card-title">Exam Status</h4>
+            <table>
+              <tbody>
+                  <tr>
+                    <td><i>Subject</i></td>
+                    <td><i>: {{$result->exam_title}}</i></td>
+                  </tr>
+                  <tr>
+                    <td><i>Name</i></td>
+                    <td><i>: {{$user->name}}</i></td>
+                  </tr>
+                  <tr>
+                    <td><i>Email</i></td>
+                    <td><i>: {{$user->email}}</i></td>
+                  </tr>
+              </tbody>
+            </table>
           </div>
           <div class="card-body">
             @if ($result->status == 'Passed')
@@ -42,7 +58,7 @@
     </div>
   <!-- Thankyou Modal -->
   @if($result->status !== 'Passed')
-    <button data-target="#pmd-title-dialog" data-toggle="modal" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" type="button">Retry Exam !</button>
+    <button data-target="#pmd-title-dialog" data-toggle="modal" class="btn pmd-ripple-effect btn-primary pmd-btn-raised" type="button">Register Again !</button>
   @endif
     <div tabindex="-1" class="modal pmd-modal fade text-center" id="pmd-title-dialog" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
@@ -56,10 +72,11 @@
 
           <p>Thank you for participate in zodiac examination system. Unfortunately you don't pass the exam. You can try again.</p>
           <p>Do you want to try again? </p>
+          <p><b class="text-danger">N.B: " You have to register again for participating in the exam "</b></p>
         </div>
         <!-- Modal Footer -->
         <div class="modal-footer pmd-modal-border text-right">
-          <a href="{{route('portal.join-exam',$result->exam_id)}}" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-primary">Yes, I want</a>
+          <a href="{{route('portal.exam-info',$result->exam_id)}}" type="button" class="btn pmd-btn-flat pmd-ripple-effect btn-primary">Yes, I want</a>
           <a href="{{route('portal.exam')}}" class="btn pmd-btn-flat pmd-ripple-effect btn-dark" type="button">No, I won't</a>
         </div>
       </div>

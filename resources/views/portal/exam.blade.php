@@ -14,12 +14,12 @@
                         <tr>
                             <th>#</th>
                             <th>Exam Title</th>
+                            <th>Result</th>
                             <th>Exam Date</th>
                             <th>Category</th>
                             <th>Status</th>
                             <th>Course Material</th>
                             <th>Action</th>
-                            <th>Result</th>
 
                         </tr>
                     </thead>
@@ -28,7 +28,18 @@
                             <tr class="text-primary">
                                 <td>{{$index+1}}</td>
                                 <td>{{$exam->exam_title}}</td>
-                                <td>{{$exam->exam_date}}</td>
+                                <td>
+                                  @if($exam->result==="Passed")
+                                    <span class="text-success"><b>Passed</b></span>
+                                  @else
+                                    @if($exam->result==="Failed")
+                                      <span class="text-danger"><b>Failed </b></span><i>( Last Tried : About {{$exam->updated_at->diffForHumans()}})</i>
+                                    @else
+                                      <span><b>No Result Available</b></span>
+                                    @endif
+                                  @endif
+                                </td>
+                              <td>{{$exam->exam_date}}</td>
                                 <td>{{$exam->exam_category}}</td>
                                 @if (strtotime($exam->exam_date) < strtotime(date('Y-m-d')))
 
@@ -44,7 +55,6 @@
                                       <td><span class="text-danger"> No file uploaded yet</span></td>
                                     @endif
                                     <td>No Action Available</td>
-                                    <td>{{($exam->result) ? $exam->result : 'No Result Available'}}</td>
                                 @elseif (strtotime($exam->exam_date) > strtotime(date('Y-m-d')))
 
                                     <td><p class="text-warning">Upcoming</p></td>
@@ -59,7 +69,6 @@
                                       <td><span class="text-danger"> No file uploaded yet</span></td>
                                     @endif
                                     <td>Exam is not processed yet</td>
-                                    <td>{{($exam->result) ? $exam->result : 'No Result Available'}}</td>
                                 @else
 
                                    <td> <p class="text-success">Happening</p></td>
@@ -75,13 +84,16 @@
                                   @endif
 
                                    <td>
-                                        @if ( $exam->result != "Passed")
-                                          <a href="{{route('portal.join-exam',$exam->exam_id)}}" class="btn btn-info"> Participate</a>
+                                        @if ( $exam->result === "Passed")
+                                           <p class="text-info">Completed</p>
                                         @else
-                                          <p class="text-info">Completed</p>
-                                        @endif
+                                           @if($exam->result === 'Failed')
+                                              <a href="{{route('portal.exam-info',$exam)}}" class="btn btn-danger"> Register Again</a>
+                                           @else
+                                              <a href="{{route('portal.join-exam',$exam->exam_id)}}" class="btn btn-success"> Participate</a>
+                                           @endif
+                                     @endif
                                    </td>
-                                   <td>{{$exam->result}}</td>
                                 @endif
                                 {{-- <td>{{$exam->category_name}}</td>                                                        <td>{{($exam->status == 1) ? 'Active' : 'Inactive'}}</td> --}}
                             </tr>
